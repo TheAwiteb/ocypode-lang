@@ -22,4 +22,7 @@ jobs:
       - name: Clippy 👾
         run: cargo clippy --all-features --all-targets -- -D warnings
       - name: Tests 🧪
-        run: cargo test --all-features --all-targets
+        run: |
+          # Disable colored output in tests, to test the diagnostics
+          export NO_COLOR=1
+          cargo test --all-features --all-targets
