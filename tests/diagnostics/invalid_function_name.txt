@@ -1,0 +1,12 @@
+Error(parser::definitions::invalid_name)
+
+  💥 invalid function name: `myFunction`
+   ╭─[tests/diagnostics/invalid_function_name.oy:1:1]
+ 1 │ ~myFunction{<
+   ·  ─────┬────
+   ·       ╰── `myFunction` is invalid name for function
+ 2 │     // This is a comment
+ 3 │     echo <"Hello, World!">;
+ 4 │ >}
+   ╰────
+  help: the function name must be snake_case. Try `my_function` instead.

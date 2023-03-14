@@ -1,0 +1,9 @@
+Error(parser::definitions::invalid_main_function)
+
+  💥 invalid main function
+   ╭─[tests/diagnostics/main_function_contains_tow_invalid_parameters.oy:1:1]
+ 1 │ ~main<sd><fd>{<>}
+   ·       ─┬
+   ·        ╰── The first parameter of the main function must be `argc`
+   ╰────
+  help: Rename the first parameter to `argc`

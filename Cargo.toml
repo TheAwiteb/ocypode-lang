@@ -1,0 +1,21 @@
+[package]
+name = "ocypode-lang"
+description = "A dynamic programming language written in Rust"
+authors = ["Awiteb <awietb@hotmail.com>"]
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+repository = "https://github.com/TheAwiteb/ocypode-lang"
+license = "GPL-3.0-or-later"
+keywords = ["programming", "language"]
+categories = ["compilers"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bigdecimal = "0.3.0"
+heck = { version = "0.4.1", features = ["unicode"] }
+miette = { version = "5.5.0", features = ["fancy", "fancy-no-backtrace"] }
+pest = "2.5.6"
+pest_derive = "2.5.6"
+thiserror = "1.0.39"

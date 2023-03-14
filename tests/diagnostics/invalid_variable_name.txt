@@ -1,0 +1,11 @@
+Error(parser::definitions::invalid_name)
+
+  💥 invalid variable name: `myName`
+   ╭─[tests/diagnostics/invalid_variable_name.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     myName = "Awietb";
+   ·     ───┬──
+   ·        ╰── `myName` is invalid name for variable
+ 3 │ >}
+   ╰────
+  help: the variable name must be snake_case. Try `my_name` instead.

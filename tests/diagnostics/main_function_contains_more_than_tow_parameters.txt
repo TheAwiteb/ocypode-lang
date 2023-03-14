@@ -1,0 +1,9 @@
+Error(parser::definitions::invalid_main_function)
+
+  💥 invalid main function
+   ╭─[tests/diagnostics/main_function_contains_more_than_tow_parameters.oy:1:1]
+ 1 │ ~main<argc><argv><some><param>{<>}
+   ·      ────────────┬────────────
+   ·                  ╰── The main function must have 2 parameters, wich are `argc` and `argv`
+   ╰────
+  help: Remove `<some><param>` parameters

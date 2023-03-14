@@ -1,0 +1,9 @@
+~myFunction{<
+    // This is a comment
+    echo <"Hello, World!">;
+>}
+
+~main<argc><argv>{<
+    myFunction<>;
+    return 0;
+>}

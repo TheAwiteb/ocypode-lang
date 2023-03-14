@@ -1,0 +1,47 @@
+//! This grammar is a Ocypode programming language grammar.
+//! It is used to parse Ocypode source code into an AST.
+//! For more information about Ocypode, see https://github.com/TheAwiteb/ocypode-lang
+
+WHITESPACE = _{ WHITE_SPACE }
+COMMENT    = _{ comment_line | comment_block }
+IDENT      = @{ !reserved ~ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+PUBLIC     =  { "^" }
+PRIVATE    =  { "" }
+visibility = ${ (PUBLIC | PRIVATE) ~ !LETTER }
+semicolon  =  { ";" }
+keyword    =  { ("return") ~ !LETTER }
+reserved   =  { (keyword | boolean | nil) ~ !LETTER }
+
+comment_line        = _{ "//" ~ (!NEWLINE ~ ANY)* }
+start_comment_block = _{ "/*" }
+end_comment_block   = _{ "*/" }
+comment_block       = _{ start_comment_block ~ (!end_comment_block ~ ANY)* ~ end_comment_block }
+
+string_delimiter = _{ "\"" }
+string_escape    =  { "\\" ~ (string_delimiter | "\\" | "n" | "r" | "t") }
+
+string  = @{ string_delimiter ~ (string_escape | !(string_delimiter | "\\") ~ ANY)* ~ string_delimiter }
+integer = @{ ("0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT*) }
+float   = @{ integer ~ "." ~ ASCII_DIGIT+ }
+boolean = @{ ("true" | "false") ~ !LETTER }
+nil     = @{ "nil" ~ !LETTER }
+array   =  { "[" ~ !"," ~ (value ~ ("," ~ value)*)? ~ ","? ~ "]" }
+
+value = { string | float | integer | boolean | array | nil | IDENT }
+
+param     = { "<" ~ IDENT ~ ">" }
+params    = { param* }
+arg       = { "<" ~ expression ~ ">" }
+args      = { ("<" ~ ">") | arg+ }
+block     = { "{<" ~ (statement ~ semicolon)* ~ ">}" }
+func_def  = { visibility ~ "~" ~ IDENT ~ params ~ block }
+func_call = { IDENT ~ args }
+
+return_stmt = { "return" ~ expression }
+assignment  = { IDENT ~ "=" ~ expression }
+
+expression = { func_call | value }
+statement  = { func_def | assignment | return_stmt | expression }
+
+program = { SOI ~ func_def* ~ EOI }

@@ -1,0 +1,10 @@
+Error(parser::definitions::invalid_main_function)
+
+  💥 invalid main function
+   ╭─[tests/diagnostics/main_function_contains_no_parameters.oy:1:1]
+ 1 │ ~main{<>}
+   ·      ▲
+   ·      ╰── The main function must have 2 parameters, wich are `argc` and `argv`
+   ╰────
+  help: Add the parameters `argc` and `argv`
+        | Example: `~main<argc><argv>`

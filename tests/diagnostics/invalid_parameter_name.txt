@@ -1,0 +1,9 @@
+Error(parser::definitions::invalid_name)
+
+  💥 invalid parameter name: `Argc`
+   ╭─[tests/diagnostics/invalid_parameter_name.oy:1:1]
+ 1 │ ~main<Argc><Argv>{<>}
+   ·       ──┬─
+   ·         ╰── `Argc` is invalid name for parameter
+   ╰────
+  help: the parameter name must be snake_case. Try `argc` instead.

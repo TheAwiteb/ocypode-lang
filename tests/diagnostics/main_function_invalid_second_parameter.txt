@@ -1,0 +1,9 @@
+Error(parser::definitions::invalid_main_function)
+
+  💥 invalid main function
+   ╭─[tests/diagnostics/main_function_invalid_second_parameter.oy:1:1]
+ 1 │ ~main<argc><something>{<>}
+   ·             ────┬────
+   ·                 ╰── The second parameter of the main function must be `argv`
+   ╰────
+  help: Rename the second parameter to `argv`
