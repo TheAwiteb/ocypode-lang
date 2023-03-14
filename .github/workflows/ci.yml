@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master, dev]
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Rustfmt 🧹
+        run: cargo fmt --all -- --check
+      - name: Clippy 👾
+        run: cargo clippy --all-features --all-targets -- -D warnings
+      - name: Tests 🧪
+        run: cargo test --all-features --all-targets
