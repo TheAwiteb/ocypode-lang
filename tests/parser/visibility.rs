@@ -1,5 +1,4 @@
 use ocypode_lang::{ast::*, errors::ErrorKind, parser::OYParser};
-use pest::Span;
 
 #[test]
 fn test_public_visibility() {
@@ -11,18 +10,19 @@ fn test_public_visibility() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "foo".to_owned(),
-                span: Span::new(source, 2, 5).unwrap(),
+                span: Span::new(2, 5),
             },
             params: vec![],
             block: Block {
                 statements: vec![],
-                span: Span::new(source, 5, 9).unwrap(),
+                span: Span::new(5, 9),
             },
             visibility: Visibility::Public,
-            span: Span::new(source, 0, 9).unwrap(),
+            span: Span::new(0, 9),
         })],
-        Span::new(source, 0, 9).unwrap(),
+        pest::Span::new(source, 0, 9).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -36,18 +36,19 @@ fn test_private_visibility() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "foo".to_owned(),
-                span: Span::new(source, 1, 4).unwrap(),
+                span: Span::new(1, 4),
             },
             params: vec![],
             block: Block {
                 statements: vec![],
-                span: Span::new(source, 4, 8).unwrap(),
+                span: Span::new(4, 8),
             },
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 8).unwrap(),
+            span: Span::new(0, 8),
         })],
-        Span::new(source, 0, 8).unwrap(),
+        pest::Span::new(source, 0, 8).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 

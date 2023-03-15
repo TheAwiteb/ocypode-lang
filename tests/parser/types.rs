@@ -1,7 +1,6 @@
 use ocypode_lang::ast::*;
 use ocypode_lang::errors::ErrorKind;
 use ocypode_lang::parser::OYParser;
-use pest::Span;
 
 #[cfg(test)]
 mod nil {
@@ -16,35 +15,34 @@ mod nil {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
                 block: Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
-                        ValueExpression::Object(ObjectExpression::Nil(
-                            Span::new(source, 19, 22).unwrap(),
-                        )),
+                        ValueExpression::Object(ObjectExpression::Nil(Span::new(19, 22))),
                     ))],
-                    span: Span::new(source, 17, 25).unwrap(),
+                    span: Span::new(17, 25),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 25).unwrap(),
+                span: Span::new(0, 25),
             })],
-            Span::new(source, 0, 25).unwrap(),
+            pest::Span::new(source, 0, 25).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -58,19 +56,19 @@ mod nil {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -78,16 +76,17 @@ mod nil {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Ident(Ident {
                             ident: "nilsome".to_owned(),
-                            span: Span::new(source, 19, 26).unwrap(),
+                            span: Span::new(19, 26),
                         }),
                     ))],
-                    span: Span::new(source, 17, 29).unwrap(),
+                    span: Span::new(17, 29),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 29).unwrap(),
+                span: Span::new(0, 29),
             })],
-            Span::new(source, 0, 29).unwrap(),
+            pest::Span::new(source, 0, 29).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -101,19 +100,19 @@ mod nil {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -121,16 +120,17 @@ mod nil {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Ident(Ident {
                             ident: "somnil".to_owned(),
-                            span: Span::new(source, 19, 25).unwrap(),
+                            span: Span::new(19, 25),
                         }),
                     ))],
-                    span: Span::new(source, 17, 28).unwrap(),
+                    span: Span::new(17, 28),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 28).unwrap(),
+                span: Span::new(0, 28),
             })],
-            Span::new(source, 0, 28).unwrap(),
+            pest::Span::new(source, 0, 28).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 }
@@ -148,38 +148,39 @@ mod bool {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
                 block: Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Bool(true, Span::new(source, 19, 23).unwrap()),
+                            ObjectExpression::Bool(true, Span::new(19, 23)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Bool(false, Span::new(source, 24, 29).unwrap()),
+                            ObjectExpression::Bool(false, Span::new(24, 29)),
                         ))),
                     ],
-                    span: Span::new(source, 17, 32).unwrap(),
+                    span: Span::new(17, 32),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 32).unwrap(),
+                span: Span::new(0, 32),
             })],
-            Span::new(source, 0, 32).unwrap(),
+            pest::Span::new(source, 0, 32).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -193,19 +194,19 @@ mod bool {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -214,23 +215,24 @@ mod bool {
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
                                 ident: "truesome".to_owned(),
-                                span: Span::new(source, 19, 27).unwrap(),
+                                span: Span::new(19, 27),
                             },
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
                                 ident: "falsesome".to_owned(),
-                                span: Span::new(source, 28, 37).unwrap(),
+                                span: Span::new(28, 37),
                             },
                         ))),
                     ],
-                    span: Span::new(source, 17, 40).unwrap(),
+                    span: Span::new(17, 40),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 40).unwrap(),
+                span: Span::new(0, 40),
             })],
-            Span::new(source, 0, 40).unwrap(),
+            pest::Span::new(source, 0, 40).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -244,19 +246,19 @@ mod bool {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -265,23 +267,24 @@ mod bool {
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
                                 ident: "sometrue".to_owned(),
-                                span: Span::new(source, 19, 27).unwrap(),
+                                span: Span::new(19, 27),
                             },
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
                                 ident: "somefalse".to_owned(),
-                                span: Span::new(source, 28, 37).unwrap(),
+                                span: Span::new(28, 37),
                             },
                         ))),
                     ],
-                    span: Span::new(source, 17, 40).unwrap(),
+                    span: Span::new(17, 40),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 40).unwrap(),
+                span: Span::new(0, 40),
             })],
-            Span::new(source, 0, 40).unwrap(),
+            pest::Span::new(source, 0, 40).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 }
@@ -299,62 +302,63 @@ mod int {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
                 block: Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(0.into(), Span::new(source, 19, 20).unwrap()),
+                            ObjectExpression::Int(0.into(), Span::new(19, 20)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(1.into(), Span::new(source, 21, 22).unwrap()),
+                            ObjectExpression::Int(1.into(), Span::new(21, 22)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(2.into(), Span::new(source, 23, 24).unwrap()),
+                            ObjectExpression::Int(2.into(), Span::new(23, 24)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(3.into(), Span::new(source, 25, 26).unwrap()),
+                            ObjectExpression::Int(3.into(), Span::new(25, 26)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(4.into(), Span::new(source, 27, 28).unwrap()),
+                            ObjectExpression::Int(4.into(), Span::new(27, 28)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(5.into(), Span::new(source, 29, 30).unwrap()),
+                            ObjectExpression::Int(5.into(), Span::new(29, 30)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(6.into(), Span::new(source, 31, 32).unwrap()),
+                            ObjectExpression::Int(6.into(), Span::new(31, 32)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(7.into(), Span::new(source, 33, 34).unwrap()),
+                            ObjectExpression::Int(7.into(), Span::new(33, 34)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(8.into(), Span::new(source, 35, 36).unwrap()),
+                            ObjectExpression::Int(8.into(), Span::new(35, 36)),
                         ))),
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
-                            ObjectExpression::Int(9.into(), Span::new(source, 37, 38).unwrap()),
+                            ObjectExpression::Int(9.into(), Span::new(37, 38)),
                         ))),
                     ],
-                    span: Span::new(source, 17, 41).unwrap(),
+                    span: Span::new(17, 41),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 41).unwrap(),
+                span: Span::new(0, 41),
             })],
-            Span::new(source, 0, 41).unwrap(),
+            pest::Span::new(source, 0, 41).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -375,19 +379,19 @@ mod int {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -395,16 +399,17 @@ mod int {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Int(
                             1234567890.into(),
-                            Span::new(source, 19, 29).unwrap(),
+                            Span::new(19, 29),
                         )),
                     ))],
-                    span: Span::new(source, 17, 32).unwrap(),
+                    span: Span::new(17, 32),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 32).unwrap(),
+                span: Span::new(0, 32),
             })],
-            Span::new(source, 0, 32).unwrap(),
+            pest::Span::new(source, 0, 32).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -417,19 +422,19 @@ mod int {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -437,16 +442,17 @@ mod int {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Int(
                             "123456789012345678901234567890".parse().unwrap(),
-                            Span::new(source, 19, 49).unwrap(),
+                            Span::new(19, 49),
                         )),
                     ))],
-                    span: Span::new(source, 17, 52).unwrap(),
+                    span: Span::new(17, 52),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 52).unwrap(),
+                span: Span::new(0, 52),
             })],
-            Span::new(source, 0, 52).unwrap(),
+            pest::Span::new(source, 0, 52).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -471,19 +477,19 @@ mod float {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -491,16 +497,17 @@ mod float {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Float(
                             "0.0".parse().unwrap(),
-                            Span::new(source, 19, 22).unwrap(),
+                            Span::new(19, 22),
                         )),
                     ))],
-                    span: Span::new(source, 17, 25).unwrap(),
+                    span: Span::new(17, 25),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 25).unwrap(),
+                span: Span::new(0, 25),
             })],
-            Span::new(source, 0, 25).unwrap(),
+            pest::Span::new(source, 0, 25).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -520,19 +527,19 @@ mod float {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -540,16 +547,17 @@ mod float {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Float(
                             "1234567890.1234567890".parse().unwrap(),
-                            Span::new(source, 19, 40).unwrap(),
+                            Span::new(19, 40),
                         )),
                     ))],
-                    span: Span::new(source, 17, 43).unwrap(),
+                    span: Span::new(17, 43),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 43).unwrap(),
+                span: Span::new(0, 43),
             })],
-            Span::new(source, 0, 43).unwrap(),
+            pest::Span::new(source, 0, 43).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -570,19 +578,19 @@ mod float {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -592,16 +600,17 @@ mod float {
                             "123456789012345678901234567890.123456789012345678901234567890"
                                 .parse()
                                 .unwrap(),
-                            Span::new(source, 19, 80).unwrap(),
+                            Span::new(19, 80),
                         )),
                     ))],
-                    span: Span::new(source, 17, 83).unwrap(),
+                    span: Span::new(17, 83),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 83).unwrap(),
+                span: Span::new(0, 83),
             })],
-            Span::new(source, 0, 83).unwrap(),
+            pest::Span::new(source, 0, 83).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -626,19 +635,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -646,16 +655,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "".to_owned(),
-                            Span::new(source, 19, 21).unwrap(),
+                            Span::new(19, 21),
                         )),
                     ))],
-                    span: Span::new(source, 17, 24).unwrap(),
+                    span: Span::new(17, 24),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 24).unwrap(),
+                span: Span::new(0, 24),
             })],
-            Span::new(source, 0, 24).unwrap(),
+            pest::Span::new(source, 0, 24).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -675,19 +685,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -695,16 +705,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "a".to_owned(),
-                            Span::new(source, 19, 22).unwrap(),
+                            Span::new(19, 22),
                         )),
                     ))],
-                    span: Span::new(source, 17, 25).unwrap(),
+                    span: Span::new(17, 25),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 25).unwrap(),
+                span: Span::new(0, 25),
             })],
-            Span::new(source, 0, 25).unwrap(),
+            pest::Span::new(source, 0, 25).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -717,19 +728,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -737,16 +748,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "some".to_owned(),
-                            Span::new(source, 19, 25).unwrap(),
+                            Span::new(19, 25),
                         )),
                     ))],
-                    span: Span::new(source, 17, 28).unwrap(),
+                    span: Span::new(17, 28),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 28).unwrap(),
+                span: Span::new(0, 28),
             })],
-            Span::new(source, 0, 28).unwrap(),
+            pest::Span::new(source, 0, 28).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -766,19 +778,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -786,16 +798,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             r#"some\""#.to_owned(),
-                            Span::new(source, 19, 27).unwrap(),
+                            Span::new(19, 27),
                         )),
                     ))],
-                    span: Span::new(source, 17, 30).unwrap(),
+                    span: Span::new(17, 30),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 30).unwrap(),
+                span: Span::new(0, 30),
             })],
-            Span::new(source, 0, 30).unwrap(),
+            pest::Span::new(source, 0, 30).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -815,19 +828,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -835,16 +848,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "some\nmultiline".to_owned(),
-                            Span::new(source, 19, 35).unwrap(),
+                            Span::new(19, 35),
                         )),
                     ))],
-                    span: Span::new(source, 17, 38).unwrap(),
+                    span: Span::new(17, 38),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 38).unwrap(),
+                span: Span::new(0, 38),
             })],
-            Span::new(source, 0, 38).unwrap(),
+            pest::Span::new(source, 0, 38).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -857,19 +871,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -877,16 +891,17 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             r#"some\nmultiline\""#.to_owned(),
-                            Span::new(source, 19, 38).unwrap(),
+                            Span::new(19, 38),
                         )),
                     ))],
-                    span: Span::new(source, 17, 41).unwrap(),
+                    span: Span::new(17, 41),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 41).unwrap(),
+                span: Span::new(0, 41),
             })],
-            Span::new(source, 0, 41).unwrap(),
+            pest::Span::new(source, 0, 41).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -899,19 +914,19 @@ mod string {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
@@ -919,15 +934,15 @@ mod string {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Object(ObjectExpression::String(
                         "Consequat aliquip reprehenderit ex dolore reprehenderit ut sunt cupidatat aute.Incididunt ex nisi id et.Deserunt aute est sit dolor tempor.".to_owned(),
-                        Span::new(source, 19, 160).unwrap(),
+                        Span::new(19, 160),
                     )),
                 ))],
-                span: Span::new(source, 17, 163).unwrap(),
+                span: Span::new(17, 163),
             },
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 163).unwrap(),
+            span: Span::new(0, 163),
         })],
-        Span::new(source, 0, 163).unwrap(),
+        pest::Span::new(source, 0, 163).unwrap(),
     );
         assert_eq!(ast.unwrap(), program);
     }
@@ -942,19 +957,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(&source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(&source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(&source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -962,15 +977,15 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             lorem.to_owned(),
-                            Span::new(&source, 19, 19 + lorem.len() + 2).unwrap(),
+                            Span::new(19, 19 + lorem.len() + 2),
                         )),
                     ))],
-                    span: Span::new(&source, 17, 19 + lorem.len() + 5).unwrap(),
+                    span: Span::new(17, 19 + lorem.len() + 5),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
+                span: Span::new(0, 19 + lorem.len() + 5),
             })],
-            Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
+            pest::Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
         );
         assert_eq!(ast.unwrap(), program);
     }
@@ -993,19 +1008,19 @@ mod string {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(&source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(&source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(&source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1013,15 +1028,15 @@ mod string {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             lorem.to_owned(),
-                            Span::new(&source, 19, 19 + lorem.len() + 2).unwrap(),
+                            Span::new(19, 19 + lorem.len() + 2),
                         )),
                     ))],
-                    span: Span::new(&source, 17, 19 + lorem.len() + 5).unwrap(),
+                    span: Span::new(17, 19 + lorem.len() + 5),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
+                span: Span::new(0, 19 + lorem.len() + 5),
             })],
-            Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
+            pest::Span::new(&source, 0, 19 + lorem.len() + 5).unwrap(),
         );
         assert_eq!(ast.unwrap(), program);
     }
@@ -1040,36 +1055,34 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
                 block: Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
-                        ValueExpression::Object(ObjectExpression::Array(
-                            vec![],
-                            Span::new(source, 19, 21).unwrap(),
-                        )),
+                        ValueExpression::Object(ObjectExpression::Array(vec![], Span::new(19, 21))),
                     ))],
-                    span: Span::new(source, 17, 24).unwrap(),
+                    span: Span::new(17, 24),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 24).unwrap(),
+                span: Span::new(0, 24),
             })],
-            Span::new(source, 0, 24).unwrap(),
+            pest::Span::new(source, 0, 24).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1082,19 +1095,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1102,18 +1115,19 @@ mod array {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(1.into(), Span::new(source, 20, 21).unwrap()),
+                                ObjectExpression::Int(1.into(), Span::new(20, 21)),
                             ))],
-                            Span::new(source, 19, 22).unwrap(),
+                            Span::new(19, 22),
                         )),
                     ))],
-                    span: Span::new(source, 17, 25).unwrap(),
+                    span: Span::new(17, 25),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 25).unwrap(),
+                span: Span::new(0, 25),
             })],
-            Span::new(source, 0, 25).unwrap(),
+            pest::Span::new(source, 0, 25).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1126,19 +1140,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1147,34 +1161,26 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        1.into(),
-                                        Span::new(source, 20, 21).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(1.into(), Span::new(20, 21)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        2.into(),
-                                        Span::new(source, 23, 24).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(2.into(), Span::new(23, 24)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        3.into(),
-                                        Span::new(source, 26, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(3.into(), Span::new(26, 27)),
                                 )),
                             ],
-                            Span::new(source, 19, 28).unwrap(),
+                            Span::new(19, 28),
                         )),
                     ))],
-                    span: Span::new(source, 17, 31).unwrap(),
+                    span: Span::new(17, 31),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 31).unwrap(),
+                span: Span::new(0, 31),
             })],
-            Span::new(source, 0, 31).unwrap(),
+            pest::Span::new(source, 0, 31).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1187,19 +1193,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1208,76 +1214,47 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        1.into(),
-                                        Span::new(source, 20, 21).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(1.into(), Span::new(20, 21)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        2.into(),
-                                        Span::new(source, 23, 24).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(2.into(), Span::new(23, 24)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        3.into(),
-                                        Span::new(source, 26, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(3.into(), Span::new(26, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        4.into(),
-                                        Span::new(source, 29, 30).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(4.into(), Span::new(29, 30)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        5.into(),
-                                        Span::new(source, 32, 33).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(5.into(), Span::new(32, 33)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        6.into(),
-                                        Span::new(source, 35, 36).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(6.into(), Span::new(35, 36)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        7.into(),
-                                        Span::new(source, 38, 39).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(7.into(), Span::new(38, 39)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        8.into(),
-                                        Span::new(source, 41, 42).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(8.into(), Span::new(41, 42)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        9.into(),
-                                        Span::new(source, 44, 45).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(9.into(), Span::new(44, 45)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        10.into(),
-                                        Span::new(source, 47, 49).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(10.into(), Span::new(47, 49)),
                                 )),
                             ],
-                            Span::new(source, 19, 50).unwrap(),
+                            Span::new(19, 50),
                         )),
                     ))],
-                    span: Span::new(source, 17, 53).unwrap(),
+                    span: Span::new(17, 53),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 53).unwrap(),
+                span: Span::new(0, 53),
             })],
-            Span::new(source, 0, 53).unwrap(),
+            pest::Span::new(source, 0, 53).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1290,19 +1267,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1311,53 +1288,39 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        1.into(),
-                                        Span::new(source, 20, 21).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(1.into(), Span::new(20, 21)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    2.into(),
-                                                    Span::new(source, 24, 25).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(2.into(), Span::new(24, 25)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    3.into(),
-                                                    Span::new(source, 27, 28).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(3.into(), Span::new(27, 28)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    4.into(),
-                                                    Span::new(source, 30, 31).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(4.into(), Span::new(30, 31)),
                                             )),
                                         ],
-                                        Span::new(source, 23, 32).unwrap(),
+                                        Span::new(23, 32),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        5.into(),
-                                        Span::new(source, 34, 35).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(5.into(), Span::new(34, 35)),
                                 )),
                             ],
-                            Span::new(source, 19, 36).unwrap(),
+                            Span::new(19, 36),
                         )),
                     ))],
-                    span: Span::new(source, 17, 39).unwrap(),
+                    span: Span::new(17, 39),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 39).unwrap(),
+                span: Span::new(0, 39),
             })],
-            Span::new(source, 0, 39).unwrap(),
+            pest::Span::new(source, 0, 39).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1370,19 +1333,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1391,90 +1354,61 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        1.into(),
-                                        Span::new(source, 20, 21).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(1.into(), Span::new(20, 21)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    2.into(),
-                                                    Span::new(source, 24, 25).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(2.into(), Span::new(24, 25)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    3.into(),
-                                                    Span::new(source, 27, 28).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(3.into(), Span::new(27, 28)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    4.into(),
-                                                    Span::new(source, 30, 31).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(4.into(), Span::new(30, 31)),
                                             )),
                                         ],
-                                        Span::new(source, 23, 32).unwrap(),
+                                        Span::new(23, 32),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        5.into(),
-                                        Span::new(source, 34, 35).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(5.into(), Span::new(34, 35)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    6.into(),
-                                                    Span::new(source, 38, 39).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(6.into(), Span::new(38, 39)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    7.into(),
-                                                    Span::new(source, 41, 42).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(7.into(), Span::new(41, 42)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    8.into(),
-                                                    Span::new(source, 44, 45).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(8.into(), Span::new(44, 45)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    9.into(),
-                                                    Span::new(source, 47, 48).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(9.into(), Span::new(47, 48)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Int(
-                                                    10.into(),
-                                                    Span::new(source, 50, 52).unwrap(),
-                                                ),
+                                                ObjectExpression::Int(10.into(), Span::new(50, 52)),
                                             )),
                                         ],
-                                        Span::new(source, 37, 53).unwrap(),
+                                        Span::new(37, 53),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 54).unwrap(),
+                            Span::new(19, 54),
                         )),
                     ))],
-                    span: Span::new(source, 17, 57).unwrap(),
+                    span: Span::new(17, 57),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 57).unwrap(),
+                span: Span::new(0, 57),
             })],
-            Span::new(source, 0, 57).unwrap(),
+            pest::Span::new(source, 0, 57).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1487,19 +1421,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1510,13 +1444,13 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Int(
                                         1.into(),
-                                        Span::new(source, 20, 21).unwrap(),
+                                        Span::new(20, 21),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Int(
                                         2.into(),
-                                        Span::new(source, 22, 23).unwrap(),
+                                        Span::new(22, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -1525,17 +1459,17 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Int(
                                                     3.into(),
-                                                    Span::new(source, 25, 26).unwrap(),
+                                                    Span::new(25, 26),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Int(
                                                     4.into(),
-                                                    Span::new(source, 27, 28).unwrap(),
+                                                    Span::new(27, 28),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 24, 29).unwrap(),
+                                        Span::new(24, 29),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -1544,13 +1478,13 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Int(
                                                     323.into(),
-                                                    Span::new(source, 31, 34).unwrap(),
+                                                    Span::new(31, 34),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Int(
                                                     23.into(),
-                                                    Span::new(source, 35, 37).unwrap(),
+                                                    Span::new(35, 37),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
@@ -1560,8 +1494,7 @@ mod array {
                                                             ValueExpression::Object(
                                                                 ObjectExpression::Int(
                                                                     23.into(),
-                                                                    Span::new(source, 39, 41)
-                                                                        .unwrap(),
+                                                                    Span::new( 39, 41)
                                                                 ),
                                                             ),
                                                         ),
@@ -1569,8 +1502,7 @@ mod array {
                                                             ValueExpression::Object(
                                                                 ObjectExpression::Int(
                                                                     32.into(),
-                                                                    Span::new(source, 42, 44)
-                                                                        .unwrap(),
+                                                                    Span::new( 42, 44)
                                                                 ),
                                                             ),
                                                         ),
@@ -1583,11 +1515,9 @@ mod array {
                                                                                 ObjectExpression::Int(
                                                                                     232.into(),
                                                                                     Span::new(
-                                                                                        source,
                                                                                         46,
                                                                                         49,
                                                                                     )
-                                                                                    .unwrap(),
                                                                                 ),
                                                                             ),
                                                                         ),
@@ -1596,48 +1526,44 @@ mod array {
                                                                                 ObjectExpression::Int(
                                                                                     32.into(),
                                                                                     Span::new(
-                                                                                        source,
                                                                                         50,
                                                                                         52,
                                                                                     )
-                                                                                    .unwrap(),
                                                                                 ),
                                                                             ),
                                                                         ),
                                                                     ],
                                                                     Span::new(
-                                                                        source,
                                                                         45,
                                                                         54,
                                                                     )
-                                                                    .unwrap(),
                                                                 ),
                                                             ),
                                                         ),
                                                     ],
-                                                    Span::new(source, 38, 56).unwrap(),
+                                                    Span::new(38, 56),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 30, 58).unwrap(),
+                                        Span::new(30, 58),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Int(
                                         42.into(),
-                                        Span::new(source, 59, 61).unwrap(),
+                                        Span::new(59, 61),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 62).unwrap(),
+                            Span::new(19, 62),
                         )),
                     ))],
-                    span: Span::new(source, 17, 65).unwrap(),
+                    span: Span::new(17, 65),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 65).unwrap(),
+                span: Span::new(0, 65),
             })],
-            Span::new(source, 0, 65).unwrap(),
+            pest::Span::new(source, 0, 65).unwrap(),
         );
         assert_eq!(ast.unwrap(), program);
     }
@@ -1651,19 +1577,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1674,74 +1600,75 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "1.0".parse().unwrap(),
-                                        Span::new(source, 20, 23).unwrap(),
+                                        Span::new(20, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "2.0".parse().unwrap(),
-                                        Span::new(source, 24, 27).unwrap(),
+                                        Span::new(24, 27),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "3.0".parse().unwrap(),
-                                        Span::new(source, 28, 31).unwrap(),
+                                        Span::new(28, 31),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "4.0".parse().unwrap(),
-                                        Span::new(source, 32, 35).unwrap(),
+                                        Span::new(32, 35),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "5.0".parse().unwrap(),
-                                        Span::new(source, 36, 39).unwrap(),
+                                        Span::new(36, 39),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "6.0".parse().unwrap(),
-                                        Span::new(source, 40, 43).unwrap(),
+                                        Span::new(40, 43),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "7.0".parse().unwrap(),
-                                        Span::new(source, 44, 47).unwrap(),
+                                        Span::new(44, 47),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "8.0".parse().unwrap(),
-                                        Span::new(source, 48, 51).unwrap(),
+                                        Span::new(48, 51),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "9.0".parse().unwrap(),
-                                        Span::new(source, 52, 55).unwrap(),
+                                        Span::new(52, 55),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "10.0".parse().unwrap(),
-                                        Span::new(source, 56, 60).unwrap(),
+                                        Span::new(56, 60),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 61).unwrap(),
+                            Span::new(19, 61),
                         )),
                     ))],
-                    span: Span::new(source, 17, 64).unwrap(),
+                    span: Span::new(17, 64),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 64).unwrap(),
+                span: Span::new(0, 64),
             })],
-            Span::new(source, 0, 64).unwrap(),
+            pest::Span::new(source, 0, 64).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1754,19 +1681,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1777,134 +1704,135 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "1.0".parse().unwrap(),
-                                        Span::new(source, 20, 23).unwrap(),
+                                        Span::new(20, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "2.0".parse().unwrap(),
-                                        Span::new(source, 24, 27).unwrap(),
+                                        Span::new(24, 27),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "3.0".parse().unwrap(),
-                                        Span::new(source, 28, 31).unwrap(),
+                                        Span::new(28, 31),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "4.0".parse().unwrap(),
-                                        Span::new(source, 32, 35).unwrap(),
+                                        Span::new(32, 35),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "5.0".parse().unwrap(),
-                                        Span::new(source, 36, 39).unwrap(),
+                                        Span::new(36, 39),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "6.0".parse().unwrap(),
-                                        Span::new(source, 40, 43).unwrap(),
+                                        Span::new(40, 43),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "7.0".parse().unwrap(),
-                                        Span::new(source, 44, 47).unwrap(),
+                                        Span::new(44, 47),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "8.0".parse().unwrap(),
-                                        Span::new(source, 48, 51).unwrap(),
+                                        Span::new(48, 51),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "9.0".parse().unwrap(),
-                                        Span::new(source, 52, 55).unwrap(),
+                                        Span::new(52, 55),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "10.0".parse().unwrap(),
-                                        Span::new(source, 56, 60).unwrap(),
+                                        Span::new(56, 60),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "11.0".parse().unwrap(),
-                                        Span::new(source, 61, 65).unwrap(),
+                                        Span::new(61, 65),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "12.0".parse().unwrap(),
-                                        Span::new(source, 66, 70).unwrap(),
+                                        Span::new(66, 70),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "13.0".parse().unwrap(),
-                                        Span::new(source, 71, 75).unwrap(),
+                                        Span::new(71, 75),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "14.0".parse().unwrap(),
-                                        Span::new(source, 76, 80).unwrap(),
+                                        Span::new(76, 80),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "15.0".parse().unwrap(),
-                                        Span::new(source, 81, 85).unwrap(),
+                                        Span::new(81, 85),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "16.0".parse().unwrap(),
-                                        Span::new(source, 86, 90).unwrap(),
+                                        Span::new(86, 90),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "17.0".parse().unwrap(),
-                                        Span::new(source, 91, 95).unwrap(),
+                                        Span::new(91, 95),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "18.0".parse().unwrap(),
-                                        Span::new(source, 96, 100).unwrap(),
+                                        Span::new(96, 100),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "19.0".parse().unwrap(),
-                                        Span::new(source, 101, 105).unwrap(),
+                                        Span::new(101, 105),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "20.0".parse().unwrap(),
-                                        Span::new(source, 106, 110).unwrap(),
+                                        Span::new(106, 110),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 111).unwrap(),
+                            Span::new(19, 111),
                         )),
                     ))],
-                    span: Span::new(source, 17, 114).unwrap(),
+                    span: Span::new(17, 114),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 114).unwrap(),
+                span: Span::new(0, 114),
             })],
-            Span::new(source, 0, 114).unwrap(),
+            pest::Span::new(source, 0, 114).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1917,19 +1845,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -1940,7 +1868,7 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "1.0".parse().unwrap(),
-                                        Span::new(source, 20, 23).unwrap(),
+                                        Span::new(20, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -1949,30 +1877,31 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "2.0".parse().unwrap(),
-                                                    Span::new(source, 25, 28).unwrap(),
+                                                    Span::new(25, 28),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "3.0".parse().unwrap(),
-                                                    Span::new(source, 29, 32).unwrap(),
+                                                    Span::new(29, 32),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 24, 33).unwrap(),
+                                        Span::new(24, 33),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 34).unwrap(),
+                            Span::new(19, 34),
                         )),
                     ))],
-                    span: Span::new(source, 17, 37).unwrap(),
+                    span: Span::new(17, 37),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 37).unwrap(),
+                span: Span::new(0, 37),
             })],
-            Span::new(source, 0, 37).unwrap(),
+            pest::Span::new(source, 0, 37).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -1985,19 +1914,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2008,7 +1937,7 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "1.0".parse().unwrap(),
-                                        Span::new(source, 20, 23).unwrap(),
+                                        Span::new(20, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2017,17 +1946,17 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "2.0".parse().unwrap(),
-                                                    Span::new(source, 25, 28).unwrap(),
+                                                    Span::new(25, 28),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "3.0".parse().unwrap(),
-                                                    Span::new(source, 29, 32).unwrap(),
+                                                    Span::new(29, 32),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 24, 33).unwrap(),
+                                        Span::new(24, 33),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2036,30 +1965,31 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "4.0".parse().unwrap(),
-                                                    Span::new(source, 35, 38).unwrap(),
+                                                    Span::new(35, 38),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "5.0".parse().unwrap(),
-                                                    Span::new(source, 39, 42).unwrap(),
+                                                    Span::new(39, 42),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 34, 43).unwrap(),
+                                        Span::new(34, 43),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 44).unwrap(),
+                            Span::new(19, 44),
                         )),
                     ))],
-                    span: Span::new(source, 17, 47).unwrap(),
+                    span: Span::new(17, 47),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 47).unwrap(),
+                span: Span::new(0, 47),
             })],
-            Span::new(source, 0, 47).unwrap(),
+            pest::Span::new(source, 0, 47).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2072,19 +2002,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2095,7 +2025,7 @@ mod array {
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Float(
                                         "1.0".parse().unwrap(),
-                                        Span::new(source, 20, 23).unwrap(),
+                                        Span::new(20, 23),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2104,17 +2034,17 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "2.0".parse().unwrap(),
-                                                    Span::new(source, 25, 28).unwrap(),
+                                                    Span::new(25, 28),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "3.0".parse().unwrap(),
-                                                    Span::new(source, 29, 32).unwrap(),
+                                                    Span::new(29, 32),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 24, 33).unwrap(),
+                                        Span::new(24, 33),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2123,17 +2053,17 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "4.0".parse().unwrap(),
-                                                    Span::new(source, 35, 38).unwrap(),
+                                                    Span::new(35, 38),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "5.0".parse().unwrap(),
-                                                    Span::new(source, 39, 42).unwrap(),
+                                                    Span::new(39, 42),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 34, 43).unwrap(),
+                                        Span::new(34, 43),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2142,17 +2072,17 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "6.0".parse().unwrap(),
-                                                    Span::new(source, 45, 48).unwrap(),
+                                                    Span::new(45, 48),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "7.0".parse().unwrap(),
-                                                    Span::new(source, 49, 52).unwrap(),
+                                                    Span::new(49, 52),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 44, 53).unwrap(),
+                                        Span::new(44, 53),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2161,30 +2091,31 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "8.0".parse().unwrap(),
-                                                    Span::new(source, 55, 58).unwrap(),
+                                                    Span::new(55, 58),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Float(
                                                     "9.0".parse().unwrap(),
-                                                    Span::new(source, 59, 62).unwrap(),
+                                                    Span::new(59, 62),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 54, 63).unwrap(),
+                                        Span::new(54, 63),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 64).unwrap(),
+                            Span::new(19, 64),
                         )),
                     ))],
-                    span: Span::new(source, 17, 67).unwrap(),
+                    span: Span::new(17, 67),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 67).unwrap(),
+                span: Span::new(0, 67),
             })],
-            Span::new(source, 0, 67).unwrap(),
+            pest::Span::new(source, 0, 67).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2197,19 +2128,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2218,28 +2149,23 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "hello".to_owned(),
-                                        Span::new(source, 20, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::String("hello".to_owned(), Span::new(20, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "world".to_owned(),
-                                        Span::new(source, 28, 35).unwrap(),
-                                    ),
+                                    ObjectExpression::String("world".to_owned(), Span::new(28, 35)),
                                 )),
                             ],
-                            Span::new(source, 19, 36).unwrap(),
+                            Span::new(19, 36),
                         )),
                     ))],
-                    span: Span::new(source, 17, 39).unwrap(),
+                    span: Span::new(17, 39),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 39).unwrap(),
+                span: Span::new(0, 39),
             })],
-            Span::new(source, 0, 39).unwrap(),
+            pest::Span::new(source, 0, 39).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2253,19 +2179,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2274,64 +2200,44 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "hello".to_owned(),
-                                        Span::new(source, 20, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::String("hello".to_owned(), Span::new(20, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::String(
                                         "everybody".to_owned(),
-                                        Span::new(source, 28, 39).unwrap(),
+                                        Span::new(28, 39),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "how".to_owned(),
-                                        Span::new(source, 40, 45).unwrap(),
-                                    ),
+                                    ObjectExpression::String("how".to_owned(), Span::new(40, 45)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "are".to_owned(),
-                                        Span::new(source, 46, 51).unwrap(),
-                                    ),
+                                    ObjectExpression::String("are".to_owned(), Span::new(46, 51)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "you".to_owned(),
-                                        Span::new(source, 52, 57).unwrap(),
-                                    ),
+                                    ObjectExpression::String("you".to_owned(), Span::new(52, 57)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "doing".to_owned(),
-                                        Span::new(source, 58, 65).unwrap(),
-                                    ),
+                                    ObjectExpression::String("doing".to_owned(), Span::new(58, 65)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "today".to_owned(),
-                                        Span::new(source, 66, 73).unwrap(),
-                                    ),
+                                    ObjectExpression::String("today".to_owned(), Span::new(66, 73)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "?".to_owned(),
-                                        Span::new(source, 74, 77).unwrap(),
-                                    ),
+                                    ObjectExpression::String("?".to_owned(), Span::new(74, 77)),
                                 )),
                             ],
-                            Span::new(source, 19, 78).unwrap(),
+                            Span::new(19, 78),
                         )),
                     ))],
-                    span: Span::new(source, 17, 81).unwrap(),
+                    span: Span::new(17, 81),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 81).unwrap(),
+                span: Span::new(0, 81),
             })],
-            Span::new(source, 0, 81).unwrap(),
+            pest::Span::new(source, 0, 81).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2344,19 +2250,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2365,33 +2271,31 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "hello".to_owned(),
-                                        Span::new(source, 20, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::String("hello".to_owned(), Span::new(20, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
                                             ObjectExpression::String(
                                                 "world".to_owned(),
-                                                Span::new(source, 29, 36).unwrap(),
+                                                Span::new(29, 36),
                                             ),
                                         ))],
-                                        Span::new(source, 28, 37).unwrap(),
+                                        Span::new(28, 37),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 38).unwrap(),
+                            Span::new(19, 38),
                         )),
                     ))],
-                    span: Span::new(source, 17, 41).unwrap(),
+                    span: Span::new(17, 41),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 41).unwrap(),
+                span: Span::new(0, 41),
             })],
-            Span::new(source, 0, 41).unwrap(),
+            pest::Span::new(source, 0, 41).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2404,19 +2308,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2425,20 +2329,17 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "hello".to_owned(),
-                                        Span::new(source, 20, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::String("hello".to_owned(), Span::new(20, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
                                             ObjectExpression::String(
                                                 "world".to_owned(),
-                                                Span::new(source, 29, 36).unwrap(),
+                                                Span::new(29, 36),
                                             ),
                                         ))],
-                                        Span::new(source, 28, 37).unwrap(),
+                                        Span::new(28, 37),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
@@ -2446,23 +2347,24 @@ mod array {
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
                                             ObjectExpression::String(
                                                 "!".to_owned(),
-                                                Span::new(source, 39, 42).unwrap(),
+                                                Span::new(39, 42),
                                             ),
                                         ))],
-                                        Span::new(source, 38, 43).unwrap(),
+                                        Span::new(38, 43),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 44).unwrap(),
+                            Span::new(19, 44),
                         )),
                     ))],
-                    span: Span::new(source, 17, 47).unwrap(),
+                    span: Span::new(17, 47),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 47).unwrap(),
+                span: Span::new(0, 47),
             })],
-            Span::new(source, 0, 47).unwrap(),
+            pest::Span::new(source, 0, 47).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2475,19 +2377,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2496,10 +2398,7 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::String(
-                                        "hello".to_owned(),
-                                        Span::new(source, 20, 27).unwrap(),
-                                    ),
+                                    ObjectExpression::String("hello".to_owned(), Span::new(20, 27)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
@@ -2507,7 +2406,7 @@ mod array {
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::String(
                                                     "world".to_owned(),
-                                                    Span::new(source, 29, 36).unwrap(),
+                                                    Span::new(29, 36),
                                                 ),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
@@ -2516,28 +2415,29 @@ mod array {
                                                         ValueExpression::Object(
                                                             ObjectExpression::String(
                                                                 "!".to_owned(),
-                                                                Span::new(source, 38, 41).unwrap(),
+                                                                Span::new(38, 41),
                                                             ),
                                                         ),
                                                     )],
-                                                    Span::new(source, 37, 42).unwrap(),
+                                                    Span::new(37, 42),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 28, 43).unwrap(),
+                                        Span::new(28, 43),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 44).unwrap(),
+                            Span::new(19, 44),
                         )),
                     ))],
-                    span: Span::new(source, 17, 47).unwrap(),
+                    span: Span::new(17, 47),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 47).unwrap(),
+                span: Span::new(0, 47),
             })],
-            Span::new(source, 0, 47).unwrap(),
+            pest::Span::new(source, 0, 47).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2550,19 +2450,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2571,22 +2471,23 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Nil(Span::new(source, 20, 23).unwrap()),
+                                    ObjectExpression::Nil(Span::new(20, 23)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Nil(Span::new(source, 24, 27).unwrap()),
+                                    ObjectExpression::Nil(Span::new(24, 27)),
                                 )),
                             ],
-                            Span::new(source, 19, 28).unwrap(),
+                            Span::new(19, 28),
                         )),
                     ))],
-                    span: Span::new(source, 17, 31).unwrap(),
+                    span: Span::new(17, 31),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 31).unwrap(),
+                span: Span::new(0, 31),
             })],
-            Span::new(source, 0, 31).unwrap(),
+            pest::Span::new(source, 0, 31).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2599,19 +2500,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2620,29 +2521,28 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Nil(Span::new(source, 20, 23).unwrap()),
+                                    ObjectExpression::Nil(Span::new(20, 23)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Nil(
-                                                Span::new(source, 25, 28).unwrap(),
-                                            ),
+                                            ObjectExpression::Nil(Span::new(25, 28)),
                                         ))],
-                                        Span::new(source, 24, 29).unwrap(),
+                                        Span::new(24, 29),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 30).unwrap(),
+                            Span::new(19, 30),
                         )),
                     ))],
-                    span: Span::new(source, 17, 33).unwrap(),
+                    span: Span::new(17, 33),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 33).unwrap(),
+                span: Span::new(0, 33),
             })],
-            Span::new(source, 0, 33).unwrap(),
+            pest::Span::new(source, 0, 33).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2655,19 +2555,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2676,39 +2576,36 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Nil(Span::new(source, 20, 23).unwrap()),
+                                    ObjectExpression::Nil(Span::new(20, 23)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Nil(
-                                                Span::new(source, 25, 28).unwrap(),
-                                            ),
+                                            ObjectExpression::Nil(Span::new(25, 28)),
                                         ))],
-                                        Span::new(source, 24, 29).unwrap(),
+                                        Span::new(24, 29),
                                     ),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Nil(
-                                                Span::new(source, 31, 34).unwrap(),
-                                            ),
+                                            ObjectExpression::Nil(Span::new(31, 34)),
                                         ))],
-                                        Span::new(source, 30, 35).unwrap(),
+                                        Span::new(30, 35),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 36).unwrap(),
+                            Span::new(19, 36),
                         )),
                     ))],
-                    span: Span::new(source, 17, 39).unwrap(),
+                    span: Span::new(17, 39),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 39).unwrap(),
+                span: Span::new(0, 39),
             })],
-            Span::new(source, 0, 39).unwrap(),
+            pest::Span::new(source, 0, 39).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 
@@ -2721,19 +2618,19 @@ mod array {
             vec![Statement::Function(FunctionStatement {
                 ident: Ident {
                     ident: "main".to_owned(),
-                    span: Span::new(source, 1, 5).unwrap(),
+                    span: Span::new(1, 5),
                 },
                 params: vec![
                     Param {
                         ident: Ident {
                             ident: "argc".to_owned(),
-                            span: Span::new(source, 6, 10).unwrap(),
+                            span: Span::new(6, 10),
                         },
                     },
                     Param {
                         ident: Ident {
                             ident: "argv".to_owned(),
-                            span: Span::new(source, 12, 16).unwrap(),
+                            span: Span::new(12, 16),
                         },
                     },
                 ],
@@ -2742,43 +2639,42 @@ mod array {
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Nil(Span::new(source, 20, 23).unwrap()),
+                                    ObjectExpression::Nil(Span::new(20, 23)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
                                     ObjectExpression::Array(
                                         vec![
                                             ExpressionStatement::Value(ValueExpression::Object(
-                                                ObjectExpression::Nil(
-                                                    Span::new(source, 26, 29).unwrap(),
-                                                ),
+                                                ObjectExpression::Nil(Span::new(26, 29)),
                                             )),
                                             ExpressionStatement::Value(ValueExpression::Object(
                                                 ObjectExpression::Array(
                                                     vec![ExpressionStatement::Value(
                                                         ValueExpression::Object(
-                                                            ObjectExpression::Nil(
-                                                                Span::new(source, 32, 35).unwrap(),
-                                                            ),
+                                                            ObjectExpression::Nil(Span::new(
+                                                                32, 35,
+                                                            )),
                                                         ),
                                                     )],
-                                                    Span::new(source, 31, 36).unwrap(),
+                                                    Span::new(31, 36),
                                                 ),
                                             )),
                                         ],
-                                        Span::new(source, 25, 37).unwrap(),
+                                        Span::new(25, 37),
                                     ),
                                 )),
                             ],
-                            Span::new(source, 19, 38).unwrap(),
+                            Span::new(19, 38),
                         )),
                     ))],
-                    span: Span::new(source, 17, 41).unwrap(),
+                    span: Span::new(17, 41),
                 },
                 visibility: Visibility::Private,
-                span: Span::new(source, 0, 41).unwrap(),
+                span: Span::new(0, 41),
             })],
-            Span::new(source, 0, 41).unwrap(),
+            pest::Span::new(source, 0, 41).unwrap(),
         );
+
         assert_eq!(ast.unwrap(), program);
     }
 }

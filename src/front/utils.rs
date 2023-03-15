@@ -52,10 +52,10 @@ pub fn check_main_function(
         let params_spans = params.iter().map(|param| param.ident.span);
         let params_span = params_spans.fold(
             (
-                ident.span.start() + ident.ident.chars().count(),
-                ident.span.end(),
+                ident.span.start + ident.ident.chars().count(),
+                ident.span.end,
             ),
-            |acc, span| (acc.0.min(span.start() - 1), acc.1.max(span.end() + 1)),
+            |acc, span| (acc.0.min(span.start - 1), acc.1.max(span.end + 1)),
         );
 
         if visibility != &Visibility::Private {
@@ -64,7 +64,7 @@ pub fn check_main_function(
                     "The main function must be private".to_owned(),
                     "Remove the `^` to make the main function private".to_owned(),
                 ),
-                (ident.span.start() - 2, ident.span.start() - 2),
+                (ident.span.start - 2, ident.span.start - 2),
             ));
         }
         if params.len() > 2 || params.is_empty() {
@@ -120,7 +120,7 @@ pub fn check_main_function(
                         "
                         .to_owned(),
                     ),
-                    (argc.ident.span.end() + 1, argc.ident.span.end() + 1),
+                    (argc.ident.span.end + 1, argc.ident.span.end + 1),
                 ));
             }
         }
