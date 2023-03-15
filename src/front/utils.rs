@@ -31,7 +31,7 @@ pub fn check_ident_case(
                 with_case,
                 ident_name.as_ref().to_owned(),
             ),
-            (ident.span.start(), ident.span.end()),
+            ident.span,
         ))
     }
 }
@@ -99,7 +99,7 @@ pub fn check_main_function(
                         "The first parameter of the main function must be `argc`".to_owned(),
                         "Rename the first parameter to `argc`".to_owned(),
                     ),
-                    (argc.ident.span.start(), argc.ident.span.end()),
+                    argc.ident.span,
                 ));
             }
             if argv.is_some() && argv.unwrap().ident.ident != "argv" {
@@ -109,7 +109,7 @@ pub fn check_main_function(
                         "The second parameter of the main function must be `argv`".to_owned(),
                         "Rename the second parameter to `argv`".to_owned(),
                     ),
-                    (argv.ident.span.start(), argv.ident.span.end()),
+                    argv.ident.span,
                 ));
             } else if argv.is_none() {
                 return Err(OYError::new(
