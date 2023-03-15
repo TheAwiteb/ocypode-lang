@@ -1,12 +1,17 @@
+use crate::{
+    ast::{self, FunctionCallExpression},
+    diagnostics,
+    parser::Rule,
+};
 use miette::{GraphicalReportHandler, JSONReportHandler};
 use pest::error::InputLocation;
-use crate::{diagnostics, parser::Rule};
 
 /// The result type with the error.
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// The error type.
 #[derive(Debug)]
+#[non_exhaustive]
 pub enum ErrorKind {
     /// The name of the ident is invalid.
     /// - The first argument is the invalid name.
@@ -18,6 +23,28 @@ pub enum ErrorKind {
     /// - The first argument is the reason.
     /// - The second argument is the help message.
     InvalidMainFunction(String, String),
+    /// The ident is undeclared.
+    UnDeclaredIdent,
+    /// Alreade decleared variable.
+    /// - The first argument is the name of the variable.
+    /// - The second argument is the span of the new declaration.
+    /// (The span of the old declaration is stored in the error.)
+    AlreadyDeclaredVariable(String, (usize, usize)),
+    /// Alreade decleared function.
+    /// - The first argument is the name of the function.
+    /// - The second argument is the span of the new declaration.
+    /// (The span of the old declaration is stored in the error.)
+    AlreadyDeclaredFunction(String, (usize, usize)),
+    /// Missing main function.
+    /// (The span of the error will not be used.)
+    MissingMainFunction,
+    /// The exit code is invalid.
+    /// - The first argument is the exit code.
+    InvalidExitCode(bigdecimal::BigDecimal),
+    /// The ident is not callable.
+    /// (The span of the error is the not callable ident.)
+    NotCallable(FunctionCallExpression),
+    /// The parser error.
     Parse(String),
 }
 
@@ -30,6 +57,14 @@ pub struct Error {
 
 pub trait SpanError {
     fn span(&self) -> (usize, usize);
+}
+
+impl SpanError for ast::Span {
+    fn span(&self) -> (usize, usize) {
+        let (start, end) = (self.start, self.end);
+        let length = end - start;
+        (start, length)
+    }
 }
 
 impl SpanError for pest::Span<'_> {
