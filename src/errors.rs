@@ -1,5 +1,5 @@
 use miette::{GraphicalReportHandler, JSONReportHandler};
-
+use pest::error::InputLocation;
 use crate::{diagnostics, parser::Rule};
 
 /// The result type with the error.
@@ -28,14 +28,41 @@ pub struct Error {
     pub span: miette::SourceSpan,
 }
 
+pub trait SpanError {
+    fn span(&self) -> (usize, usize);
+}
+
+impl SpanError for pest::Span<'_> {
+    fn span(&self) -> (usize, usize) {
+        let (start, end) = (self.start(), self.end());
+        let length = end - start;
+        (start, length)
+    }
+}
+
+impl SpanError for InputLocation {
+    fn span(&self) -> (usize, usize) {
+        match self {
+            InputLocation::Pos(pos) => (*pos, 1),
+            InputLocation::Span((start, end)) => (*start, end - start),
+        }
+    }
+}
+
+impl SpanError for (usize, usize) {
+    fn span(&self) -> (usize, usize) {
+        let (start, end) = self;
+        let length = end - start;
+        (*start, length)
+    }
+}
+
 impl Error {
     /// Create a new error.
-    pub fn new(kind: ErrorKind, span: (usize, usize)) -> Self {
-        let (start, end) = span;
-        let length = end - start;
+    pub fn new(kind: ErrorKind, span: impl SpanError) -> Self {
         Self {
             kind,
-            span: (start, length).into(),
+            span: span.span().into(),
         }
     }
 
@@ -71,13 +98,9 @@ impl Error {
 
 impl From<pest::error::Error<Rule>> for Error {
     fn from(err: pest::error::Error<Rule>) -> Self {
-        let (start, length) = match err.location {
-            pest::error::InputLocation::Pos(pos) => (pos, 1),
-            pest::error::InputLocation::Span((start, end)) => (start, end - start),
-        };
-        Self {
-            kind: ErrorKind::Parse(err.variant.message().to_string()),
-            span: miette::SourceSpan::new(start.into(), length.into()),
-        }
+        Self::new(
+            ErrorKind::Parse(err.variant.message().to_string()),
+            err.location,
+        )
     }
 }
