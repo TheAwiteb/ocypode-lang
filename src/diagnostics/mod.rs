@@ -95,5 +95,9 @@ pub fn as_diagnostic<T: Default>(
                 span: err.span,
             }))
         }
+        _ => {
+            println!("{:?}", err);
+            unimplemented!("The diagnostic of this error is not implemented yet")
+        }
     }
 }
