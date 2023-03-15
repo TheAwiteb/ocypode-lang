@@ -26,10 +26,10 @@ fn test_single_line_comment() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(55, 59),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(21, 59),
         })],
@@ -64,10 +64,10 @@ fn test_multi_line_block_comment() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(66, 70),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(49, 70),
         })],
@@ -102,10 +102,10 @@ fn test_block_comment_in_beginning() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(34, 38),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(17, 38),
         })],
@@ -140,10 +140,10 @@ fn test_block_comment_in_end() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(17, 21),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 21),
         })],
@@ -178,10 +178,10 @@ fn test_block_comment_in_beginning_and_end() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(34, 38),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(17, 38),
         })],

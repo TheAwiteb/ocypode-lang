@@ -200,7 +200,7 @@ impl<'a> OYParser {
             .into_inner()
             .map(Self::parse_param)
             .collect::<OYResult<Vec<_>>>()?;
-        let block = Self::parse_block(inner.next().unwrap())?;
+        let block = Some(Self::parse_block(inner.next().unwrap())?);
         utils::check_main_function(&ident, &params, &visibility)?;
         Ok(Statement::Function(FunctionStatement {
             ident,

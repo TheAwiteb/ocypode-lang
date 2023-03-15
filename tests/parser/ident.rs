@@ -28,7 +28,7 @@ fn test_single_ident() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "ident".to_owned(),
@@ -36,7 +36,7 @@ fn test_single_ident() {
                     }),
                 ))],
                 span: Span::new(17, 27),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 27),
         })],
@@ -71,7 +71,7 @@ fn test_ident_with_underscore() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident".to_owned(),
@@ -79,7 +79,7 @@ fn test_ident_with_underscore() {
                     }),
                 ))],
                 span: Span::new(17, 32),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 32),
         })],
@@ -114,7 +114,7 @@ fn test_ident_start_with_underscore() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "_ident".to_owned(),
@@ -122,7 +122,7 @@ fn test_ident_start_with_underscore() {
                     }),
                 ))],
                 span: Span::new(17, 28),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 28),
         })],
@@ -157,7 +157,7 @@ fn test_ident_end_with_underscore() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "ident_".to_owned(),
@@ -165,7 +165,7 @@ fn test_ident_end_with_underscore() {
                     }),
                 ))],
                 span: Span::new(17, 28),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 28),
         })],
@@ -200,7 +200,7 @@ fn test_ident_with_multiple_underscore() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_".to_owned(),
@@ -208,7 +208,7 @@ fn test_ident_with_multiple_underscore() {
                     }),
                 ))],
                 span: Span::new(17, 33),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 33),
         })],
@@ -243,7 +243,7 @@ fn test_ident_with_number() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident1".to_owned(),
@@ -251,7 +251,7 @@ fn test_ident_with_number() {
                     }),
                 ))],
                 span: Span::new(17, 33),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 33),
         })],
@@ -286,7 +286,7 @@ fn test_ident_with_underscore_and_number() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1".to_owned(),
@@ -294,7 +294,7 @@ fn test_ident_with_underscore_and_number() {
                     }),
                 ))],
                 span: Span::new(17, 34),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 34),
         })],
@@ -329,7 +329,7 @@ fn test_ident_with_underscore_and_tow_number() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2".to_owned(),
@@ -337,7 +337,7 @@ fn test_ident_with_underscore_and_tow_number() {
                     }),
                 ))],
                 span: Span::new(17, 36),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 36),
         })],
@@ -372,7 +372,7 @@ fn test_ident_with_underscore_and_tow_number_and_underscore() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2_".to_owned(),
@@ -380,7 +380,7 @@ fn test_ident_with_underscore_and_tow_number_and_underscore() {
                     }),
                 ))],
                 span: Span::new(17, 37),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 37),
         })],
@@ -415,7 +415,7 @@ fn test_ident_with_underscore_and_tow_number_and_underscore_and_number() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2_3".to_owned(),
@@ -423,7 +423,7 @@ fn test_ident_with_underscore_and_tow_number_and_underscore_and_number() {
                     }),
                 ))],
                 span: Span::new(17, 38),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 38),
         })],

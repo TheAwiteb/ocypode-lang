@@ -25,7 +25,7 @@ fn test_params() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -37,7 +37,7 @@ fn test_params() {
                     },
                 ))],
                 span: Span::new(17, 28),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 28),
         })],
@@ -72,7 +72,7 @@ fn test_more_function_args_as_ident() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -97,7 +97,7 @@ fn test_more_function_args_as_ident() {
                     },
                 ))],
                 span: Span::new(17, 44),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 44),
         })],
@@ -132,7 +132,7 @@ fn test_more_function_args_as_string() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -154,7 +154,7 @@ fn test_more_function_args_as_string() {
                     },
                 ))],
                 span: Span::new(17, 50),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 50),
         })],
@@ -189,7 +189,7 @@ fn test_more_function_args_as_int() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -211,7 +211,7 @@ fn test_more_function_args_as_int() {
                     },
                 ))],
                 span: Span::new(17, 35),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 35),
         })],
@@ -246,7 +246,7 @@ fn test_more_function_args_as_float() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -268,7 +268,7 @@ fn test_more_function_args_as_float() {
                     },
                 ))],
                 span: Span::new(17, 41),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 41),
         })],
@@ -303,7 +303,7 @@ fn test_more_function_args_as_bool() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -325,7 +325,7 @@ fn test_more_function_args_as_bool() {
                     },
                 ))],
                 span: Span::new(17, 45),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 45),
         })],
@@ -360,7 +360,7 @@ fn test_more_function_args_as_nil() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -382,7 +382,7 @@ fn test_more_function_args_as_nil() {
                     },
                 ))],
                 span: Span::new(17, 41),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 41),
         })],
@@ -417,7 +417,7 @@ fn test_more_function_args_as_array() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -478,7 +478,7 @@ fn test_more_function_args_as_array() {
                     },
                 ))],
                 span: Span::new(17, 53),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 53),
         })],
@@ -531,10 +531,10 @@ fn test_more_function_params() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
                 span: Span::new(27, 31),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 31),
         })],

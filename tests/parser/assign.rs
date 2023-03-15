@@ -25,7 +25,7 @@ fn test_assign_to_int() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -37,7 +37,7 @@ fn test_assign_to_int() {
                     span: Span::new(19, 24),
                 })],
                 span: Span::new(17, 27),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 27),
         })],
@@ -72,7 +72,7 @@ fn test_assign_to_ident() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -85,7 +85,7 @@ fn test_assign_to_ident() {
                     span: Span::new(19, 24),
                 })],
                 span: Span::new(17, 27),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 27),
         })],
@@ -120,7 +120,7 @@ fn test_assign_to_float() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -132,7 +132,7 @@ fn test_assign_to_float() {
                     span: Span::new(19, 26),
                 })],
                 span: Span::new(17, 29),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 29),
         })],
@@ -167,7 +167,7 @@ fn test_assign_to_string() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -179,7 +179,7 @@ fn test_assign_to_string() {
                     span: Span::new(19, 30),
                 })],
                 span: Span::new(17, 33),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 33),
         })],
@@ -214,7 +214,7 @@ fn test_assign_to_bool() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -226,7 +226,7 @@ fn test_assign_to_bool() {
                     span: Span::new(19, 27),
                 })],
                 span: Span::new(17, 30),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 30),
         })],
@@ -261,7 +261,7 @@ fn test_assign_to_array() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -286,7 +286,7 @@ fn test_assign_to_array() {
                     span: Span::new(19, 32),
                 })],
                 span: Span::new(17, 35),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 35),
         })],
@@ -321,7 +321,7 @@ fn test_assign_to_nil() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -333,7 +333,7 @@ fn test_assign_to_nil() {
                     span: Span::new(19, 26),
                 })],
                 span: Span::new(17, 29),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 29),
         })],
@@ -368,7 +368,7 @@ fn test_assign_to_fun_call() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -385,7 +385,7 @@ fn test_assign_to_fun_call() {
                     span: Span::new(19, 28),
                 })],
                 span: Span::new(17, 31),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 31),
         })],
@@ -420,7 +420,7 @@ fn test_assign_to_fun_call_with_args() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Assignment(AssignmentStatement {
                     ident: Ident {
                         ident: "a".to_owned(),
@@ -447,7 +447,7 @@ fn test_assign_to_fun_call_with_args() {
                     span: Span::new(19, 35),
                 })],
                 span: Span::new(17, 38),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 38),
         })],

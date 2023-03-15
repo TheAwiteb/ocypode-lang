@@ -71,11 +71,15 @@ impl Interpreter {
     pub fn execute_function(&mut self, function: FunctionStatement) -> OYResult<ObjectExpression> {
         // Then we need to execute the function.
         let mut result = ObjectExpression::Nil(function.span);
-        for statement in function.block.statements {
-            if let Some(return_value) = self.execute_statement(statement)? {
-                result = return_value;
-                break;
+        if let Some(block) = function.block {
+            for statement in block.statements {
+                if let Some(return_value) = self.execute_statement(statement)? {
+                    result = return_value;
+                    break;
+                }
             }
+        } else {
+            unimplemented!("Built-in functions are not implemented yet.")
         }
         self.environment.exit_frame();
         Ok(result)

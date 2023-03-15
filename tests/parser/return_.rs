@@ -26,7 +26,7 @@ fn test_return_integer() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Int(2.into(), Span::new(26, 27)),
@@ -34,7 +34,7 @@ fn test_return_integer() {
                     span: Span::new(19, 27),
                 })],
                 span: Span::new(17, 30),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 30),
         })],
@@ -70,7 +70,7 @@ fn test_return_float() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Float("2.0".parse().unwrap(), Span::new(26, 29)),
@@ -78,7 +78,7 @@ fn test_return_float() {
                     span: Span::new(19, 29),
                 })],
                 span: Span::new(17, 32),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 32),
         })],
@@ -114,7 +114,7 @@ fn test_return_string() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::String("hello".to_owned(), Span::new(26, 33)),
@@ -122,7 +122,7 @@ fn test_return_string() {
                     span: Span::new(19, 33),
                 })],
                 span: Span::new(17, 36),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 36),
         })],
@@ -158,7 +158,7 @@ fn test_return_array() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Array(
@@ -179,7 +179,7 @@ fn test_return_array() {
                     span: Span::new(19, 35),
                 })],
                 span: Span::new(17, 38),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 38),
         })],
@@ -215,7 +215,7 @@ fn test_return_bool() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Bool(true, Span::new(26, 30)),
@@ -223,7 +223,7 @@ fn test_return_bool() {
                     span: Span::new(19, 30),
                 })],
                 span: Span::new(17, 33),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 33),
         })],
@@ -259,7 +259,7 @@ fn test_return_nil() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Nil(Span::new(26, 29)),
@@ -267,7 +267,7 @@ fn test_return_nil() {
                     span: Span::new(19, 29),
                 })],
                 span: Span::new(17, 32),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 32),
         })],

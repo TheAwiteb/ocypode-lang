@@ -13,10 +13,10 @@ fn test_public_visibility() {
                 span: Span::new(2, 5),
             },
             params: vec![],
-            block: Block {
+            block: Some(Block {
                 statements: vec![],
                 span: Span::new(5, 9),
-            },
+            }),
             visibility: Visibility::Public,
             span: Span::new(0, 9),
         })],
@@ -39,10 +39,10 @@ fn test_private_visibility() {
                 span: Span::new(1, 4),
             },
             params: vec![],
-            block: Block {
+            block: Some(Block {
                 statements: vec![],
                 span: Span::new(4, 8),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 8),
         })],

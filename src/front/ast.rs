@@ -101,7 +101,8 @@ pub struct FunctionStatement {
     /// Parameters
     pub params: Vec<Param>,
     /// The function block
-    pub block: Block,
+    /// If the block is None, the function is builtin function.
+    pub block: Option<Block>,
     /// The function visibility.
     pub visibility: Visibility,
     /// The span of the function statement.

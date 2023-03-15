@@ -31,12 +31,12 @@ mod nil {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Nil(Span::new(19, 22))),
                     ))],
                     span: Span::new(17, 25),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 25),
             })],
@@ -72,7 +72,7 @@ mod nil {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Ident(Ident {
                             ident: "nilsome".to_owned(),
@@ -80,7 +80,7 @@ mod nil {
                         }),
                     ))],
                     span: Span::new(17, 29),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 29),
             })],
@@ -116,7 +116,7 @@ mod nil {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Ident(Ident {
                             ident: "somnil".to_owned(),
@@ -124,7 +124,7 @@ mod nil {
                         }),
                     ))],
                     span: Span::new(17, 28),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 28),
             })],
@@ -164,7 +164,7 @@ mod bool {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
                             ObjectExpression::Bool(true, Span::new(19, 23)),
@@ -174,7 +174,7 @@ mod bool {
                         ))),
                     ],
                     span: Span::new(17, 32),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 32),
             })],
@@ -210,7 +210,7 @@ mod bool {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
@@ -226,7 +226,7 @@ mod bool {
                         ))),
                     ],
                     span: Span::new(17, 40),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 40),
             })],
@@ -262,7 +262,7 @@ mod bool {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Ident(
                             Ident {
@@ -278,7 +278,7 @@ mod bool {
                         ))),
                     ],
                     span: Span::new(17, 40),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 40),
             })],
@@ -318,7 +318,7 @@ mod int {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![
                         Statement::Expression(ExpressionStatement::Value(ValueExpression::Object(
                             ObjectExpression::Int(0.into(), Span::new(19, 20)),
@@ -352,7 +352,7 @@ mod int {
                         ))),
                     ],
                     span: Span::new(17, 41),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 41),
             })],
@@ -395,7 +395,7 @@ mod int {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Int(
                             1234567890.into(),
@@ -403,7 +403,7 @@ mod int {
                         )),
                     ))],
                     span: Span::new(17, 32),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 32),
             })],
@@ -438,7 +438,7 @@ mod int {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Int(
                             "123456789012345678901234567890".parse().unwrap(),
@@ -446,7 +446,7 @@ mod int {
                         )),
                     ))],
                     span: Span::new(17, 52),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 52),
             })],
@@ -493,7 +493,7 @@ mod float {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Float(
                             "0.0".parse().unwrap(),
@@ -501,7 +501,7 @@ mod float {
                         )),
                     ))],
                     span: Span::new(17, 25),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 25),
             })],
@@ -543,7 +543,7 @@ mod float {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Float(
                             "1234567890.1234567890".parse().unwrap(),
@@ -551,7 +551,7 @@ mod float {
                         )),
                     ))],
                     span: Span::new(17, 43),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 43),
             })],
@@ -594,7 +594,7 @@ mod float {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Float(
                             "123456789012345678901234567890.123456789012345678901234567890"
@@ -604,7 +604,7 @@ mod float {
                         )),
                     ))],
                     span: Span::new(17, 83),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 83),
             })],
@@ -651,7 +651,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "".to_owned(),
@@ -659,7 +659,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 24),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 24),
             })],
@@ -701,7 +701,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "a".to_owned(),
@@ -709,7 +709,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 25),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 25),
             })],
@@ -744,7 +744,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "some".to_owned(),
@@ -752,7 +752,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 28),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 28),
             })],
@@ -794,7 +794,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             r#"some\""#.to_owned(),
@@ -802,7 +802,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 30),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 30),
             })],
@@ -844,7 +844,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             "some\nmultiline".to_owned(),
@@ -852,7 +852,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 38),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 38),
             })],
@@ -887,7 +887,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             r#"some\nmultiline\""#.to_owned(),
@@ -895,7 +895,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 41),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 41),
             })],
@@ -930,7 +930,8 @@ mod string {
                     },
                 },
             ],
-            block: Block {
+            block: Some(
+    Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Object(ObjectExpression::String(
                         "Consequat aliquip reprehenderit ex dolore reprehenderit ut sunt cupidatat aute.Incididunt ex nisi id et.Deserunt aute est sit dolor tempor.".to_owned(),
@@ -938,8 +939,9 @@ mod string {
                     )),
                 ))],
                 span: Span::new(17, 163),
-            },
-            visibility: Visibility::Private,
+            }
+),
+visibility: Visibility::Private,
             span: Span::new(0, 163),
         })],
         pest::Span::new(source, 0, 163).unwrap(),
@@ -973,7 +975,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             lorem.to_owned(),
@@ -981,7 +983,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 19 + lorem.len() + 5),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 19 + lorem.len() + 5),
             })],
@@ -1024,7 +1026,7 @@ mod string {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
                             lorem.to_owned(),
@@ -1032,7 +1034,7 @@ mod string {
                         )),
                     ))],
                     span: Span::new(17, 19 + lorem.len() + 5),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 19 + lorem.len() + 5),
             })],
@@ -1071,12 +1073,12 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(vec![], Span::new(19, 21))),
                     ))],
                     span: Span::new(17, 24),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 24),
             })],
@@ -1111,7 +1113,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![ExpressionStatement::Value(ValueExpression::Object(
@@ -1121,7 +1123,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 25),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 25),
             })],
@@ -1156,7 +1158,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1174,7 +1176,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 31),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 31),
             })],
@@ -1209,7 +1211,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1248,7 +1250,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 53),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 53),
             })],
@@ -1283,7 +1285,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1314,7 +1316,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 39),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 39),
             })],
@@ -1349,7 +1351,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1402,7 +1404,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 57),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 57),
             })],
@@ -1437,7 +1439,8 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(
+    Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1559,8 +1562,9 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 65),
-                },
-                visibility: Visibility::Private,
+                }
+),
+visibility: Visibility::Private,
                 span: Span::new(0, 65),
             })],
             pest::Span::new(source, 0, 65).unwrap(),
@@ -1593,7 +1597,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1662,7 +1666,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 64),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 64),
             })],
@@ -1697,7 +1701,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1826,7 +1830,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 114),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 114),
             })],
@@ -1861,7 +1865,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1895,7 +1899,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 37),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 37),
             })],
@@ -1930,7 +1934,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -1983,7 +1987,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 47),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 47),
             })],
@@ -2018,7 +2022,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2109,7 +2113,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 67),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 67),
             })],
@@ -2144,7 +2148,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2159,7 +2163,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 39),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 39),
             })],
@@ -2195,7 +2199,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2231,7 +2235,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 81),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 81),
             })],
@@ -2266,7 +2270,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2289,7 +2293,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 41),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 41),
             })],
@@ -2324,7 +2328,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2358,7 +2362,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 47),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 47),
             })],
@@ -2393,7 +2397,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2431,7 +2435,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 47),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 47),
             })],
@@ -2466,7 +2470,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2481,7 +2485,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 31),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 31),
             })],
@@ -2516,7 +2520,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2536,7 +2540,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 33),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 33),
             })],
@@ -2571,7 +2575,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2599,7 +2603,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 39),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 39),
             })],
@@ -2634,7 +2638,7 @@ mod array {
                         },
                     },
                 ],
-                block: Block {
+                block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::Array(
                             vec![
@@ -2668,7 +2672,7 @@ mod array {
                         )),
                     ))],
                     span: Span::new(17, 41),
-                },
+                }),
                 visibility: Visibility::Private,
                 span: Span::new(0, 41),
             })],

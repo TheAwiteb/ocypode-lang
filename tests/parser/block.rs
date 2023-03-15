@@ -25,7 +25,7 @@ fn test_single_line_block() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -37,7 +37,7 @@ fn test_single_line_block() {
                     },
                 ))],
                 span: Span::new(17, 28),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 28),
         })],
@@ -74,7 +74,7 @@ fn test_multi_line_block() {
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
@@ -86,7 +86,7 @@ fn test_multi_line_block() {
                     },
                 ))],
                 span: Span::new(17, 42),
-            },
+            }),
             visibility: Visibility::Private,
             span: Span::new(0, 42),
         })],
