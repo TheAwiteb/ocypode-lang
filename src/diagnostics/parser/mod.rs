@@ -4,7 +4,7 @@ pub mod definitions;
 
 /// Syntax error diagnostic.
 #[derive(Debug, Diagnostic, thiserror::Error)]
-#[diagnostic(code(ll::parser::syntax_error))]
+#[diagnostic(code("parser::syntax_error"))]
 #[error("Syntax error")]
 pub struct SyntaxError {
     /// The source code.
