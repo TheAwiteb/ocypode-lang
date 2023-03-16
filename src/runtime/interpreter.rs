@@ -1,6 +1,6 @@
 use bigdecimal::ToPrimitive;
 
-use super::environment::Environment;
+use super::{builtins::Builtins, environment::Environment};
 use crate::{
     ast::*,
     errors::{Error as OYError, ErrorKind, Result as OYResult},
@@ -16,7 +16,9 @@ pub struct Interpreter {
 impl Interpreter {
     /// Creates a new interpreter.
     pub fn new() -> Self {
-        Self::default()
+        Self {
+            environment: Environment::new(),
+        }
     }
 
     /// Interprets the given program. This will return the exit code of the program.
@@ -79,7 +81,7 @@ impl Interpreter {
                 }
             }
         } else {
-            unimplemented!("Built-in functions are not implemented yet.")
+            unreachable!("The builtin function should call in the call expression")
         }
         self.environment.exit_frame();
         Ok(result)
@@ -153,16 +155,47 @@ impl Interpreter {
                 ))
             }
         };
-        self.environment
-            .new_for_function(&function.params, func_call.args)?;
-        self.execute_function(function)
+        if function.params.len() != func_call.args.len() {
+            return Err(OYError::new(
+                ErrorKind::UncorrectArguments(
+                    func_call.args.len(),
+                    function.params,
+                    function.ident.ident,
+                ),
+                func_call.span,
+            ));
+        }
+        if function.block.is_none() {
+            Builtins::execute_builtin_funtion(
+                &function.ident.ident,
+                func_call.span,
+                func_call
+                    .args
+                    .into_iter()
+                    .map(|v| self.execute_expression(v))
+                    .collect::<OYResult<Vec<ObjectExpression>>>()?,
+            )
+        } else {
+            self.environment
+                .new_for_function(&function.params, func_call.args)?;
+            self.execute_function(function)
+        }
     }
 
     /// Executes the given value.
     /// This will return the result of the value.
     pub fn execute_value(&mut self, value: ValueExpression) -> OYResult<ObjectExpression> {
         match value {
-            ValueExpression::Object(object) => Ok(object),
+            ValueExpression::Object(ObjectExpression::Array(arr, _)) => {
+                let mut result = Vec::new();
+                for expr in arr {
+                    result.push(ExpressionStatement::Value(ValueExpression::Object(
+                        self.execute_expression(expr)?,
+                    )));
+                }
+                Ok(ObjectExpression::Array(result, Span::new(0, 0)))
+            }
+            ValueExpression::Object(obj) => Ok(obj),
             ValueExpression::Ident(ident) => {
                 match self.environment.take(&ident.ident, ident.span)? {
                     Statement::Assignment(assign) => self.execute_expression(assign.expression),

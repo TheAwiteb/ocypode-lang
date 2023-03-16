@@ -1,6 +1,8 @@
 use crate::ast::*;
 use crate::errors::{Error as OYError, ErrorKind as OYErrorKind, Result as OYResult, SpanError};
 
+use super::builtins::Builtins;
+
 #[derive(Debug, Clone)]
 pub struct Frame {
     /// The local functions that are available in the frame.
@@ -20,7 +22,9 @@ pub struct Environment {
 impl Environment {
     /// Creates a new environment.
     pub fn new() -> Self {
-        Self::default()
+        let mut env = Self::default();
+        Builtins::new().env_init(&mut env).unwrap();
+        env
     }
 
     /// Creates a new environment with the variables. Is used when passing arguments to a function.
