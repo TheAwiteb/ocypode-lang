@@ -71,7 +71,6 @@ impl Interpreter {
     ///
     /// Note: The environment should contain a fream for the function (Will removed after the function is executed)
     pub fn execute_function(&mut self, function: FunctionStatement) -> OYResult<ObjectExpression> {
-        // Then we need to execute the function.
         let mut result = ObjectExpression::Nil(function.span);
         if let Some(block) = function.block {
             for statement in block.statements {
@@ -172,7 +171,12 @@ impl Interpreter {
                 func_call
                     .args
                     .into_iter()
-                    .map(|v| self.execute_expression(v))
+                    .map(|arg| {
+                        let arg_span = arg.span();
+                        let mut expr = self.execute_expression(arg)?;
+                        *expr.span_mut() = arg_span;
+                        Ok(expr)
+                    })
                     .collect::<OYResult<Vec<ObjectExpression>>>()?,
             )
         } else {
