@@ -17,5 +17,7 @@ bigdecimal = "0.3.0"
 heck = { version = "0.4.1", features = ["unicode"] }
 miette = { version = "5.5.0", features = ["fancy", "fancy-no-backtrace"] }
 pest = "2.5.6"
+regex = "1.7.1"
 pest_derive = "2.5.6"
+rustyline = "11.0.0"
 thiserror = "1.0.39"
