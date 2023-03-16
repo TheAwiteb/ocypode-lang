@@ -92,11 +92,8 @@ impl Environment {
             .find(|f| f.ident.ident == new_function.ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclaredFunction(
-                    new_function.ident.ident,
-                    new_function.ident.span.span(),
-                ),
-                old_func.span,
+                OYErrorKind::AlreadyDeclared(new_function.ident.ident, old_func.ident.span.span()),
+                new_function.ident.span,
             ))
         } else {
             self.global_functions.push(new_function);
@@ -113,11 +110,11 @@ impl Environment {
             .find(|f| f.ident.ident == new_function.ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclaredFunction(
+                OYErrorKind::AlreadyDeclared(
                     new_function.ident.ident,
                     new_function.ident.span.span(),
                 ),
-                old_func.span,
+                old_func.span(),
             ))
         } else {
             self.frame().local_functions.push(new_function);
@@ -134,11 +131,11 @@ impl Environment {
             .find(|v| v.ident.ident == new_variable.ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclaredVariable(
+                OYErrorKind::AlreadyDeclared(
                     new_variable.ident.ident,
-                    new_variable.ident.span.span(),
+                    old_variable.span.span(),
                 ),
-                old_variable.span,
+                new_variable.span,
             ))
         } else {
             self.frame().variables.push(new_variable);
@@ -203,7 +200,10 @@ impl Environment {
             // Not removing the global function from the environment.
             Ok(Statement::Function(func))
         } else {
-            Err(OYError::new(OYErrorKind::UnDeclaredIdent, span))
+            Err(OYError::new(
+                OYErrorKind::UnDeclaredIdent(ident.to_owned()),
+                span,
+            ))
         }
     }
 }

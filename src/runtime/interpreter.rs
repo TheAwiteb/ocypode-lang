@@ -3,7 +3,7 @@ use bigdecimal::ToPrimitive;
 use super::{builtins::Builtins, environment::Environment};
 use crate::{
     ast::*,
-    errors::{Error as OYError, ErrorKind, Result as OYResult},
+    errors::{Error as OYError, ErrorKind, Result as OYResult, SpanError},
 };
 
 /// The interpreter. This will execute the AST of Ocypode and return the result. check the AST in `src/front/ast.rs`.
@@ -22,7 +22,7 @@ impl Interpreter {
     }
 
     /// Interprets the given program. This will return the exit code of the program.
-    pub fn interpret(mut self, program: Program, argc: usize, argv: Vec<String>) -> OYResult<i32> {
+    pub fn interpret(mut self, program: Program, argc: usize, argv: Vec<String>) -> OYResult<u8> {
         let mut exit_code = 0;
         // The program contains only functions. So we need to add them to the environment.
         for function in program.0 {
@@ -56,7 +56,7 @@ impl Interpreter {
                 .new_for_function(&main_function.params, args)?;
             exit_code = match self.execute_function(main_function.clone())? {
                 ObjectExpression::Int(int, span) => int
-                    .to_i32()
+                    .to_u8()
                     .ok_or_else(|| OYError::new(ErrorKind::InvalidExitCode(int), span))?,
                 _ => exit_code,
             };
@@ -144,12 +144,17 @@ impl Interpreter {
                 ExpressionStatement::Value(ValueExpression::Object(
                     ObjectExpression::Function(function),
                 )) => function,
-                _ => return Err(OYError::new(ErrorKind::NotCallable(func_call), assign.span)),
+                _ => {
+                    return Err(OYError::new(
+                        ErrorKind::NotCallable(func_call.span.span()),
+                        assign.span,
+                    ))
+                }
             },
             Statement::Function(function) => function,
             _ => {
                 return Err(OYError::new(
-                    ErrorKind::NotCallable(func_call),
+                    ErrorKind::NotCallable(func_call.span.span()),
                     function.span(),
                 ))
             }
@@ -158,6 +163,7 @@ impl Interpreter {
             return Err(OYError::new(
                 ErrorKind::UncorrectArguments(
                     func_call.args.len(),
+                    function.ident.span.span(),
                     function.params,
                     function.ident.ident,
                 ),
