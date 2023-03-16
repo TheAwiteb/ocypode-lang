@@ -170,6 +170,63 @@ pub enum ObjectExpression {
     Nil(Span),
 }
 
+impl ObjectExpression {
+    /// Returns the name of the type of the object.
+    pub fn type_name(&self) -> &'static str {
+        match self {
+            ObjectExpression::Function(_) => "function",
+            ObjectExpression::String(_, _) => "string",
+            ObjectExpression::Int(_, _) => "int",
+            ObjectExpression::Float(_, _) => "float",
+            ObjectExpression::Bool(_, _) => "bool",
+            ObjectExpression::Array(_, _) => "array",
+            ObjectExpression::Nil(_) => "nil",
+        }
+    }
+}
+
+impl ToString for ObjectExpression {
+    fn to_string(&self) -> String {
+        match self {
+            ObjectExpression::Function(func) => {
+                let func_type = if func.block.is_none() {
+                    "<builtin-function> "
+                } else {
+                    ""
+                };
+                format!(
+                    "{}{}{}",
+                    func_type,
+                    func.ident.ident,
+                    func.params
+                        .iter()
+                        .map(|param| format!("<{}>", param.ident.ident))
+                        .collect::<String>()
+                )
+            }
+            ObjectExpression::String(string, _) => string.clone(),
+            ObjectExpression::Int(int, _) => int.to_string(),
+            ObjectExpression::Float(float, _) => float.to_string(),
+            ObjectExpression::Bool(boolean, _) => boolean.to_string(),
+            ObjectExpression::Array(arr, _) => {
+                format!(
+                    "[{}]",
+                    arr.iter()
+                        .map(|e| match e {
+                            ExpressionStatement::Value(ValueExpression::Object(obj)) => {
+                                obj.to_string()
+                            }
+                            _ => unreachable!("array can only contain objects"),
+                        })
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
+            }
+            ObjectExpression::Nil(_) => "nil".to_string(),
+        }
+    }
+}
+
 impl ASTNodeSpan for Ident {
     fn span(&self) -> Span {
         self.span
