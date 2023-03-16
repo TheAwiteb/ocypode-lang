@@ -1,8 +1,4 @@
-use crate::{
-    ast::{self, FunctionCallExpression},
-    diagnostics,
-    parser::Rule,
-};
+use crate::{ast, diagnostics, parser::Rule};
 use miette::{GraphicalReportHandler, JSONReportHandler};
 use pest::error::InputLocation;
 
@@ -43,7 +39,25 @@ pub enum ErrorKind {
     InvalidExitCode(bigdecimal::BigDecimal),
     /// The ident is not callable.
     /// (The span of the error is the not callable ident.)
-    NotCallable(FunctionCallExpression),
+    NotCallable(ast::FunctionCallExpression),
+    /// Uncorrect arguments.
+    /// - The first argument is the number of arguments.
+    /// - The second argument is the parametets of the called function.
+    /// - The third argument is the name of the called function.
+    /// (The span of the error is the function call expression.)
+    UncorrectArguments(usize, Vec<ast::Param>, String),
+    /// Unexpected type.
+    /// - The first argument is the expected type.
+    /// - The second argument is the actual type.
+    /// (The span of the error is the expression.)
+    UnexpectedType(String, String),
+    /// Format error.
+    /// - The first argument is the reason.
+    /// - The second argument is the help message.
+    FormatError(String, String),
+    /// Runtime error. (The error is not a bug in the interpreter.)
+    /// - The first argument is the reason.
+    Runtime(String),
     /// The parser error.
     Parse(String),
 }
