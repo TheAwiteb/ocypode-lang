@@ -6,6 +6,7 @@ pub type Program<'a> = (Vec<Statement>, pest::Span<'a>);
 /// Returns the span of the given AST node.
 pub trait ASTNodeSpan {
     fn span(&self) -> Span;
+    fn span_mut(&mut self) -> &mut Span;
 }
 
 /// A span.
@@ -231,11 +232,17 @@ impl ASTNodeSpan for Ident {
     fn span(&self) -> Span {
         self.span
     }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
+    }
 }
 
 impl ASTNodeSpan for Param {
     fn span(&self) -> Span {
         self.ident.span()
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        self.ident.span_mut()
     }
 }
 
@@ -243,11 +250,17 @@ impl ASTNodeSpan for Block {
     fn span(&self) -> Span {
         self.span
     }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
+    }
 }
 
 impl ASTNodeSpan for FunctionStatement {
     fn span(&self) -> Span {
         self.span
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
     }
 }
 
@@ -255,17 +268,26 @@ impl ASTNodeSpan for AssignmentStatement {
     fn span(&self) -> Span {
         self.span
     }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
+    }
 }
 
 impl ASTNodeSpan for ReturnStatement {
     fn span(&self) -> Span {
         self.span
     }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
+    }
 }
 
 impl ASTNodeSpan for FunctionCallExpression {
     fn span(&self) -> Span {
         self.span
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
     }
 }
 
@@ -274,6 +296,12 @@ impl ASTNodeSpan for ValueExpression {
         match self {
             ValueExpression::Ident(ident) => ident.span(),
             ValueExpression::Object(object) => object.span(),
+        }
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        match self {
+            ValueExpression::Ident(ident) => ident.span_mut(),
+            ValueExpression::Object(object) => object.span_mut(),
         }
     }
 }
@@ -290,6 +318,17 @@ impl ASTNodeSpan for ObjectExpression {
             ObjectExpression::Nil(span) => *span,
         }
     }
+    fn span_mut(&mut self) -> &mut Span {
+        match self {
+            ObjectExpression::Function(function) => function.span_mut(),
+            ObjectExpression::String(_, span) => span,
+            ObjectExpression::Int(_, span) => span,
+            ObjectExpression::Float(_, span) => span,
+            ObjectExpression::Bool(_, span) => span,
+            ObjectExpression::Array(_, span) => span,
+            ObjectExpression::Nil(span) => span,
+        }
+    }
 }
 
 impl ASTNodeSpan for ExpressionStatement {
@@ -297,6 +336,12 @@ impl ASTNodeSpan for ExpressionStatement {
         match self {
             ExpressionStatement::FunctionCall(function_call) => function_call.span(),
             ExpressionStatement::Value(value) => value.span(),
+        }
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        match self {
+            ExpressionStatement::FunctionCall(function_call) => function_call.span_mut(),
+            ExpressionStatement::Value(value) => value.span_mut(),
         }
     }
 }
@@ -308,6 +353,14 @@ impl ASTNodeSpan for Statement {
             Statement::Assignment(assignment) => assignment.span(),
             Statement::Return(return_statement) => return_statement.span(),
             Statement::Expression(expression) => expression.span(),
+        }
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        match self {
+            Statement::Function(function) => function.span_mut(),
+            Statement::Assignment(assignment) => assignment.span_mut(),
+            Statement::Return(return_statement) => return_statement.span_mut(),
+            Statement::Expression(expression) => expression.span_mut(),
         }
     }
 }
