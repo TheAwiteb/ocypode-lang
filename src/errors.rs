@@ -6,7 +6,7 @@ use pest::error::InputLocation;
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// The error type.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 #[non_exhaustive]
 pub enum ErrorKind {
     /// The name of the ident is invalid.
@@ -20,17 +20,13 @@ pub enum ErrorKind {
     /// - The second argument is the help message.
     InvalidMainFunction(String, String),
     /// The ident is undeclared.
-    UnDeclaredIdent,
-    /// Alreade decleared variable.
-    /// - The first argument is the name of the variable.
-    /// - The second argument is the span of the new declaration.
-    /// (The span of the old declaration is stored in the error.)
-    AlreadyDeclaredVariable(String, (usize, usize)),
+    /// - The first argument is the name of the ident.
+    UnDeclaredIdent(String),
     /// Alreade decleared function.
-    /// - The first argument is the name of the function.
-    /// - The second argument is the span of the new declaration.
-    /// (The span of the old declaration is stored in the error.)
-    AlreadyDeclaredFunction(String, (usize, usize)),
+    /// - The first argument is the name of the ident.
+    /// - The second argument is the span of the old declaration.
+    /// (The span of the new declaration is stored in the error.)
+    AlreadyDeclared(String, (usize, usize)),
     /// Missing main function.
     /// (The span of the error will not be used.)
     MissingMainFunction,
@@ -38,14 +34,16 @@ pub enum ErrorKind {
     /// - The first argument is the exit code.
     InvalidExitCode(bigdecimal::BigDecimal),
     /// The ident is not callable.
+    /// - The first argument is the span of the call
     /// (The span of the error is the not callable ident.)
-    NotCallable(ast::FunctionCallExpression),
+    NotCallable((usize, usize)),
     /// Uncorrect arguments.
     /// - The first argument is the number of arguments.
-    /// - The second argument is the parametets of the called function.
-    /// - The third argument is the name of the called function.
+    /// - The second argument is the span of the called function.
+    /// - The third argument is the parametets of the called function.
+    /// - The forth argument is the name of the called function.
     /// (The span of the error is the function call expression.)
-    UncorrectArguments(usize, Vec<ast::Param>, String),
+    UncorrectArguments(usize, (usize, usize), Vec<ast::Param>, String),
     /// Unexpected type.
     /// - The first argument is the expected type.
     /// - The second argument is the actual type.
@@ -63,7 +61,7 @@ pub enum ErrorKind {
 }
 
 /// The error type.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Error {
     pub kind: ErrorKind,
     pub span: miette::SourceSpan,
@@ -117,7 +115,7 @@ impl Error {
 
     /// Returns a diagnostic for this error.
     pub fn as_diagnostic(
-        &self,
+        self,
         source: impl AsRef<str>,
         source_name: impl AsRef<str>,
     ) -> diagnostics::Diagnostic<GraphicalReportHandler> {
@@ -133,7 +131,7 @@ impl Error {
 
     /// Returns a json diagnostic for this error.
     pub fn as_json_diagnostic(
-        &self,
+        self,
         source: impl AsRef<str>,
         source_name: impl AsRef<str>,
     ) -> diagnostics::Diagnostic<JSONReportHandler> {
