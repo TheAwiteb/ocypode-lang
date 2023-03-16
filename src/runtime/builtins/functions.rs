@@ -52,6 +52,10 @@ pub fn format(args: Vec<ObjectExpression>, call_span: Span) -> OYResult<ObjectEx
         .unwrap()
         .find_iter(format)
         .count();
+    let placeholder_count_without_index = regex::Regex::new(r"\{\}")
+        .unwrap()
+        .find_iter(format)
+        .count();
 
     if args.len() > placeholder_count {
         return Err(OYError::new(
@@ -61,6 +65,18 @@ pub fn format(args: Vec<ObjectExpression>, call_span: Span) -> OYResult<ObjectEx
                     placeholder_count, args.len()
                 ),
                 format!("The format string has {} placeholders, remove the extra arguments or add more placeholders", placeholder_count),
+            ),
+            call_span,
+        ));
+    }
+    if placeholder_count_without_index > args.len() {
+        return Err(OYError::new(
+            OYErrorKind::FormatError(
+                    "Too many placeholders without index for format string".to_owned()
+                ,
+                format!("| The format string has {} placeholders without index\n| and there are only {} arguments, you can add more\n| arguments or remove the extra placeholders", 
+                    placeholder_count_without_index, args.len()
+                ),
             ),
             call_span,
         ));
