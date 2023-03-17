@@ -20,8 +20,12 @@ macro_rules! test_diagnostics {
                 if let Err(err) = program {
                     let diagnostic = err.as_diagnostic(&source, concat!("tests/diagnostics/", stringify!($diagnostic), ".oy"));
                     assert_eq!(format!("{}", diagnostic), expected);
-                } else {
-                    panic!("The program has no errors, but it should have one.")
+                } else if let Err(err) = ocypode_lang::runtime::interpreter::Interpreter::new().interpret(
+                        program.unwrap(),0,vec![]
+                    )
+                {
+                    let diagnostic = err.as_diagnostic(source, concat!("tests/diagnostics/", stringify!($diagnostic), ".oy").to_string());
+                    assert_eq!(format!("{}", diagnostic), expected);
                 }
             }
         )+
@@ -32,6 +36,7 @@ test_diagnostics!(
     invalid_function_name
     invalid_variable_name
     invalid_parameter_name
+    missing_main_function
     main_function_contains_no_parameters
     main_function_contains_more_than_tow_parameters
     main_function_contains_one_parameter
@@ -39,4 +44,12 @@ test_diagnostics!(
     main_function_contains_tow_invalid_parameters
     main_function_invalid_second_parameter
     main_function_cannot_be_public
+    undeclared_ident
+    already_declared_function
+    already_declared_variable
+    invalid_exit_code
+    not_callable
+    uncorrect_argument
+    unexpected_type
+    format_error
 );

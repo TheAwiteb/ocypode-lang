@@ -1,0 +1,9 @@
+~foo<name>{<
+    return len<name>;
+>}
+
+~main<argc><argv>{<
+    my_var = foo<"Awiteb">;
+    my_var<>;
+    return 0;
+>}

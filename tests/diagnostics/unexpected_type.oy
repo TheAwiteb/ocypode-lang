@@ -1,0 +1,5 @@
+~main<argc><argv>{<
+    // So I want the length of the integer 43 (:
+    my_var = len<43>;
+    return 0;
+>}

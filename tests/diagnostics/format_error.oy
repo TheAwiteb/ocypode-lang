@@ -1,0 +1,5 @@
+~main<argc><argv>{<
+    str = format<"Hi {}, {0} you are {} years old"><["Awiteb"]>;
+    println<[str]>;
+    return 0;
+>}

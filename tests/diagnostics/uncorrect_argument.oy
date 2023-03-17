@@ -1,0 +1,8 @@
+~foo<name>{<
+    return len<name>;
+>}
+
+~main<argc><argv>{<
+    my_var = foo<"Awiteb"><99>; // Is take the age right?
+    return 0;
+>}

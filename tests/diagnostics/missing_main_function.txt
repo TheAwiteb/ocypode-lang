@@ -1,0 +1,4 @@
+Error(runtime::functions::missing_main)
+
+  💥 Missing main function
+  help: Try adding a main function.

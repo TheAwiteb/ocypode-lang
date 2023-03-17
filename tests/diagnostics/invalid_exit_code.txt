@@ -1,0 +1,13 @@
+Error(runtime::functions::invalid_exit_code)
+
+  💥 Invalid exit code
+   ╭─[tests/diagnostics/invalid_exit_code.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     // Doing some stuff here, but you can't see it (: 
+ 3 │ 
+ 4 │     return 284;
+   ·            ─┬─
+   ·             ╰── Invalid exit code `284`
+ 5 │ >}
+   ╰────
+  help: Try using a number between 0 and 255.

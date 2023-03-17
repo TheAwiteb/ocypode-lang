@@ -1,0 +1,16 @@
+Error(runtime::idents::not_callable)
+
+  💥 Calling a non-function
+   ╭─[tests/diagnostics/not_callable.oy:3:1]
+ 3 │ >}
+ 4 │ 
+ 5 │ ~main<argc><argv>{<
+ 6 │     my_var = foo<"Awiteb">;
+   ·     ───────────┬──────────
+   ·                ╰── This is not a function
+ 7 │     my_var<>;
+   ·     ────┬───
+   ·         ╰── And you tried to call it here
+ 8 │     return 0;
+ 9 │ >}
+   ╰────

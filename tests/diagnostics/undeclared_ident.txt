@@ -1,0 +1,11 @@
+Error(runtime::idents::undeclared_ident)
+
+  💥 Use of undeclared identifier
+   ╭─[tests/diagnostics/undeclared_ident.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     return name;
+   ·            ──┬─
+   ·              ╰── Undeclared identifier `name`
+ 3 │ >}
+   ╰────
+  help: Try declaring `name` before using it.

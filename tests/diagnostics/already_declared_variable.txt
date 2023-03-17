@@ -1,0 +1,17 @@
+Error(runtime::already_declared)
+
+  💥 Identifier already declared
+   ╭─[tests/diagnostics/already_declared_variable.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     name = "Awiteb";
+   ·     ───────┬───────
+   ·            ╰── Identifier `name` already declared here
+ 3 │     age = 20;
+ 4 │     country = "Saudi Arabia";
+ 5 │     name = "Awiteb";
+   ·     ───────┬───────
+   ·            ╰── And you tried to declare it again here
+ 6 │     return 0;
+ 7 │ >}
+   ╰────
+  help: Try renaming `name` or removing the previous declaration.

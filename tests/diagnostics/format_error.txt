@@ -1,0 +1,15 @@
+Error(runtime::format)
+
+  💥 Format error
+   ╭─[tests/diagnostics/format_error.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     str = format<"Hi {}, {0} you are {} years old"><["Awiteb"]>;
+   ·           ──────────────────────────┬──────────────────────────
+   ·                                     ╰── Too many placeholders without index for format string
+ 3 │     println<[str]>;
+ 4 │     return 0;
+ 5 │ >}
+   ╰────
+  help: | The format string has 2 placeholders without index
+        | and there are only 1 arguments, you can add more
+        | arguments or remove the extra placeholders

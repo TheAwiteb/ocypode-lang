@@ -1,0 +1,13 @@
+Error(runtime::types::unexpected_type)
+
+  💥 Unexpected type
+   ╭─[tests/diagnostics/unexpected_type.oy:1:1]
+ 1 │ ~main<argc><argv>{<
+ 2 │     // So I want the length of the integer 43 (:
+ 3 │     my_var = len<43>;
+   ·                  ─┬
+   ·                   ╰── Unexpected type `int`
+ 4 │     return 0;
+ 5 │ >}
+   ╰────
+  help: Try using a `Array or String` type.
