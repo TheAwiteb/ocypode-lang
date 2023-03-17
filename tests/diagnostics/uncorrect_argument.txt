@@ -1,0 +1,18 @@
+Error(runtime::functions::uncorrect_arguments)
+
+  💥 Uncorrect arguments
+   ╭─[tests/diagnostics/uncorrect_argument.oy:1:1]
+ 1 │ ~foo<name>{<
+   ·  ─┬─
+   ·   ╰── Function `foo` is defined here
+ 2 │     return len<name>;
+ 3 │ >}
+ 4 │ 
+ 5 │ ~main<argc><argv>{<
+ 6 │     my_var = foo<"Awiteb"><99>; // Is take the age right?
+   ·              ────────┬────────
+   ·                      ╰── Uncorrect arguments for function `foo`
+ 7 │     return 0;
+ 8 │ >}
+   ╰────
+  help: `foo` function takes 1 arguments, which are `name`. But you are passed 2 arguments.

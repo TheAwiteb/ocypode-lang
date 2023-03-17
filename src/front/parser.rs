@@ -41,7 +41,7 @@ impl<'a> OYParser {
     }
 
     /// Parse the given source code to a statement.
-    pub fn parse_statement(statement: Pair<'a, Rule>) -> OYResult<Option<Statement<'a>>> {
+    pub fn parse_statement(statement: Pair<'a, Rule>) -> OYResult<Option<Statement>> {
         match statement.as_rule() {
             Rule::func_def => Ok(Some(Self::parse_function(statement)?)),
             Rule::assignment => Ok(Some(Self::parse_assignment(statement)?)),
@@ -59,7 +59,7 @@ impl<'a> OYParser {
     }
 
     /// Parse the given source code to a block.
-    pub fn parse_block(block: Pair<'a, Rule>) -> OYResult<Block<'a>> {
+    pub fn parse_block(block: Pair<'a, Rule>) -> OYResult<Block> {
         let span = block.as_span();
         Ok(Block {
             statements: block
@@ -69,18 +69,18 @@ impl<'a> OYParser {
                 .into_iter()
                 .flatten()
                 .collect(),
-            span,
+            span: span.into(),
         })
     }
 
     /// Parse the given source code to a identifier.
     /// Make sure that the given pair is a identifier, otherwise this will panic.
-    pub fn parse_ident(ident: Pair<'a, Rule>) -> Ident<'a> {
+    pub fn parse_ident(ident: Pair<'a, Rule>) -> Ident {
         let span = ident.as_span();
         let ident = ident.as_str().to_owned();
         Ident {
             ident: ident.as_str().to_owned(),
-            span,
+            span: span.into(),
         }
     }
 
@@ -99,7 +99,7 @@ impl<'a> OYParser {
     }
 
     /// Parse the given source code to a expression.
-    pub fn parse_expression(expr: Pair<'a, Rule>) -> OYResult<ExpressionStatement<'a>> {
+    pub fn parse_expression(expr: Pair<'a, Rule>) -> OYResult<ExpressionStatement> {
         match expr.as_rule() {
             Rule::func_call => Ok(ExpressionStatement::FunctionCall(
                 Self::parse_function_call(expr)?,
@@ -115,7 +115,7 @@ impl<'a> OYParser {
 
     /// Parse the given source code to a function call expression.
     /// Make sure that the given pair is a function call expression, otherwise this will panic.
-    pub fn parse_function_call(func: Pair<'a, Rule>) -> OYResult<FunctionCallExpression<'a>> {
+    pub fn parse_function_call(func: Pair<'a, Rule>) -> OYResult<FunctionCallExpression> {
         let span = func.as_span();
         let mut inner = func.into_inner();
         Ok(FunctionCallExpression {
@@ -129,52 +129,52 @@ impl<'a> OYParser {
                     Self::parse_expression(expr)
                 })
                 .collect::<OYResult<_>>()?,
-            span,
+            span: span.into(),
         })
     }
 
     /// Parse the given source code to a return statement.
     /// Make sure that the given pair is a return statement, otherwise this will panic.
-    pub fn parse_return(return_stmt: Pair<'a, Rule>) -> OYResult<Statement<'a>> {
+    pub fn parse_return(return_stmt: Pair<'a, Rule>) -> OYResult<Statement> {
         let span = return_stmt.as_span();
         let mut inner = return_stmt.into_inner();
         Ok(Statement::Return(ReturnStatement {
             value: Self::parse_expression(inner.next().unwrap())?,
-            span,
+            span: span.into(),
         }))
     }
 
     /// Parse the given source code to a value expression.
     /// Make sure that the given pair is a value expression, otherwise this will panic.
-    pub fn parse_value(value: Pair<'a, Rule>) -> OYResult<ValueExpression<'a>> {
+    pub fn parse_value(value: Pair<'a, Rule>) -> OYResult<ValueExpression> {
         let span = value.as_span();
         Ok(match value.as_rule() {
             Rule::IDENT => ValueExpression::Ident(Self::parse_ident(value)),
             Rule::string => ValueExpression::Object(ObjectExpression::String(
                 // Remove the quotes, because they are not part of the string.
                 value.as_str()[1..value.as_str().len() - 1].to_owned(),
-                span,
+                span.into(),
             )),
             Rule::float => ValueExpression::Object(ObjectExpression::Float(
                 BigDecimal::from_str(value.as_str()).unwrap(),
-                span,
+                span.into(),
             )),
             Rule::integer => ValueExpression::Object(ObjectExpression::Int(
                 BigDecimal::from_str(value.as_str()).unwrap(),
-                span,
+                span.into(),
             )),
             Rule::boolean => ValueExpression::Object(ObjectExpression::Bool(
                 value.as_str().parse().unwrap(),
-                span,
+                span.into(),
             )),
             Rule::array => ValueExpression::Object(ObjectExpression::Array(
                 value
                     .into_inner()
                     .map(Self::parse_expression)
                     .collect::<OYResult<_>>()?,
-                span,
+                span.into(),
             )),
-            Rule::nil => ValueExpression::Object(ObjectExpression::Nil(span)),
+            Rule::nil => ValueExpression::Object(ObjectExpression::Nil(span.into())),
             Rule::value => Self::parse_value(value.into_inner().next().unwrap())?,
             _ => {
                 dbg!(value.as_rule());
@@ -185,7 +185,7 @@ impl<'a> OYParser {
 
     /// Parse the given source code to a function statement.
     /// Make sure that the given pair is a function statement, otherwise this will panic.
-    pub fn parse_function(func: Pair<'a, Rule>) -> OYResult<Statement<'a>> {
+    pub fn parse_function(func: Pair<'a, Rule>) -> OYResult<Statement> {
         let span = func.as_span();
         let mut inner = func.into_inner();
         let visibility = Self::parse_visibility(inner.next().unwrap());
@@ -200,20 +200,20 @@ impl<'a> OYParser {
             .into_inner()
             .map(Self::parse_param)
             .collect::<OYResult<Vec<_>>>()?;
-        let block = Self::parse_block(inner.next().unwrap())?;
+        let block = Some(Self::parse_block(inner.next().unwrap())?);
         utils::check_main_function(&ident, &params, &visibility)?;
         Ok(Statement::Function(FunctionStatement {
             ident,
             params,
             block,
             visibility,
-            span,
+            span: span.into(),
         }))
     }
 
     /// Parse the parameter of a function.
     /// Make sure that the given pair is a function parameter, otherwise this will panic.
-    pub fn parse_param(param: Pair<'a, Rule>) -> OYResult<Param<'a>> {
+    pub fn parse_param(param: Pair<'a, Rule>) -> OYResult<Param> {
         let ident = utils::check_ident_case(
             Self::parse_ident(param.into_inner().next().unwrap()),
             "parameter",
@@ -225,7 +225,7 @@ impl<'a> OYParser {
 
     /// Parse the given source code to a assignment statement.
     /// Make sure that the given pair is a assignment statement, otherwise this will panic.
-    pub fn parse_assignment(assignment: Pair<'a, Rule>) -> OYResult<Statement<'a>> {
+    pub fn parse_assignment(assignment: Pair<'a, Rule>) -> OYResult<Statement> {
         let span = assignment.as_span();
         let mut inner = assignment.into_inner();
         let ident = utils::check_ident_case(
@@ -238,7 +238,7 @@ impl<'a> OYParser {
         Ok(Statement::Assignment(AssignmentStatement {
             ident,
             expression,
-            span,
+            span: span.into(),
         }))
     }
 }

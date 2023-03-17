@@ -1,6 +1,5 @@
 use ocypode_lang::ast::*;
 use ocypode_lang::parser::OYParser;
-use pest::Span;
 
 #[test]
 fn test_single_line_comment() {
@@ -11,31 +10,32 @@ fn test_single_line_comment() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 22, 26).unwrap(),
+                span: Span::new(22, 26),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 27, 31).unwrap(),
+                        span: Span::new(27, 31),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 50, 54).unwrap(),
+                        span: Span::new(50, 54),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 55, 59).unwrap(),
-            },
+                span: Span::new(55, 59),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 21, 59).unwrap(),
+            span: Span::new(21, 59),
         })],
-        Span::new(source, 0, 76).unwrap(),
+        pest::Span::new(source, 0, 76).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -48,31 +48,32 @@ fn test_multi_line_block_comment() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 50, 54).unwrap(),
+                span: Span::new(50, 54),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 55, 59).unwrap(),
+                        span: Span::new(55, 59),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 61, 65).unwrap(),
+                        span: Span::new(61, 65),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 66, 70).unwrap(),
-            },
+                span: Span::new(66, 70),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 49, 70).unwrap(),
+            span: Span::new(49, 70),
         })],
-        Span::new(source, 0, 117).unwrap(),
+        pest::Span::new(source, 0, 117).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -85,31 +86,32 @@ fn test_block_comment_in_beginning() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 18, 22).unwrap(),
+                span: Span::new(18, 22),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 23, 27).unwrap(),
+                        span: Span::new(23, 27),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 29, 33).unwrap(),
+                        span: Span::new(29, 33),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 34, 38).unwrap(),
-            },
+                span: Span::new(34, 38),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 17, 38).unwrap(),
+            span: Span::new(17, 38),
         })],
-        Span::new(source, 0, 38).unwrap(),
+        pest::Span::new(source, 0, 38).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -122,31 +124,32 @@ fn test_block_comment_in_end() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 17, 21).unwrap(),
-            },
+                span: Span::new(17, 21),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 21).unwrap(),
+            span: Span::new(0, 21),
         })],
-        Span::new(source, 0, 38).unwrap(),
+        pest::Span::new(source, 0, 38).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -159,30 +162,31 @@ fn test_block_comment_in_beginning_and_end() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 18, 22).unwrap(),
+                span: Span::new(18, 22),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 23, 27).unwrap(),
+                        span: Span::new(23, 27),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 29, 33).unwrap(),
+                        span: Span::new(29, 33),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 34, 38).unwrap(),
-            },
+                span: Span::new(34, 38),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 17, 38).unwrap(),
+            span: Span::new(17, 38),
         })],
-        Span::new(source, 0, 62).unwrap(),
+        pest::Span::new(source, 0, 62).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }

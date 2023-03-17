@@ -1,7 +1,6 @@
 use ocypode_lang::ast::*;
 use ocypode_lang::errors::ErrorKind;
 use ocypode_lang::parser::OYParser;
-use pest::Span;
 
 #[test]
 fn test_single_ident() {
@@ -13,36 +12,37 @@ fn test_single_ident() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "ident".to_owned(),
-                        span: Span::new(source, 19, 24).unwrap(),
+                        span: Span::new(19, 24),
                     }),
                 ))],
-                span: Span::new(source, 17, 27).unwrap(),
-            },
+                span: Span::new(17, 27),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 27).unwrap(),
+            span: Span::new(0, 27),
         })],
-        Span::new(source, 0, 27).unwrap(),
+        pest::Span::new(source, 0, 27).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -55,36 +55,37 @@ fn test_ident_with_underscore() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident".to_owned(),
-                        span: Span::new(source, 19, 29).unwrap(),
+                        span: Span::new(19, 29),
                     }),
                 ))],
-                span: Span::new(source, 17, 32).unwrap(),
-            },
+                span: Span::new(17, 32),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 32).unwrap(),
+            span: Span::new(0, 32),
         })],
-        Span::new(source, 0, 32).unwrap(),
+        pest::Span::new(source, 0, 32).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -97,36 +98,37 @@ fn test_ident_start_with_underscore() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "_ident".to_owned(),
-                        span: Span::new(source, 19, 25).unwrap(),
+                        span: Span::new(19, 25),
                     }),
                 ))],
-                span: Span::new(source, 17, 28).unwrap(),
-            },
+                span: Span::new(17, 28),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 28).unwrap(),
+            span: Span::new(0, 28),
         })],
-        Span::new(source, 0, 28).unwrap(),
+        pest::Span::new(source, 0, 28).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -139,36 +141,37 @@ fn test_ident_end_with_underscore() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "ident_".to_owned(),
-                        span: Span::new(source, 19, 25).unwrap(),
+                        span: Span::new(19, 25),
                     }),
                 ))],
-                span: Span::new(source, 17, 28).unwrap(),
-            },
+                span: Span::new(17, 28),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 28).unwrap(),
+            span: Span::new(0, 28),
         })],
-        Span::new(source, 0, 28).unwrap(),
+        pest::Span::new(source, 0, 28).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -181,36 +184,37 @@ fn test_ident_with_multiple_underscore() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_".to_owned(),
-                        span: Span::new(source, 19, 30).unwrap(),
+                        span: Span::new(19, 30),
                     }),
                 ))],
-                span: Span::new(source, 17, 33).unwrap(),
-            },
+                span: Span::new(17, 33),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 33).unwrap(),
+            span: Span::new(0, 33),
         })],
-        Span::new(source, 0, 33).unwrap(),
+        pest::Span::new(source, 0, 33).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -223,36 +227,37 @@ fn test_ident_with_number() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident1".to_owned(),
-                        span: Span::new(source, 19, 30).unwrap(),
+                        span: Span::new(19, 30),
                     }),
                 ))],
-                span: Span::new(source, 17, 33).unwrap(),
-            },
+                span: Span::new(17, 33),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 33).unwrap(),
+            span: Span::new(0, 33),
         })],
-        Span::new(source, 0, 33).unwrap(),
+        pest::Span::new(source, 0, 33).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -265,36 +270,37 @@ fn test_ident_with_underscore_and_number() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1".to_owned(),
-                        span: Span::new(source, 19, 31).unwrap(),
+                        span: Span::new(19, 31),
                     }),
                 ))],
-                span: Span::new(source, 17, 34).unwrap(),
-            },
+                span: Span::new(17, 34),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 34).unwrap(),
+            span: Span::new(0, 34),
         })],
-        Span::new(source, 0, 34).unwrap(),
+        pest::Span::new(source, 0, 34).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -307,36 +313,37 @@ fn test_ident_with_underscore_and_tow_number() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2".to_owned(),
-                        span: Span::new(source, 19, 33).unwrap(),
+                        span: Span::new(19, 33),
                     }),
                 ))],
-                span: Span::new(source, 17, 36).unwrap(),
-            },
+                span: Span::new(17, 36),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 36).unwrap(),
+            span: Span::new(0, 36),
         })],
-        Span::new(source, 0, 36).unwrap(),
+        pest::Span::new(source, 0, 36).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -349,36 +356,37 @@ fn test_ident_with_underscore_and_tow_number_and_underscore() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2_".to_owned(),
-                        span: Span::new(source, 19, 34).unwrap(),
+                        span: Span::new(19, 34),
                     }),
                 ))],
-                span: Span::new(source, 17, 37).unwrap(),
-            },
+                span: Span::new(17, 37),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 37).unwrap(),
+            span: Span::new(0, 37),
         })],
-        Span::new(source, 0, 37).unwrap(),
+        pest::Span::new(source, 0, 37).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -391,36 +399,37 @@ fn test_ident_with_underscore_and_tow_number_and_underscore_and_number() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::Value(
                     ValueExpression::Ident(Ident {
                         ident: "some_ident_1_2_3".to_owned(),
-                        span: Span::new(source, 19, 35).unwrap(),
+                        span: Span::new(19, 35),
                     }),
                 ))],
-                span: Span::new(source, 17, 38).unwrap(),
-            },
+                span: Span::new(17, 38),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 38).unwrap(),
+            span: Span::new(0, 38),
         })],
-        Span::new(source, 0, 38).unwrap(),
+        pest::Span::new(source, 0, 38).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 

@@ -1,0 +1,19 @@
+Error(runtime::already_declared)
+
+  💥 Identifier already declared
+   ╭─[tests/diagnostics/already_declared_function.oy:1:1]
+ 1 │ ~foo{<
+   ·  ─┬─
+   ·   ╰── Identifier `foo` already declared here
+ 2 │     // Do something with foo
+ 3 │     // foo is cool name right?
+ 4 │ >}
+ 5 │ 
+ 6 │ // Create anouther foo
+ 7 │ ~foo{<
+   ·  ─┬─
+   ·   ╰── And you tried to declare it again here
+ 8 │     // Here we go again
+ 9 │ >}
+   ╰────
+  help: Try renaming `foo` or removing the previous declaration.

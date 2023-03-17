@@ -1,0 +1,7 @@
+~main<argc><argv>{<
+    name = "Awiteb";
+    age = 20;
+    country = "Saudi Arabia";
+    name = "Awiteb";
+    return 0;
+>}

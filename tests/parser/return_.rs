@@ -1,5 +1,4 @@
 use ocypode_lang::{ast::*, parser::OYParser};
-use pest::Span;
 
 #[test]
 fn test_return_integer() {
@@ -11,36 +10,37 @@ fn test_return_integer() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
-                        ObjectExpression::Int(2.into(), Span::new(source, 26, 27).unwrap()),
+                        ObjectExpression::Int(2.into(), Span::new(26, 27)),
                     )),
-                    span: Span::new(source, 19, 27).unwrap(),
+                    span: Span::new(19, 27),
                 })],
-                span: Span::new(source, 17, 30).unwrap(),
-            },
+                span: Span::new(17, 30),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 30).unwrap(),
+            span: Span::new(0, 30),
         })],
-        Span::new(source, 0, 30).unwrap(),
+        pest::Span::new(source, 0, 30).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -54,39 +54,37 @@ fn test_return_float() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
-                        ObjectExpression::Float(
-                            "2.0".parse().unwrap(),
-                            Span::new(source, 26, 29).unwrap(),
-                        ),
+                        ObjectExpression::Float("2.0".parse().unwrap(), Span::new(26, 29)),
                     )),
-                    span: Span::new(source, 19, 29).unwrap(),
+                    span: Span::new(19, 29),
                 })],
-                span: Span::new(source, 17, 32).unwrap(),
-            },
+                span: Span::new(17, 32),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 32).unwrap(),
+            span: Span::new(0, 32),
         })],
-        Span::new(source, 0, 32).unwrap(),
+        pest::Span::new(source, 0, 32).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -100,39 +98,37 @@ fn test_return_string() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
-                        ObjectExpression::String(
-                            "hello".to_owned(),
-                            Span::new(source, 26, 33).unwrap(),
-                        ),
+                        ObjectExpression::String("hello".to_owned(), Span::new(26, 33)),
                     )),
-                    span: Span::new(source, 19, 33).unwrap(),
+                    span: Span::new(19, 33),
                 })],
-                span: Span::new(source, 17, 36).unwrap(),
-            },
+                span: Span::new(17, 36),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 36).unwrap(),
+            span: Span::new(0, 36),
         })],
-        Span::new(source, 0, 36).unwrap(),
+        pest::Span::new(source, 0, 36).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -146,58 +142,50 @@ fn test_return_array() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
                         ObjectExpression::Array(
                             vec![
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        1.into(),
-                                        Span::new(source, 27, 28).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(1.into(), Span::new(27, 28)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        2.into(),
-                                        Span::new(source, 30, 31).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(2.into(), Span::new(30, 31)),
                                 )),
                                 ExpressionStatement::Value(ValueExpression::Object(
-                                    ObjectExpression::Int(
-                                        3.into(),
-                                        Span::new(source, 33, 34).unwrap(),
-                                    ),
+                                    ObjectExpression::Int(3.into(), Span::new(33, 34)),
                                 )),
                             ],
-                            Span::new(source, 26, 35).unwrap(),
+                            Span::new(26, 35),
                         ),
                     )),
-                    span: Span::new(source, 19, 35).unwrap(),
+                    span: Span::new(19, 35),
                 })],
-                span: Span::new(source, 17, 38).unwrap(),
-            },
+                span: Span::new(17, 38),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 38).unwrap(),
+            span: Span::new(0, 38),
         })],
-        Span::new(source, 0, 38).unwrap(),
+        pest::Span::new(source, 0, 38).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -211,36 +199,37 @@ fn test_return_bool() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
-                        ObjectExpression::Bool(true, Span::new(source, 26, 30).unwrap()),
+                        ObjectExpression::Bool(true, Span::new(26, 30)),
                     )),
-                    span: Span::new(source, 19, 30).unwrap(),
+                    span: Span::new(19, 30),
                 })],
-                span: Span::new(source, 17, 33).unwrap(),
-            },
+                span: Span::new(17, 33),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 33).unwrap(),
+            span: Span::new(0, 33),
         })],
-        Span::new(source, 0, 33).unwrap(),
+        pest::Span::new(source, 0, 33).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -254,35 +243,36 @@ fn test_return_nil() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Return(ReturnStatement {
                     value: ExpressionStatement::Value(ValueExpression::Object(
-                        ObjectExpression::Nil(Span::new(source, 26, 29).unwrap()),
+                        ObjectExpression::Nil(Span::new(26, 29)),
                     )),
-                    span: Span::new(source, 19, 29).unwrap(),
+                    span: Span::new(19, 29),
                 })],
-                span: Span::new(source, 17, 32).unwrap(),
-            },
+                span: Span::new(17, 32),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 32).unwrap(),
+            span: Span::new(0, 32),
         })],
-        Span::new(source, 0, 32).unwrap(),
+        pest::Span::new(source, 0, 32).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }

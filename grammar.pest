@@ -26,7 +26,7 @@ integer = @{ ("0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT*) }
 float   = @{ integer ~ "." ~ ASCII_DIGIT+ }
 boolean = @{ ("true" | "false") ~ !LETTER }
 nil     = @{ "nil" ~ !LETTER }
-array   =  { "[" ~ !"," ~ (value ~ ("," ~ value)*)? ~ ","? ~ "]" }
+array   =  { "[" ~ !"," ~ (expression ~ ("," ~ expression)*)? ~ ","? ~ "]" }
 
 value = { string | float | integer | boolean | array | nil | IDENT }
 

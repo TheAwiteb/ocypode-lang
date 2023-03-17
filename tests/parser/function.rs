@@ -1,5 +1,3 @@
-use pest::Span;
-
 use ocypode_lang::{ast::*, errors::ErrorKind, parser::OYParser};
 
 #[test]
@@ -11,40 +9,41 @@ fn test_params() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: Vec::new(),
-                        span: Span::new(source, 19, 25).unwrap(),
+                        span: Span::new(19, 25),
                     },
                 ))],
-                span: Span::new(source, 17, 28).unwrap(),
-            },
+                span: Span::new(17, 28),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 28).unwrap(),
+            span: Span::new(0, 28),
         })],
-        Span::new(source, 0, 28).unwrap(),
+        pest::Span::new(source, 0, 28).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -57,53 +56,54 @@ fn test_more_function_args_as_ident() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Ident(Ident {
                                 ident: "arg1".to_owned(),
-                                span: Span::new(source, 24, 28).unwrap(),
+                                span: Span::new(24, 28),
                             })),
                             ExpressionStatement::Value(ValueExpression::Ident(Ident {
                                 ident: "arg2".to_owned(),
-                                span: Span::new(source, 30, 34).unwrap(),
+                                span: Span::new(30, 34),
                             })),
                             ExpressionStatement::Value(ValueExpression::Ident(Ident {
                                 ident: "arg3".to_owned(),
-                                span: Span::new(source, 36, 40).unwrap(),
+                                span: Span::new(36, 40),
                             })),
                         ],
-                        span: Span::new(source, 19, 41).unwrap(),
+                        span: Span::new(19, 41),
                     },
                 ))],
-                span: Span::new(source, 17, 44).unwrap(),
-            },
+                span: Span::new(17, 44),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 44).unwrap(),
+            span: Span::new(0, 44),
         })],
-        Span::new(source, 0, 44).unwrap(),
+        pest::Span::new(source, 0, 44).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -116,59 +116,51 @@ fn test_more_function_args_as_string() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String(
-                                    "arg1".to_owned(),
-                                    Span::new(source, 24, 30).unwrap(),
-                                ),
+                                ObjectExpression::String("arg1".to_owned(), Span::new(24, 30)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String(
-                                    "arg2".to_owned(),
-                                    Span::new(source, 32, 38).unwrap(),
-                                ),
+                                ObjectExpression::String("arg2".to_owned(), Span::new(32, 38)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String(
-                                    "arg3".to_owned(),
-                                    Span::new(source, 40, 46).unwrap(),
-                                ),
+                                ObjectExpression::String("arg3".to_owned(), Span::new(40, 46)),
                             )),
                         ],
-                        span: Span::new(source, 19, 47).unwrap(),
+                        span: Span::new(19, 47),
                     },
                 ))],
-                span: Span::new(source, 17, 50).unwrap(),
-            },
+                span: Span::new(17, 50),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 50).unwrap(),
+            span: Span::new(0, 50),
         })],
-        Span::new(source, 0, 50).unwrap(),
+        pest::Span::new(source, 0, 50).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -181,50 +173,51 @@ fn test_more_function_args_as_int() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(1.into(), Span::new(source, 24, 25).unwrap()),
+                                ObjectExpression::Int(1.into(), Span::new(24, 25)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(2.into(), Span::new(source, 27, 28).unwrap()),
+                                ObjectExpression::Int(2.into(), Span::new(27, 28)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(3.into(), Span::new(source, 30, 31).unwrap()),
+                                ObjectExpression::Int(3.into(), Span::new(30, 31)),
                             )),
                         ],
-                        span: Span::new(source, 19, 32).unwrap(),
+                        span: Span::new(19, 32),
                     },
                 ))],
-                span: Span::new(source, 17, 35).unwrap(),
-            },
+                span: Span::new(17, 35),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 35).unwrap(),
+            span: Span::new(0, 35),
         })],
-        Span::new(source, 0, 35).unwrap(),
+        pest::Span::new(source, 0, 35).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -237,59 +230,51 @@ fn test_more_function_args_as_float() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float(
-                                    "1.0".parse().unwrap(),
-                                    Span::new(source, 24, 27).unwrap(),
-                                ),
+                                ObjectExpression::Float("1.0".parse().unwrap(), Span::new(24, 27)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float(
-                                    "2.0".parse().unwrap(),
-                                    Span::new(source, 29, 32).unwrap(),
-                                ),
+                                ObjectExpression::Float("2.0".parse().unwrap(), Span::new(29, 32)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float(
-                                    "3.0".parse().unwrap(),
-                                    Span::new(source, 34, 37).unwrap(),
-                                ),
+                                ObjectExpression::Float("3.0".parse().unwrap(), Span::new(34, 37)),
                             )),
                         ],
-                        span: Span::new(source, 19, 38).unwrap(),
+                        span: Span::new(19, 38),
                     },
                 ))],
-                span: Span::new(source, 17, 41).unwrap(),
-            },
+                span: Span::new(17, 41),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 41).unwrap(),
+            span: Span::new(0, 41),
         })],
-        Span::new(source, 0, 41).unwrap(),
+        pest::Span::new(source, 0, 41).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -302,50 +287,51 @@ fn test_more_function_args_as_bool() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(true, Span::new(source, 24, 28).unwrap()),
+                                ObjectExpression::Bool(true, Span::new(24, 28)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(false, Span::new(source, 30, 35).unwrap()),
+                                ObjectExpression::Bool(false, Span::new(30, 35)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(true, Span::new(source, 37, 41).unwrap()),
+                                ObjectExpression::Bool(true, Span::new(37, 41)),
                             )),
                         ],
-                        span: Span::new(source, 19, 42).unwrap(),
+                        span: Span::new(19, 42),
                     },
                 ))],
-                span: Span::new(source, 17, 45).unwrap(),
-            },
+                span: Span::new(17, 45),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 45).unwrap(),
+            span: Span::new(0, 45),
         })],
-        Span::new(source, 0, 45).unwrap(),
+        pest::Span::new(source, 0, 45).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -358,50 +344,51 @@ fn test_more_function_args_as_nil() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(source, 24, 27).unwrap()),
+                                ObjectExpression::Nil(Span::new(24, 27)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(source, 29, 32).unwrap()),
+                                ObjectExpression::Nil(Span::new(29, 32)),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(source, 34, 37).unwrap()),
+                                ObjectExpression::Nil(Span::new(34, 37)),
                             )),
                         ],
-                        span: Span::new(source, 19, 38).unwrap(),
+                        span: Span::new(19, 38),
                     },
                 ))],
-                span: Span::new(source, 17, 41).unwrap(),
-            },
+                span: Span::new(17, 41),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 41).unwrap(),
+            span: Span::new(0, 41),
         })],
-        Span::new(source, 0, 41).unwrap(),
+        pest::Span::new(source, 0, 41).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -414,116 +401,90 @@ fn test_more_function_args_as_array() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "main".to_owned(),
-                span: Span::new(source, 1, 5).unwrap(),
+                span: Span::new(1, 5),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "argc".to_owned(),
-                        span: Span::new(source, 6, 10).unwrap(),
+                        span: Span::new(6, 10),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
-                        span: Span::new(source, 12, 16).unwrap(),
+                        span: Span::new(12, 16),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
                         ident: Ident {
                             ident: "func".to_owned(),
-                            span: Span::new(source, 19, 23).unwrap(),
+                            span: Span::new(19, 23),
                         },
                         args: vec![
                             ExpressionStatement::Value(ValueExpression::Object(
                                 ObjectExpression::Array(
                                     vec![
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                1.into(),
-                                                Span::new(source, 25, 26).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(1.into(), Span::new(25, 26)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                2.into(),
-                                                Span::new(source, 27, 28).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(2.into(), Span::new(27, 28)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                3.into(),
-                                                Span::new(source, 29, 30).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(3.into(), Span::new(29, 30)),
                                         )),
                                     ],
-                                    Span::new(source, 24, 31).unwrap(),
+                                    Span::new(24, 31),
                                 ),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
                                 ObjectExpression::Array(
                                     vec![
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                1.into(),
-                                                Span::new(source, 34, 35).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(1.into(), Span::new(34, 35)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                2.into(),
-                                                Span::new(source, 36, 37).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(2.into(), Span::new(36, 37)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                3.into(),
-                                                Span::new(source, 38, 39).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(3.into(), Span::new(38, 39)),
                                         )),
                                     ],
-                                    Span::new(source, 33, 40).unwrap(),
+                                    Span::new(33, 40),
                                 ),
                             )),
                             ExpressionStatement::Value(ValueExpression::Object(
                                 ObjectExpression::Array(
                                     vec![
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                1.into(),
-                                                Span::new(source, 43, 44).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(1.into(), Span::new(43, 44)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                2.into(),
-                                                Span::new(source, 45, 46).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(2.into(), Span::new(45, 46)),
                                         )),
                                         ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(
-                                                3.into(),
-                                                Span::new(source, 47, 48).unwrap(),
-                                            ),
+                                            ObjectExpression::Int(3.into(), Span::new(47, 48)),
                                         )),
                                     ],
-                                    Span::new(source, 42, 49).unwrap(),
+                                    Span::new(42, 49),
                                 ),
                             )),
                         ],
-                        span: Span::new(source, 19, 50).unwrap(),
+                        span: Span::new(19, 50),
                     },
                 ))],
-                span: Span::new(source, 17, 53).unwrap(),
-            },
+                span: Span::new(17, 53),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 53).unwrap(),
+            span: Span::new(0, 53),
         })],
-        Span::new(source, 0, 53).unwrap(),
+        pest::Span::new(source, 0, 53).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 
@@ -536,49 +497,50 @@ fn test_more_function_params() {
         vec![Statement::Function(FunctionStatement {
             ident: Ident {
                 ident: "foo".to_owned(),
-                span: Span::new(source, 1, 4).unwrap(),
+                span: Span::new(1, 4),
             },
             params: vec![
                 Param {
                     ident: Ident {
                         ident: "p1".to_owned(),
-                        span: Span::new(source, 5, 7).unwrap(),
+                        span: Span::new(5, 7),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "p2".to_owned(),
-                        span: Span::new(source, 9, 11).unwrap(),
+                        span: Span::new(9, 11),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "p3".to_owned(),
-                        span: Span::new(source, 13, 15).unwrap(),
+                        span: Span::new(13, 15),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "p4".to_owned(),
-                        span: Span::new(source, 18, 20).unwrap(),
+                        span: Span::new(18, 20),
                     },
                 },
                 Param {
                     ident: Ident {
                         ident: "p5".to_owned(),
-                        span: Span::new(source, 23, 25).unwrap(),
+                        span: Span::new(23, 25),
                     },
                 },
             ],
-            block: Block {
+            block: Some(Block {
                 statements: Vec::new(),
-                span: Span::new(source, 27, 31).unwrap(),
-            },
+                span: Span::new(27, 31),
+            }),
             visibility: Visibility::Private,
-            span: Span::new(source, 0, 31).unwrap(),
+            span: Span::new(0, 31),
         })],
-        Span::new(source, 0, 31).unwrap(),
+        pest::Span::new(source, 0, 31).unwrap(),
     );
+
     assert_eq!(ast.unwrap(), program);
 }
 

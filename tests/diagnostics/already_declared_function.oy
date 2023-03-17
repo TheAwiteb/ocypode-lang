@@ -1,0 +1,9 @@
+~foo{<
+    // Do something with foo
+    // foo is cool name right?
+>}
+
+// Create anouther foo
+~foo{<
+    // Here we go again
+>}
