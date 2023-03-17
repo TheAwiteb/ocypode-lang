@@ -1,6 +1,6 @@
 use super::environment::Environment;
 use crate::{ast::*, errors::Result as OYResult};
-mod functions;
+pub mod functions;
 
 /// The builtins functions that are available in the environment.
 #[derive(Debug, Clone, Default)]
