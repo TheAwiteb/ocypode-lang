@@ -29,7 +29,6 @@ impl Builtins {
                 create_builtin("print", &["value"]),
                 create_builtin("println", &["value"]),
                 create_builtin("input", &["prompt"]),
-
                 create_builtin("len", &["value"]),
                 create_builtin("push", &["list", "value"]),
                 create_builtin("pop", &["list"]),

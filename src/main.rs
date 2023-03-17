@@ -4,7 +4,7 @@ use ocypode_lang::{parser::OYParser, runtime::interpreter::Interpreter};
 
 fn main() {
     // FIXME: Use clap, structopt or something else to parse arguments
-    
+
     let mut args = std::env::args().skip(1);
     let file = args.next().unwrap_or_else(|| {
         eprintln!("Usage: ocypode <file>");

@@ -131,10 +131,7 @@ impl Environment {
             .find(|v| v.ident.ident == new_variable.ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclared(
-                    new_variable.ident.ident,
-                    old_variable.span.span(),
-                ),
+                OYErrorKind::AlreadyDeclared(new_variable.ident.ident, old_variable.span.span()),
                 new_variable.span,
             ))
         } else {
