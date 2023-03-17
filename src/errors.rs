@@ -119,14 +119,12 @@ impl Error {
         source: impl AsRef<str>,
         source_name: impl AsRef<str>,
     ) -> diagnostics::Diagnostic<GraphicalReportHandler> {
-        diagnostics::Diagnostic::<GraphicalReportHandler>::rgb(
-            diagnostics::as_diagnostic::<GraphicalReportHandler>(
-                self,
-                source.as_ref().to_string(),
-                source_name.as_ref().to_string(),
-            )
-            .diagnostic,
+        diagnostics::as_diagnostic::<GraphicalReportHandler>(
+            self,
+            source.as_ref().to_string(),
+            source_name.as_ref().to_string(),
         )
+        .rgb()
     }
 
     /// Returns a json diagnostic for this error.

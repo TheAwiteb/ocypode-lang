@@ -8,7 +8,7 @@ use std::{env, fmt::Display};
 #[derive(Debug)]
 pub struct Diagnostic<T> {
     pub diagnostic: Box<dyn miette::Diagnostic>,
-    handler: T,
+    pub handler: T,
 }
 
 impl<T: Default> Diagnostic<T> {
@@ -21,9 +21,9 @@ impl<T: Default> Diagnostic<T> {
     }
 
     /// Create a RGB diagnostic.
-    pub fn rgb(diagnostic: Box<dyn miette::Diagnostic>) -> Diagnostic<GraphicalReportHandler> {
+    pub fn rgb(self) -> Diagnostic<GraphicalReportHandler> {
         Diagnostic {
-            diagnostic,
+            diagnostic: self.diagnostic,
             handler: GraphicalReportHandler::default()
                 .with_context_lines(3)
                 .with_theme(miette::GraphicalTheme {
