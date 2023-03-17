@@ -1,9 +1,8 @@
 pub mod parser;
-use std::{env, fmt::Display};
-
-use miette::{GraphicalReportHandler, JSONReportHandler};
-
+pub mod runtime;
 use crate::errors::{Error, ErrorKind};
+use miette::{GraphicalReportHandler, JSONReportHandler};
+use std::{env, fmt::Display};
 
 /// A diagnostic struct, which is used to create a diagnostic.
 #[derive(Debug)]
@@ -66,11 +65,7 @@ impl Display for Diagnostic<JSONReportHandler> {
     }
 }
 
-pub fn as_diagnostic<T: Default>(
-    err: &Error,
-    source: String,
-    source_name: String,
-) -> Diagnostic<T> {
+pub fn as_diagnostic<T: Default>(err: Error, source: String, source_name: String) -> Diagnostic<T> {
     match err.kind {
         ErrorKind::InvalidName(ref name, ref reason, ref valid_name, ref statement_type) => {
             Diagnostic::new(Box::new(parser::definitions::InvalidName {
@@ -82,9 +77,9 @@ pub fn as_diagnostic<T: Default>(
                 span: err.span,
             }))
         }
-        ErrorKind::Parse(ref message) => Diagnostic::new(Box::new(parser::SyntaxError {
+        ErrorKind::Parse(message) => Diagnostic::new(Box::new(parser::SyntaxError {
             src: miette::NamedSource::new(source_name, source),
-            message: message.clone(),
+            message,
             span: err.span,
         })),
         ErrorKind::InvalidMainFunction(ref reason, ref help) => {
@@ -95,9 +90,82 @@ pub fn as_diagnostic<T: Default>(
                 span: err.span,
             }))
         }
-        _ => {
-            println!("{:?}", err);
-            unimplemented!("The diagnostic of this error is not implemented yet")
+        ErrorKind::UnDeclaredIdent(name) => {
+            Diagnostic::new(Box::new(runtime::idents::UnDeclaredIdent {
+                src: miette::NamedSource::new(source_name, source),
+                name,
+                span: err.span,
+            }))
         }
+        ErrorKind::AlreadyDeclared(name, old_decl) => {
+            Diagnostic::new(Box::new(runtime::AlreadyDeclared {
+                src: miette::NamedSource::new(source_name, source),
+                name,
+                old_decl: old_decl.into(),
+                new_decl: err.span,
+            }))
+        }
+        ErrorKind::MissingMainFunction => {
+            Diagnostic::new(Box::new(runtime::functions::MissingMain {
+                src: miette::NamedSource::new(source_name, source),
+            }))
+        }
+        ErrorKind::InvalidExitCode(exit_code) => {
+            Diagnostic::new(Box::new(runtime::functions::InvalidExitCode {
+                src: miette::NamedSource::new(source_name, source),
+                code: exit_code,
+                span: err.span,
+            }))
+        }
+        ErrorKind::NotCallable(call_span) => {
+            Diagnostic::new(Box::new(runtime::idents::NotCallable {
+                src: miette::NamedSource::new(source_name, source),
+                call_span: call_span.into(),
+                span: err.span,
+            }))
+        }
+        ErrorKind::UncorrectArguments(args_count, func_span, params, func_name) => {
+            Diagnostic::new(Box::new(runtime::functions::UncorrectArguments {
+                src: miette::NamedSource::new(source_name, source),
+                args_count,
+                params: if !params.is_empty() {
+                    format!(
+                        "{} arguments, which are `{}`",
+                        params.len(),
+                        params
+                            .into_iter()
+                            .map(|p| p.ident.ident)
+                            .collect::<Vec<_>>()
+                            .join(", ")
+                    )
+                } else {
+                    "no arguments".to_owned()
+                },
+                func_span: func_span.into(),
+                func_name,
+                span: err.span,
+            }))
+        }
+        ErrorKind::UnexpectedType(expected, actual) => {
+            Diagnostic::new(Box::new(runtime::types::UnexpectedType {
+                src: miette::NamedSource::new(source_name, source),
+                expected,
+                actual,
+                span: err.span,
+            }))
+        }
+        ErrorKind::FormatError(reason, help_message) => {
+            Diagnostic::new(Box::new(runtime::FormatError {
+                src: miette::NamedSource::new(source_name, source),
+                reason,
+                help_message,
+                span: err.span,
+            }))
+        }
+        ErrorKind::Runtime(reason) => Diagnostic::new(Box::new(runtime::RuntimeError {
+            src: miette::NamedSource::new(source_name, source),
+            reason,
+            span: err.span,
+        })),
     }
 }
