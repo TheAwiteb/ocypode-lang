@@ -18,12 +18,14 @@ fn test_single_line_comment() {
                         ident: "argc".to_owned(),
                         span: Span::new(27, 31),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(50, 54),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -56,12 +58,14 @@ fn test_multi_line_block_comment() {
                         ident: "argc".to_owned(),
                         span: Span::new(55, 59),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(61, 65),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -94,12 +98,14 @@ fn test_block_comment_in_beginning() {
                         ident: "argc".to_owned(),
                         span: Span::new(23, 27),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(29, 33),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -132,12 +138,14 @@ fn test_block_comment_in_end() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -170,12 +178,14 @@ fn test_block_comment_in_beginning_and_end() {
                         ident: "argc".to_owned(),
                         span: Span::new(23, 27),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(29, 33),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {

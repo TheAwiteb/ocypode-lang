@@ -1,10 +1,7 @@
 use std::str::FromStr;
 
 use crate::{
-    ast::{
-        AssignmentStatement, FunctionCallExpression, FunctionStatement, Ident, ObjectExpression,
-        Param, ReturnStatement, ValueExpression, Visibility,
-    },
+    ast::*,
     errors::{Error as OYError, Result as OYResult},
     utils,
 };
@@ -92,7 +89,7 @@ impl<'a> OYParser {
             Rule::PRIVATE => Visibility::Private,
             Rule::visibility => Self::parse_visibility(visibility.into_inner().next().unwrap()),
             _ => {
-                dbg!(visibility);
+                dbg!(visibility.as_rule());
                 unreachable!("This function only parse the visibility")
             }
         }
@@ -124,10 +121,7 @@ impl<'a> OYParser {
                 .next()
                 .unwrap()
                 .into_inner()
-                .map(|arg| {
-                    let expr = arg.into_inner().next().unwrap();
-                    Self::parse_expression(expr)
-                })
+                .map(Self::parse_arg)
                 .collect::<OYResult<_>>()?,
             span: span.into(),
         })
@@ -195,11 +189,13 @@ impl<'a> OYParser {
             "the function name must be snake_case",
             utils::Case::Snake,
         )?;
-        let params = inner.next().unwrap();
-        let params = params
+        let params = inner
+            .next()
+            .unwrap()
             .into_inner()
             .map(Self::parse_param)
             .collect::<OYResult<Vec<_>>>()?;
+        let params = utils::cheeck_params(params, &ident)?;
         let block = Some(Self::parse_block(inner.next().unwrap())?);
         utils::check_main_function(&ident, &params, &visibility)?;
         Ok(Statement::Function(FunctionStatement {
@@ -211,16 +207,32 @@ impl<'a> OYParser {
         }))
     }
 
+    /// Parse the argument of a function call.
+    /// Make sure that the given pair is a function argument, otherwise this will panic.
+    pub fn parse_arg(arg: Pair<'a, Rule>) -> OYResult<Arg> {
+        let mut inner = arg.into_inner();
+        let is_unpack = inner.next().unwrap().as_str() == "...";
+        let expr = Self::parse_expression(inner.next().unwrap())?;
+        let span = expr.span();
+        Ok(Arg {
+            expr,
+            is_unpack,
+            span,
+        })
+    }
+
     /// Parse the parameter of a function.
     /// Make sure that the given pair is a function parameter, otherwise this will panic.
     pub fn parse_param(param: Pair<'a, Rule>) -> OYResult<Param> {
+        let mut inner = param.into_inner();
+        let is_pack = inner.next().unwrap().as_str() == "*";
         let ident = utils::check_ident_case(
-            Self::parse_ident(param.into_inner().next().unwrap()),
+            Self::parse_ident(inner.next().unwrap()),
             "parameter",
             "the parameter name must be snake_case",
             utils::Case::Snake,
         )?;
-        Ok(Param { ident })
+        Ok(Param { ident, is_pack })
     }
 
     /// Parse the given source code to a assignment statement.

@@ -33,6 +33,21 @@ pub struct FormatError {
     pub(crate) span: miette::SourceSpan,
 }
 
+/// Invalid unpaked argument
+#[derive(Debug, Diagnostic, thiserror::Error)]
+#[diagnostic(
+    code("Error(runtime::invalid_unpacked_argument)"),
+    help("Try using an array instead of `{type_name}`.")
+)]
+#[error("Invalid unpacked argument")]
+pub struct InvalidUnpackedArgument {
+    pub(crate) type_name: String,
+    #[source_code]
+    pub(crate) src: NamedSource,
+    #[label("cannot unpack `{type_name}` type")]
+    pub(crate) span: miette::SourceSpan,
+}
+
 /// Runtime error diagnostic.
 #[derive(Debug, Diagnostic, thiserror::Error)]
 #[diagnostic(code("Error(runtime::runtime)"))]

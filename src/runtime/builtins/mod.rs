@@ -25,21 +25,21 @@ impl Builtins {
     pub fn new() -> Self {
         Self {
             functions: vec![
-                create_builtin("format", &["format", "args"]),
-                create_builtin("print", &["value"]),
-                create_builtin("println", &["value"]),
-                create_builtin("input", &["prompt"]),
-                create_builtin("len", &["value"]),
-                create_builtin("push", &["list", "value"]),
-                create_builtin("pop", &["list"]),
+                create_builtin("format", &[("format", false), ("args", true)]),
+                create_builtin("print", &[("values", true)]),
+                create_builtin("println", &[("values", true)]),
+                create_builtin("input", &[("prompt", false)]),
+                create_builtin("len", &[("value", false)]),
+                create_builtin("push", &[("list", false), ("value", false)]),
+                create_builtin("pop", &[("list", false)]),
             ],
         }
     }
 
     /// Initializes the environment with the builtins functions.
-    pub fn env_init(&self, env: &mut Environment) -> OYResult<()> {
-        for function in &self.functions {
-            env.add_global_function(function.clone())?;
+    pub fn env_init(self, env: &mut Environment) -> OYResult<()> {
+        for function in self.functions {
+            env.add_global_function(function)?;
         }
         Ok(())
     }
@@ -57,7 +57,7 @@ impl Builtins {
     }
 }
 
-fn create_builtin(name: &str, params: &[&str]) -> FunctionStatement {
+fn create_builtin(name: &str, params: &[(&str, bool)]) -> FunctionStatement {
     FunctionStatement {
         ident: Ident {
             ident: name.to_string(),
@@ -67,9 +67,10 @@ fn create_builtin(name: &str, params: &[&str]) -> FunctionStatement {
             .iter()
             .map(|param| Param {
                 ident: Ident {
-                    ident: param.to_string(),
+                    ident: param.0.to_string(),
                     span: Span::new(0, 0),
                 },
+                is_pack: param.1,
             })
             .collect(),
         block: None,

@@ -1,6 +1,7 @@
 use miette::{Diagnostic, NamedSource};
 
 pub mod definitions;
+pub mod params;
 
 /// Syntax error diagnostic.
 #[derive(Debug, Diagnostic, thiserror::Error)]

@@ -1,5 +1,6 @@
-use crate::ast::{Ident, Param, Visibility};
+use crate::ast::*;
 use crate::errors::{Error as OYError, ErrorKind as OYErrorKind, Result as OYResult};
+use crate::runtime::interpreter::Interpreter;
 
 pub enum Case {
     Snake,
@@ -36,6 +37,142 @@ pub fn check_ident_case(
     }
 }
 
+/// Check if the given parameters are valid.
+/// This will check if there are multiple parameters with the same name.
+/// This will also check if there are multiple packed parameters.
+/// This will also check if the packed parameter is not the last parameter.
+pub fn cheeck_params(params: Vec<Param>, func_ident: &Ident) -> OYResult<Vec<Param>> {
+    let params_span = span_of_spans(
+        &params.iter().map(|p| p.span()).collect::<Vec<_>>(),
+        Span::new(func_ident.span.end, func_ident.span.end),
+    );
+    let packs_count = params.iter().filter(|p| p.is_pack).count();
+
+    // Check if there are multiple parameters with the same name.
+    for param in &params {
+        if params
+            .iter()
+            .filter(|p| p.ident.ident == param.ident.ident)
+            .count()
+            > 1
+        {
+            return Err(OYError::new(
+                OYErrorKind::MultipleParamsWithTheSameName(
+                    param.ident.ident.clone(),
+                    func_ident.ident.clone(),
+                ),
+                params_span,
+            ));
+        }
+    }
+    // Check if there are multiple packed parameters.
+    if packs_count > 1 {
+        return Err(OYError::new(
+            OYErrorKind::MultiplePackedParams(func_ident.ident.clone()),
+            params_span,
+        ));
+    }
+    // Check if the packed parameter is not the last parameter.
+    if packs_count == 1 && !params.last().unwrap().is_pack {
+        let packed_param = params.iter().find(|p| p.is_pack).unwrap();
+        return Err(OYError::new(
+            OYErrorKind::PackedParamNotLast(packed_param.ident.ident.clone()),
+            packed_param.ident.span,
+        ));
+    }
+
+    Ok(params)
+}
+
+/// Returns the span of the given spans.
+pub fn span_of_spans(spans: &[Span], default_span: Span) -> (usize, usize) {
+    let last_param = spans
+        .last()
+        .map(|s| s.end + 1)
+        .unwrap_or(default_span.start);
+    let first_param = spans
+        .first()
+        .map(|s| s.start - 1)
+        .unwrap_or(default_span.end);
+    (first_param, last_param)
+}
+
+/// Unpack the given arguments.
+pub fn unpack_args(interpreter: &mut Interpreter, call_args: Vec<Arg>) -> OYResult<Vec<Arg>> {
+    let mut args = Vec::new();
+    for arg in call_args {
+        if arg.is_unpack {
+            let obj = interpreter.execute_expression(arg.expr)?;
+            let unpacked_args = match obj {
+                ObjectExpression::Array(array, _) => array
+                    .into_iter()
+                    .map(|expr| {
+                        let span = expr.span();
+                        Ok(Arg {
+                            expr,
+                            is_unpack: false,
+                            span,
+                        })
+                    })
+                    .collect::<OYResult<Vec<Arg>>>()?,
+                _ => {
+                    return Err(OYError::new(
+                        OYErrorKind::InvalidUnpackArg(obj.type_name().to_owned()),
+                        arg.span,
+                    ))
+                }
+            };
+            args.extend(unpacked_args);
+        } else {
+            args.push(arg);
+        }
+    }
+    Ok(args)
+}
+
+/// Pack the rest of the given arguments.
+pub fn pack_args(
+    interpreter: &mut Interpreter,
+    function: &FunctionStatement,
+    call_args: Vec<Arg>,
+) -> OYResult<Vec<Arg>> {
+    // Collect the arguments.
+    let mut args = call_args
+        .iter()
+        .enumerate()
+        .take_while(|(idx, _)| *idx < function.params.len() - 1)
+        .map(|(_, arg)| arg.clone())
+        .collect::<Vec<_>>();
+    // Collect the rest of the arguments.
+    let rest_args = call_args
+        .iter()
+        .skip(function.params.len() - 1)
+        .cloned()
+        .collect::<Vec<_>>();
+    // The default span will not be used, because the rest arguments are not empty.
+    let rests_span = span_of_spans(
+        &rest_args.iter().map(|a| a.span).collect::<Vec<_>>(),
+        Span::new(0, 0),
+    );
+    // Pack the rest of the arguments.
+    args.push(Arg {
+        expr: ExpressionStatement::Value(ValueExpression::Object(ObjectExpression::Array(
+            rest_args
+                .into_iter()
+                .map(|arg| {
+                    Ok(ExpressionStatement::Value(ValueExpression::Object(
+                        interpreter.execute_expression(arg.expr)?,
+                    )))
+                })
+                .collect::<OYResult<_>>()?,
+            Span::new(rests_span.0, rests_span.1),
+        ))),
+        is_unpack: false,
+        span: Span::new(0, 0),
+    });
+    Ok(args)
+}
+
 /// Check the main function name.
 /// There is a special case for the main function.
 /// - The name of the main function must be `main`.
@@ -49,13 +186,9 @@ pub fn check_main_function(
     if ident.ident != "main" {
         Ok(())
     } else {
-        let params_spans = params.iter().map(|param| param.ident.span);
-        let params_span = params_spans.fold(
-            (
-                ident.span.start + ident.ident.chars().count(),
-                ident.span.end,
-            ),
-            |acc, span| (acc.0.min(span.start - 1), acc.1.max(span.end + 1)),
+        let params_span = span_of_spans(
+            &params.iter().map(|p| p.span()).collect::<Vec<_>>(),
+            Span::new(ident.span.end, ident.span.end),
         );
 
         if visibility != &Visibility::Private {

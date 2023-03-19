@@ -30,13 +30,15 @@ array   =  { "[" ~ !"," ~ (expression ~ ("," ~ expression)*)? ~ ","? ~ "]" }
 
 value = { string | float | integer | boolean | array | nil | IDENT }
 
-param     = { "<" ~ IDENT ~ ">" }
-params    = { param* }
-arg       = { "<" ~ expression ~ ">" }
-args      = { ("<" ~ ">") | arg+ }
-block     = { "{<" ~ (statement ~ semicolon)* ~ ">}" }
-func_def  = { visibility ~ "~" ~ IDENT ~ params ~ block }
-func_call = { IDENT ~ args }
+pack      = ${ "*" | "" }
+unpack    = ${ "..." | "" }
+param     = ${ "<" ~ pack ~ IDENT ~ ">" }
+params    =  { param* }
+arg       =  { "<" ~ unpack ~ expression ~ ">" }
+args      =  { ("<" ~ ">") | arg+ }
+block     =  { "{<" ~ (statement ~ semicolon)* ~ ">}" }
+func_def  =  { visibility ~ "~" ~ IDENT ~ params ~ block }
+func_call =  { IDENT ~ args }
 
 return_stmt = { "return" ~ expression }
 assignment  = { IDENT ~ "=" ~ expression }

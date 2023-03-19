@@ -18,12 +18,14 @@ fn test_return_integer() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -62,12 +64,14 @@ fn test_return_float() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -106,12 +110,14 @@ fn test_return_string() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -150,12 +156,14 @@ fn test_return_array() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -207,12 +215,14 @@ fn test_return_bool() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -251,12 +261,14 @@ fn test_return_nil() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
