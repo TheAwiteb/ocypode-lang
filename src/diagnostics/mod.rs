@@ -154,6 +154,35 @@ pub fn as_diagnostic<T: Default>(err: Error, source: String, source_name: String
                 span: err.span,
             }))
         }
+        ErrorKind::MultiplePackedParams(func_name) => {
+            Diagnostic::new(Box::new(parser::params::MultiplePackedParams {
+                src: miette::NamedSource::new(source_name, source),
+                func_name,
+                span: err.span,
+            }))
+        }
+        ErrorKind::PackedParamNotLast(param_name) => {
+            Diagnostic::new(Box::new(parser::params::PackedParamNotLast {
+                src: miette::NamedSource::new(source_name, source),
+                param_name,
+                span: err.span,
+            }))
+        }
+        ErrorKind::MultipleParamsWithTheSameName(param_name, func_name) => {
+            Diagnostic::new(Box::new(parser::params::MultipleParamsWithTheSameName {
+                src: miette::NamedSource::new(source_name, source),
+                param_name,
+                func_name,
+                span: err.span,
+            }))
+        }
+        ErrorKind::InvalidUnpackArg(type_name) => {
+            Diagnostic::new(Box::new(runtime::InvalidUnpackedArgument {
+                src: miette::NamedSource::new(source_name, source),
+                type_name,
+                span: err.span,
+            }))
+        }
         ErrorKind::FormatError(reason, help_message) => {
             Diagnostic::new(Box::new(runtime::FormatError {
                 src: miette::NamedSource::new(source_name, source),
