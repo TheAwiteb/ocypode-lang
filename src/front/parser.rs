@@ -145,8 +145,12 @@ impl<'a> OYParser {
         Ok(match value.as_rule() {
             Rule::IDENT => ValueExpression::Ident(Self::parse_ident(value)),
             Rule::string => ValueExpression::Object(ObjectExpression::String(
-                // Remove the quotes, because they are not part of the string.
-                value.as_str()[1..value.as_str().len() - 1].to_owned(),
+                value.as_str()[1..value.as_str().len() - 1]
+                    .replace(r#"\\"#, r#"\"#)
+                    .replace(r#"\""#, r#"""#)
+                    .replace(r#"\n"#, "\n")
+                    .replace(r#"\t"#, "\t")
+                    .replace(r#"\r"#, "\r"),
                 span.into(),
             )),
             Rule::float => ValueExpression::Object(ObjectExpression::Float(
