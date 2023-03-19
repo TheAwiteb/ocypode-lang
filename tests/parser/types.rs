@@ -829,7 +829,7 @@ mod string {
                 block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
-                            r#"some\""#.to_owned(),
+                            r#"some""#.to_owned(),
                             Span::new(19, 27),
                         )),
                     ))],
@@ -926,7 +926,7 @@ mod string {
                 block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
-                            r#"some\nmultiline\""#.to_owned(),
+                            "some\nmultiline\"".to_owned(),
                             Span::new(19, 38),
                         )),
                     ))],
@@ -1018,7 +1018,7 @@ visibility: Visibility::Private,
                 block: Some(Block {
                     statements: vec![Statement::Expression(ExpressionStatement::Value(
                         ValueExpression::Object(ObjectExpression::String(
-                            lorem.to_owned(),
+                            lorem.replace("\\\"", "\""),
                             Span::new(19, 19 + lorem.len() + 2),
                         )),
                     ))],
