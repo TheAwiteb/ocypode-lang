@@ -4,6 +4,7 @@ use super::{builtins::Builtins, environment::Environment};
 use crate::{
     ast::*,
     errors::{Error as OYError, ErrorKind, Result as OYResult, SpanError},
+    utils,
 };
 
 /// The interpreter. This will execute the AST of Ocypode and return the result. check the AST in `src/front/ast.rs`.
@@ -37,24 +38,31 @@ impl Interpreter {
         // Then we need to find the main function.
         if let Some(main_function) = self.environment.get_global_function("main") {
             let args = vec![
-                ExpressionStatement::Value(ValueExpression::Object(ObjectExpression::Int(
-                    argc.to_string().parse().unwrap(),
-                    Span::new(0, 0),
-                ))),
-                ExpressionStatement::Value(ValueExpression::Object(ObjectExpression::Array(
-                    argv.into_iter()
-                        .map(|v| {
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String(v, Span::new(0, 0)),
-                            ))
-                        })
-                        .collect(),
-                    Span::new(0, 0),
-                ))),
+                Arg {
+                    expr: ExpressionStatement::Value(ValueExpression::Object(
+                        ObjectExpression::Int(argc.to_string().parse().unwrap(), Span::new(0, 0)),
+                    )),
+                    is_unpack: false,
+                    span: Span::new(0, 0),
+                },
+                Arg {
+                    expr: ExpressionStatement::Value(ValueExpression::Object(
+                        ObjectExpression::Array(
+                            argv.into_iter()
+                                .map(|v| {
+                                    ExpressionStatement::Value(ValueExpression::Object(
+                                        ObjectExpression::String(v, Span::new(0, 0)),
+                                    ))
+                                })
+                                .collect(),
+                            Span::new(0, 0),
+                        ),
+                    )),
+                    is_unpack: false,
+                    span: Span::new(0, 0),
+                },
             ];
-            self.environment
-                .new_for_function(&main_function.params, args)?;
-            exit_code = match self.execute_function(main_function.clone())? {
+            exit_code = match self.execute_function(main_function, args)? {
                 ObjectExpression::Int(int, span) => int
                     .to_u8()
                     .ok_or_else(|| OYError::new(ErrorKind::InvalidExitCode(int), span))?,
@@ -70,7 +78,12 @@ impl Interpreter {
     /// This will return the result of the function. If the function does not return anything, it will return `nil`.
     ///
     /// Note: The environment should contain a fream for the function (Will removed after the function is executed)
-    pub fn execute_function(&mut self, function: FunctionStatement) -> OYResult<ObjectExpression> {
+    pub fn execute_function(
+        &mut self,
+        function: FunctionStatement,
+        args: Vec<Arg>,
+    ) -> OYResult<ObjectExpression> {
+        self.environment.new_for_function(function.params, args)?;
         let mut result = ObjectExpression::Nil(function.span);
         if let Some(block) = function.block {
             for statement in block.statements {
@@ -159,10 +172,22 @@ impl Interpreter {
                 ))
             }
         };
-        if function.params.len() != func_call.args.len() {
+        let args = if func_call.args.iter().any(|arg| arg.is_unpack) {
+            utils::unpack_args(self, func_call.args)?
+        } else {
+            func_call.args
+        };
+        let args = if args.len() >= function.params.len()
+            && function.params.last().map(|p| p.is_pack).unwrap_or(false)
+        {
+            utils::pack_args(self, &function, args)?
+        } else {
+            args
+        };
+        if function.params.len() != args.len() {
             return Err(OYError::new(
                 ErrorKind::UncorrectArguments(
-                    func_call.args.len(),
+                    args.len(),
                     function.ident.span.span(),
                     function.params,
                     function.ident.ident,
@@ -174,21 +199,17 @@ impl Interpreter {
             Builtins::execute_builtin_funtion(
                 &function.ident.ident,
                 func_call.span,
-                func_call
-                    .args
-                    .into_iter()
+                args.into_iter()
                     .map(|arg| {
-                        let arg_span = arg.span();
-                        let mut expr = self.execute_expression(arg)?;
+                        let arg_span = arg.span;
+                        let mut expr = self.execute_expression(arg.expr)?;
                         *expr.span_mut() = arg_span;
                         Ok(expr)
                     })
                     .collect::<OYResult<Vec<ObjectExpression>>>()?,
             )
         } else {
-            self.environment
-                .new_for_function(&function.params, func_call.args)?;
-            self.execute_function(function)
+            self.execute_function(function, args)
         }
     }
 
