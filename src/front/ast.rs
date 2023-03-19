@@ -46,11 +46,24 @@ pub struct Ident {
     pub span: Span,
 }
 
+/// A Argument.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Arg {
+    /// The argument value.
+    pub expr: ExpressionStatement,
+    /// Whether the argument is unpacked.
+    pub is_unpack: bool,
+    /// The span of the argument.
+    pub span: Span,
+}
+
 /// A Param.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Param {
     /// The param name.
     pub ident: Ident,
+    /// Whether the param is a pack param.
+    pub is_pack: bool,
 }
 
 /// A visibility, which is public or private.
@@ -138,7 +151,7 @@ pub struct FunctionCallExpression {
     /// The function name.
     pub ident: Ident,
     /// The arguments to the function.
-    pub args: Vec<ExpressionStatement>,
+    pub args: Vec<Arg>,
     /// The span of the function call expression.
     pub span: Span,
 }
