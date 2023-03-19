@@ -17,12 +17,14 @@ fn test_params() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -64,12 +66,14 @@ fn test_more_function_args_as_ident() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -80,18 +84,30 @@ fn test_more_function_args_as_ident() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Ident(Ident {
-                                ident: "arg1".to_owned(),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Ident(Ident {
+                                    ident: "arg1".to_owned(),
+                                    span: Span::new(24, 28),
+                                })),
+                                is_unpack: false,
                                 span: Span::new(24, 28),
-                            })),
-                            ExpressionStatement::Value(ValueExpression::Ident(Ident {
-                                ident: "arg2".to_owned(),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Ident(Ident {
+                                    ident: "arg2".to_owned(),
+                                    span: Span::new(30, 34),
+                                })),
+                                is_unpack: false,
                                 span: Span::new(30, 34),
-                            })),
-                            ExpressionStatement::Value(ValueExpression::Ident(Ident {
-                                ident: "arg3".to_owned(),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Ident(Ident {
+                                    ident: "arg3".to_owned(),
+                                    span: Span::new(36, 40),
+                                })),
+                                is_unpack: false,
                                 span: Span::new(36, 40),
-                            })),
+                            },
                         ],
                         span: Span::new(19, 41),
                     },
@@ -124,12 +140,14 @@ fn test_more_function_args_as_string() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -140,15 +158,27 @@ fn test_more_function_args_as_string() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String("arg1".to_owned(), Span::new(24, 30)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String("arg2".to_owned(), Span::new(32, 38)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::String("arg3".to_owned(), Span::new(40, 46)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::String("arg1".to_owned(), Span::new(24, 30)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 30),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::String("arg2".to_owned(), Span::new(32, 38)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(32, 38),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::String("arg3".to_owned(), Span::new(40, 46)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(40, 46),
+                            },
                         ],
                         span: Span::new(19, 47),
                     },
@@ -181,12 +211,14 @@ fn test_more_function_args_as_int() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -197,15 +229,27 @@ fn test_more_function_args_as_int() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(1.into(), Span::new(24, 25)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(2.into(), Span::new(27, 28)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int(3.into(), Span::new(30, 31)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int(1.into(), Span::new(24, 25)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 25),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int(2.into(), Span::new(27, 28)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(27, 28),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int(3.into(), Span::new(30, 31)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(30, 31),
+                            },
                         ],
                         span: Span::new(19, 32),
                     },
@@ -238,12 +282,14 @@ fn test_more_function_args_as_float() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -254,15 +300,36 @@ fn test_more_function_args_as_float() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float("1.0".parse().unwrap(), Span::new(24, 27)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float("2.0".parse().unwrap(), Span::new(29, 32)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Float("3.0".parse().unwrap(), Span::new(34, 37)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Float(
+                                        "1.0".parse().unwrap(),
+                                        Span::new(24, 27),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 27),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Float(
+                                        "2.0".parse().unwrap(),
+                                        Span::new(29, 32),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(29, 32),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Float(
+                                        "3.0".parse().unwrap(),
+                                        Span::new(34, 37),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(34, 37),
+                            },
                         ],
                         span: Span::new(19, 38),
                     },
@@ -295,12 +362,14 @@ fn test_more_function_args_as_bool() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -311,15 +380,27 @@ fn test_more_function_args_as_bool() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(true, Span::new(24, 28)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(false, Span::new(30, 35)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Bool(true, Span::new(37, 41)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Bool(true, Span::new(24, 28)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 28),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Bool(false, Span::new(30, 35)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(30, 35),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Bool(true, Span::new(37, 41)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(37, 41),
+                            },
                         ],
                         span: Span::new(19, 42),
                     },
@@ -352,12 +433,14 @@ fn test_more_function_args_as_nil() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -368,15 +451,27 @@ fn test_more_function_args_as_nil() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(24, 27)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(29, 32)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Nil(Span::new(34, 37)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Nil(Span::new(24, 27)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 27),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Nil(Span::new(29, 32)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(29, 32),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Nil(Span::new(34, 37)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(34, 37),
+                            },
                         ],
                         span: Span::new(19, 38),
                     },
@@ -409,12 +504,14 @@ fn test_more_function_args_as_array() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -425,54 +522,66 @@ fn test_more_function_args_as_array() {
                             span: Span::new(19, 23),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Array(
-                                    vec![
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(1.into(), Span::new(25, 26)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(2.into(), Span::new(27, 28)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(3.into(), Span::new(29, 30)),
-                                        )),
-                                    ],
-                                    Span::new(24, 31),
-                                ),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Array(
-                                    vec![
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(1.into(), Span::new(34, 35)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(2.into(), Span::new(36, 37)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(3.into(), Span::new(38, 39)),
-                                        )),
-                                    ],
-                                    Span::new(33, 40),
-                                ),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Array(
-                                    vec![
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(1.into(), Span::new(43, 44)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(2.into(), Span::new(45, 46)),
-                                        )),
-                                        ExpressionStatement::Value(ValueExpression::Object(
-                                            ObjectExpression::Int(3.into(), Span::new(47, 48)),
-                                        )),
-                                    ],
-                                    Span::new(42, 49),
-                                ),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Array(
+                                        vec![
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(1.into(), Span::new(25, 26)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(2.into(), Span::new(27, 28)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(3.into(), Span::new(29, 30)),
+                                            )),
+                                        ],
+                                        Span::new(24, 31),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(24, 31),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Array(
+                                        vec![
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(1.into(), Span::new(34, 35)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(2.into(), Span::new(36, 37)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(3.into(), Span::new(38, 39)),
+                                            )),
+                                        ],
+                                        Span::new(33, 40),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(33, 40),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Array(
+                                        vec![
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(1.into(), Span::new(43, 44)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(2.into(), Span::new(45, 46)),
+                                            )),
+                                            ExpressionStatement::Value(ValueExpression::Object(
+                                                ObjectExpression::Int(3.into(), Span::new(47, 48)),
+                                            )),
+                                        ],
+                                        Span::new(42, 49),
+                                    ),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(42, 49),
+                            },
                         ],
                         span: Span::new(19, 50),
                     },
@@ -505,30 +614,35 @@ fn test_more_function_params() {
                         ident: "p1".to_owned(),
                         span: Span::new(5, 7),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "p2".to_owned(),
                         span: Span::new(9, 11),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "p3".to_owned(),
                         span: Span::new(13, 15),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "p4".to_owned(),
                         span: Span::new(18, 20),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "p5".to_owned(),
                         span: Span::new(23, 25),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {

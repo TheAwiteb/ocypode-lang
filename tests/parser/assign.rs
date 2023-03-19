@@ -17,12 +17,14 @@ fn test_assign_to_int() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -64,12 +66,14 @@ fn test_assign_to_ident() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -112,12 +116,14 @@ fn test_assign_to_float() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -159,12 +165,14 @@ fn test_assign_to_string() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -206,12 +214,14 @@ fn test_assign_to_bool() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -253,12 +263,14 @@ fn test_assign_to_array() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -313,12 +325,14 @@ fn test_assign_to_nil() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -360,12 +374,14 @@ fn test_assign_to_fun_call() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -412,12 +428,14 @@ fn test_assign_to_fun_call_with_args() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -432,15 +450,27 @@ fn test_assign_to_fun_call_with_args() {
                             span: Span::new(23, 26),
                         },
                         args: vec![
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int("1".parse().unwrap(), Span::new(27, 28)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int("2".parse().unwrap(), Span::new(30, 31)),
-                            )),
-                            ExpressionStatement::Value(ValueExpression::Object(
-                                ObjectExpression::Int("3".parse().unwrap(), Span::new(33, 34)),
-                            )),
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int("1".parse().unwrap(), Span::new(27, 28)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(27, 28),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int("2".parse().unwrap(), Span::new(30, 31)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(30, 31),
+                            },
+                            Arg {
+                                expr: ExpressionStatement::Value(ValueExpression::Object(
+                                    ObjectExpression::Int("3".parse().unwrap(), Span::new(33, 34)),
+                                )),
+                                is_unpack: false,
+                                span: Span::new(33, 34),
+                            },
                         ],
                         span: Span::new(23, 35),
                     }),

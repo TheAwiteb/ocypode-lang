@@ -20,12 +20,14 @@ fn test_single_ident() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -63,12 +65,14 @@ fn test_ident_with_underscore() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -106,12 +110,14 @@ fn test_ident_start_with_underscore() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -149,12 +155,14 @@ fn test_ident_end_with_underscore() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -192,12 +200,14 @@ fn test_ident_with_multiple_underscore() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -235,12 +245,14 @@ fn test_ident_with_number() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -278,12 +290,14 @@ fn test_ident_with_underscore_and_number() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -321,12 +335,14 @@ fn test_ident_with_underscore_and_tow_number() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -364,12 +380,14 @@ fn test_ident_with_underscore_and_tow_number_and_underscore() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
@@ -407,12 +425,14 @@ fn test_ident_with_underscore_and_tow_number_and_underscore_and_number() {
                         ident: "argc".to_owned(),
                         span: Span::new(6, 10),
                     },
+                    is_pack: false,
                 },
                 Param {
                     ident: Ident {
                         ident: "argv".to_owned(),
                         span: Span::new(12, 16),
                     },
+                    is_pack: false,
                 },
             ],
             block: Some(Block {
