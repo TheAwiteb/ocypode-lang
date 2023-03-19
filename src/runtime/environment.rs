@@ -30,16 +30,7 @@ impl Environment {
     /// Creates a new environment with the variables. Is used when passing arguments to a function.
     /// The arguments are added to the environment and are available in the function.
     /// The number of arguments must be equal to the number of parameter or it will panic.
-    pub fn new_for_function(
-        &mut self,
-        params: &Vec<Param>,
-        args: Vec<ExpressionStatement>,
-    ) -> OYResult<()> {
-        assert_eq!(
-            params.len(),
-            args.len(),
-            "The number of arguments must be equal to the number of parameters."
-        );
+    pub fn new_for_function(&mut self, params: Vec<Param>, args: Vec<Arg>) -> OYResult<()> {
         let get_ident = |expr: &ExpressionStatement| match &expr {
             ExpressionStatement::Value(ValueExpression::Ident(ident)) => Some(ident.ident.clone()),
             _ => None,
@@ -48,23 +39,23 @@ impl Environment {
         let mut variables = Vec::new();
         let mut local_functions = Vec::new();
 
-        for (param, arg) in params.iter().zip(&args) {
-            if let Some(ident) = get_ident(arg) {
-                match self.take(&ident, param.ident.span)? {
+        for (param, arg) in params.into_iter().zip(args) {
+            if let Some(ident) = get_ident(&arg.expr) {
+                match self.take(&ident, arg.span)? {
                     Statement::Assignment(assignment) => variables.push({
                         AssignmentStatement {
-                            ident: param.ident.clone(),
+                            ident: param.ident,
                             expression: assignment.expression,
-                            span: arg.span(),
+                            span: arg.span,
                         }
                     }),
                     Statement::Function(function) => local_functions.push({
                         FunctionStatement {
-                            ident: param.ident.clone(),
+                            ident: param.ident,
                             params: function.params,
                             block: function.block,
                             visibility: Visibility::Private,
-                            span: arg.span(),
+                            span: arg.span,
                         }
                     }),
                     _ => unreachable!(),
@@ -72,9 +63,9 @@ impl Environment {
             } else {
                 variables.push({
                     AssignmentStatement {
-                        ident: param.ident.clone(),
-                        expression: arg.clone(),
-                        span: arg.span(),
+                        ident: param.ident,
+                        expression: arg.expr,
+                        span: arg.span,
                     }
                 });
             }
