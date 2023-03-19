@@ -49,6 +49,22 @@ pub enum ErrorKind {
     /// - The second argument is the actual type.
     /// (The span of the error is the expression.)
     UnexpectedType(String, String),
+    /// Multiple packed params.
+    /// - The first argument is the name of the function.
+    /// (The span of the error is the parametets of the function.)
+    MultiplePackedParams(String),
+    /// Packed param is not last.
+    /// - The first argument is the name of the packed param.
+    /// (The span of the error is the packed param.)
+    PackedParamNotLast(String),
+    /// Multiple params with the same name.
+    /// - The first argument is the name of the param.
+    /// - The second argument is the name of the function.
+    /// (The span of the error is the parametets of the function.)
+    MultipleParamsWithTheSameName(String, String),
+    /// Invalid unpacked argument.
+    /// - The first argument is the name of the argument type.
+    InvalidUnpackArg(String),
     /// Format error.
     /// - The first argument is the reason.
     /// - The second argument is the help message.
