@@ -149,29 +149,38 @@ impl Interpreter {
         &mut self,
         func_call: FunctionCallExpression,
     ) -> OYResult<ObjectExpression> {
-        let function = self
-            .environment
-            .take(&func_call.ident.ident, func_call.span)?;
-        let function = match function {
-            Statement::Assignment(assign) => match assign.expression {
-                ExpressionStatement::Value(ValueExpression::Object(
-                    ObjectExpression::Function(function),
-                )) => function,
-                _ => {
-                    return Err(OYError::new(
-                        ErrorKind::NotCallable(func_call.span.span()),
-                        assign.span,
-                    ))
+        let function = match func_call.callable {
+            ValueExpression::Ident(ident) => {
+                let function = self.environment.take(&ident.ident, func_call.span)?;
+                match function {
+                    Statement::Assignment(assign) => match assign.expression {
+                        ExpressionStatement::Value(ValueExpression::Object(
+                            ObjectExpression::Function(function),
+                        )) => function,
+                        _ => {
+                            return Err(OYError::new(
+                                ErrorKind::NotCallable(func_call.span.span()),
+                                assign.span,
+                            ));
+                        }
+                    },
+                    Statement::Function(function) => function,
+                    _ => {
+                        return Err(OYError::new(
+                            ErrorKind::NotCallable(func_call.span.span()),
+                            function.span(),
+                        ));
+                    }
                 }
-            },
-            Statement::Function(function) => function,
-            _ => {
-                return Err(OYError::new(
-                    ErrorKind::NotCallable(func_call.span.span()),
-                    function.span(),
-                ))
             }
+            ValueExpression::Object(ObjectExpression::Function(anonymous_function)) => {
+                anonymous_function
+            }
+            _ => unreachable!(
+                "The function call can only be an anonymous function or a function identifier"
+            ),
         };
+
         let args = if func_call.args.iter().any(|arg| arg.is_unpack) {
             utils::unpack_args(self, func_call.args)?
         } else {
@@ -188,16 +197,22 @@ impl Interpreter {
             return Err(OYError::new(
                 ErrorKind::UncorrectArguments(
                     args.len(),
-                    function.ident.span.span(),
+                    function
+                        .ident
+                        .clone()
+                        .map_or_else(|| function.span.span(), |ident| ident.span.span()),
                     function.params,
-                    function.ident.ident,
+                    function.ident.map_or_else(
+                        || "Anonymous function".to_owned(),
+                        |ident| ident.ident,
+                    ),
                 ),
                 func_call.span,
             ));
         }
         if function.block.is_none() {
             Builtins::execute_builtin_funtion(
-                &function.ident.ident,
+                &function.ident.unwrap().ident,
                 func_call.span,
                 args.into_iter()
                     .map(|arg| {
