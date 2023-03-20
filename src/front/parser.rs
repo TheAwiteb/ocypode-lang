@@ -103,6 +103,12 @@ impl<'a> OYParser {
             )),
             Rule::value => Ok(ExpressionStatement::Value(Self::parse_value(expr)?)),
             Rule::expression => Self::parse_expression(expr.into_inner().next().unwrap()),
+            Rule::anonymous_function => {
+                let anonymous_function = Self::parse_anonymous_function(expr)?;
+                Ok(ExpressionStatement::Value(ValueExpression::Object(
+                    ObjectExpression::Function(anonymous_function),
+                )))
+            }
             _ => {
                 dbg!(expr.as_rule());
                 unreachable!("This function only parse the expressions")
@@ -115,16 +121,35 @@ impl<'a> OYParser {
     pub fn parse_function_call(func: Pair<'a, Rule>) -> OYResult<FunctionCallExpression> {
         let span = func.as_span();
         let mut inner = func.into_inner();
-        Ok(FunctionCallExpression {
-            ident: Self::parse_ident(inner.next().unwrap()),
-            args: inner
-                .next()
-                .unwrap()
-                .into_inner()
-                .map(Self::parse_arg)
-                .collect::<OYResult<_>>()?,
-            span: span.into(),
-        })
+        let callable = inner.next().unwrap();
+        let args = inner
+            .next()
+            .unwrap()
+            .into_inner()
+            .map(Self::parse_arg)
+            .collect::<OYResult<Vec<_>>>()?;
+        match callable.as_rule() {
+            Rule::IDENT => Ok(FunctionCallExpression {
+                callable: ValueExpression::Ident(Self::parse_ident(callable)),
+                args,
+                span: span.into(),
+            }),
+            Rule::anonymous_function => {
+                let anonymous_function = Self::parse_anonymous_function(callable)?;
+
+                Ok(FunctionCallExpression {
+                    callable: ValueExpression::Object(ObjectExpression::Function(
+                        anonymous_function,
+                    )),
+                    args,
+                    span: span.into(),
+                })
+            }
+            _ => {
+                dbg!(callable.as_rule());
+                unreachable!("This function only parse the function call expressions")
+            }
+        }
     }
 
     /// Parse the given source code to a return statement.
@@ -181,6 +206,27 @@ impl<'a> OYParser {
         })
     }
 
+    /// Parse the given source code to an anonymous function.
+    /// Make sure that the given pair is an anonymous function, otherwise this will panic.
+    pub fn parse_anonymous_function(anonymous_func: Pair<'a, Rule>) -> OYResult<FunctionStatement> {
+        let span = anonymous_func.as_span();
+        let mut anonymous_inner = anonymous_func.into_inner();
+        let params = anonymous_inner
+            .next()
+            .unwrap()
+            .into_inner()
+            .map(Self::parse_param)
+            .collect::<OYResult<_>>()?;
+        let block = Self::parse_block(anonymous_inner.next().unwrap())?;
+        Ok(FunctionStatement {
+            ident: None,
+            params,
+            block: Some(block),
+            span: span.into(),
+            visibility: Visibility::Private,
+        })
+    }
+
     /// Parse the given source code to a function statement.
     /// Make sure that the given pair is a function statement, otherwise this will panic.
     pub fn parse_function(func: Pair<'a, Rule>) -> OYResult<Statement> {
@@ -203,7 +249,7 @@ impl<'a> OYParser {
         let block = Some(Self::parse_block(inner.next().unwrap())?);
         utils::check_main_function(&ident, &params, &visibility)?;
         Ok(Statement::Function(FunctionStatement {
-            ident,
+            ident: Some(ident),
             params,
             block,
             visibility,
