@@ -59,10 +59,10 @@ impl Builtins {
 
 fn create_builtin(name: &str, params: &[(&str, bool)]) -> FunctionStatement {
     FunctionStatement {
-        ident: Ident {
+        ident: Some(Ident {
             ident: name.to_string(),
             span: Span::new(0, 0),
-        },
+        }),
         params: params
             .iter()
             .map(|param| Param {
