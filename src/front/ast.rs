@@ -110,8 +110,8 @@ pub enum ExpressionStatement {
 /// A function statement.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FunctionStatement {
-    /// The function name.
-    pub ident: Ident,
+    /// The function name. If the name is None, the function is a anonymous function.
+    pub ident: Option<Ident>,
     /// Parameters
     pub params: Vec<Param>,
     /// The function block
@@ -149,7 +149,7 @@ pub struct ReturnStatement {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FunctionCallExpression {
     /// The function name.
-    pub ident: Ident,
+    pub callable: ValueExpression,
     /// The arguments to the function.
     pub args: Vec<Arg>,
     /// The span of the function call expression.
@@ -211,7 +211,9 @@ impl ToString for ObjectExpression {
                 format!(
                     "{}{}{}",
                     func_type,
-                    func.ident.ident,
+                    func.ident
+                        .as_ref()
+                        .map_or_else(|| "Anonymous Function".to_string(), |i| i.ident.clone()),
                     func.params
                         .iter()
                         .map(|param| format!("<{}>", param.ident.ident))
