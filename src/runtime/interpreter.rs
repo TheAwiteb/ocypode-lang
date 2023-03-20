@@ -202,10 +202,9 @@ impl Interpreter {
                         .clone()
                         .map_or_else(|| function.span.span(), |ident| ident.span.span()),
                     function.params,
-                    function.ident.map_or_else(
-                        || "Anonymous function".to_owned(),
-                        |ident| ident.ident,
-                    ),
+                    function
+                        .ident
+                        .map_or_else(|| "Anonymous function".to_owned(), |ident| ident.ident),
                 ),
                 func_call.span,
             ));
