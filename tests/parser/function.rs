@@ -7,10 +7,10 @@ fn test_params() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -30,10 +30,10 @@ fn test_params() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: Vec::new(),
                         span: Span::new(19, 25),
                     },
@@ -56,10 +56,10 @@ fn test_more_function_args_as_ident() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -79,10 +79,10 @@ fn test_more_function_args_as_ident() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Ident(Ident {
@@ -130,10 +130,10 @@ fn test_more_function_args_as_string() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -153,10 +153,10 @@ fn test_more_function_args_as_string() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -201,10 +201,10 @@ fn test_more_function_args_as_int() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -224,10 +224,10 @@ fn test_more_function_args_as_int() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -272,10 +272,10 @@ fn test_more_function_args_as_float() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -295,10 +295,10 @@ fn test_more_function_args_as_float() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -352,10 +352,10 @@ fn test_more_function_args_as_bool() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -375,10 +375,10 @@ fn test_more_function_args_as_bool() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -423,10 +423,10 @@ fn test_more_function_args_as_nil() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -446,10 +446,10 @@ fn test_more_function_args_as_nil() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -494,10 +494,10 @@ fn test_more_function_args_as_array() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -517,10 +517,10 @@ fn test_more_function_args_as_array() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: vec![
                             Arg {
                                 expr: ExpressionStatement::Value(ValueExpression::Object(
@@ -604,10 +604,10 @@ fn test_more_function_params() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "foo".to_owned(),
                 span: Span::new(1, 4),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {

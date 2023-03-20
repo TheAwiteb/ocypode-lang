@@ -13,10 +13,10 @@ mod nil {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -56,10 +56,10 @@ mod nil {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -102,10 +102,10 @@ mod nil {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -152,10 +152,10 @@ mod bool {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -200,10 +200,10 @@ mod bool {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -254,10 +254,10 @@ mod bool {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -312,10 +312,10 @@ mod int {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -391,10 +391,10 @@ mod int {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -436,10 +436,10 @@ mod int {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -493,10 +493,10 @@ mod float {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -545,10 +545,10 @@ mod float {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -598,10 +598,10 @@ mod float {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -657,10 +657,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -709,10 +709,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -754,10 +754,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -806,10 +806,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -858,10 +858,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -903,10 +903,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -948,10 +948,10 @@ mod string {
         assert!(ast.is_ok());
         let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                         ident: Ident {
@@ -995,10 +995,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1048,10 +1048,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1097,10 +1097,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1139,10 +1139,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1186,10 +1186,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1241,10 +1241,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1317,10 +1317,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1385,10 +1385,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1475,10 +1475,10 @@ mod array {
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
-                    ident: "main".to_owned(),
-                    span: Span::new(1, 5),
-                },
+ident: Some(Ident {
+                ident: "main".to_owned(),
+                span: Span::new(1, 5),
+            }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1635,10 +1635,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1741,10 +1741,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1907,10 +1907,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -1978,10 +1978,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2068,10 +2068,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2196,10 +2196,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2249,10 +2249,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2322,10 +2322,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2382,10 +2382,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2453,10 +2453,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2528,10 +2528,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2580,10 +2580,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2637,10 +2637,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {
@@ -2702,10 +2702,10 @@ visibility: Visibility::Private,
         assert!(ast.is_ok());
         let program = (
             vec![Statement::Function(FunctionStatement {
-                ident: Ident {
+                ident: Some(Ident {
                     ident: "main".to_owned(),
                     span: Span::new(1, 5),
-                },
+                }),
                 params: vec![
                     Param {
                         ident: Ident {

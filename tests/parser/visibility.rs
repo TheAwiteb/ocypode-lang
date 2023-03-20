@@ -8,10 +8,10 @@ fn test_public_visibility() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "foo".to_owned(),
                 span: Span::new(2, 5),
-            },
+            }),
             params: vec![],
             block: Some(Block {
                 statements: vec![],
@@ -34,10 +34,10 @@ fn test_private_visibility() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "foo".to_owned(),
                 span: Span::new(1, 4),
-            },
+            }),
             params: vec![],
             block: Some(Block {
                 statements: vec![],

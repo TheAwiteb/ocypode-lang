@@ -8,10 +8,10 @@ fn test_single_line_comment() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(22, 26),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -48,10 +48,10 @@ fn test_multi_line_block_comment() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(50, 54),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -88,10 +88,10 @@ fn test_block_comment_in_beginning() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(18, 22),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -128,10 +128,10 @@ fn test_block_comment_in_end() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -168,10 +168,10 @@ fn test_block_comment_in_beginning_and_end() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(18, 22),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
