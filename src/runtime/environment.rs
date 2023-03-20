@@ -51,7 +51,7 @@ impl Environment {
                     }),
                     Statement::Function(function) => local_functions.push({
                         FunctionStatement {
-                            ident: param.ident,
+                            ident: Some(param.ident),
                             params: function.params,
                             block: function.block,
                             visibility: Visibility::Private,
@@ -77,14 +77,18 @@ impl Environment {
 
     /// Adds a function to the environment.
     pub fn add_global_function(&mut self, new_function: FunctionStatement) -> OYResult<()> {
-        if let Some(old_func) = self
+        let new_function_ident = new_function.ident.clone().unwrap();
+        if let Some(FunctionStatement {
+            ident: Some(ident), ..
+        }) = self
             .global_functions
             .iter()
-            .find(|f| f.ident.ident == new_function.ident.ident)
+            // Global functions must have an identifier.
+            .find(|f| f.ident.as_ref().unwrap().ident == new_function_ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclared(new_function.ident.ident, old_func.ident.span.span()),
-                new_function.ident.span,
+                OYErrorKind::AlreadyDeclared(new_function_ident.ident, ident.span.span()),
+                new_function_ident.span,
             ))
         } else {
             self.global_functions.push(new_function);
@@ -94,18 +98,19 @@ impl Environment {
 
     /// Adds a local function to the environment.
     pub fn add_local_function(&mut self, new_function: FunctionStatement) -> OYResult<()> {
-        if let Some(old_func) = self
+        let new_function_ident = new_function.ident.clone().unwrap();
+        if let Some(FunctionStatement {
+            ident: Some(ident), ..
+        }) = self
             .frame()
             .local_functions
             .iter()
-            .find(|f| f.ident.ident == new_function.ident.ident)
+            // Local functions must have an identifier.
+            .find(|f| f.ident.as_ref().unwrap().ident == new_function_ident.ident)
         {
             Err(OYError::new(
-                OYErrorKind::AlreadyDeclared(
-                    new_function.ident.ident,
-                    new_function.ident.span.span(),
-                ),
-                old_func.span(),
+                OYErrorKind::AlreadyDeclared(new_function_ident.ident, ident.span.span()),
+                new_function_ident.span,
             ))
         } else {
             self.frame().local_functions.push(new_function);
@@ -160,7 +165,8 @@ impl Environment {
     pub fn get_global_function(&self, ident: &str) -> Option<FunctionStatement> {
         self.global_functions
             .iter()
-            .find(|f| f.ident.ident == ident)
+            // Global functions must have an identifier.
+            .find(|f| f.ident.as_ref().unwrap().ident == ident)
             .cloned()
     }
 
@@ -179,7 +185,8 @@ impl Environment {
             .frame()
             .local_functions
             .iter()
-            .position(|f| f.ident.ident == ident)
+            // Local functions must have an identifier.
+            .position(|f| f.ident.as_ref().unwrap().ident == ident)
         {
             Ok(Statement::Function(
                 self.frame().local_functions.remove(local_func),

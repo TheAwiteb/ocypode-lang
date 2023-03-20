@@ -7,10 +7,10 @@ fn test_single_line_block() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -30,10 +30,10 @@ fn test_single_line_block() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(19, 23),
-                        },
+                        }),
                         args: Vec::new(),
                         span: Span::new(19, 25),
                     },
@@ -58,10 +58,10 @@ fn test_multi_line_block() {
     assert!(ast.is_ok());
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -81,10 +81,10 @@ fn test_multi_line_block() {
             block: Some(Block {
                 statements: vec![Statement::Expression(ExpressionStatement::FunctionCall(
                     FunctionCallExpression {
-                        ident: Ident {
+                        callable: ValueExpression::Ident(Ident {
                             ident: "func".to_owned(),
                             span: Span::new(28, 32),
-                        },
+                        }),
                         args: Vec::new(),
                         span: Span::new(28, 34),
                     },

@@ -8,10 +8,10 @@ fn test_return_integer() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -54,10 +54,10 @@ fn test_return_float() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -100,10 +100,10 @@ fn test_return_string() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -146,10 +146,10 @@ fn test_return_array() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -205,10 +205,10 @@ fn test_return_bool() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {
@@ -251,10 +251,10 @@ fn test_return_nil() {
 
     let program = (
         vec![Statement::Function(FunctionStatement {
-            ident: Ident {
+            ident: Some(Ident {
                 ident: "main".to_owned(),
                 span: Span::new(1, 5),
-            },
+            }),
             params: vec![
                 Param {
                     ident: Ident {

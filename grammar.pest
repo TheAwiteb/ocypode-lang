@@ -30,20 +30,22 @@ array   =  { "[" ~ !"," ~ (expression ~ ("," ~ expression)*)? ~ ","? ~ "]" }
 
 value = { string | float | integer | boolean | array | nil | IDENT }
 
-pack      = ${ "*" | "" }
-unpack    = ${ "..." | "" }
-param     = ${ "<" ~ pack ~ IDENT ~ ">" }
-params    =  { param* }
-arg       =  { "<" ~ unpack ~ expression ~ ">" }
-args      =  { ("<" ~ ">") | arg+ }
-block     =  { "{<" ~ (statement ~ semicolon)* ~ ">}" }
-func_def  =  { visibility ~ "~" ~ IDENT ~ params ~ block }
-func_call =  { IDENT ~ args }
+pack                      = ${ "*" | "" }
+unpack                    = ${ "..." | "" }
+param                     = ${ "<" ~ pack ~ IDENT ~ ">" }
+params                    =  { param* }
+anonymous_function_params =  { ("<" ~ ">") | param+ }
+arg                       =  { "<" ~ unpack ~ expression ~ ">" }
+args                      =  { ("<" ~ ">") | arg+ }
+block                     =  { "{<" ~ (statement ~ semicolon)* ~ ">}" }
+func_def                  =  { visibility ~ "~" ~ IDENT ~ params ~ block }
+anonymous_function        =  { anonymous_function_params ~ block }
+func_call                 =  { (IDENT | anonymous_function) ~ args }
 
 return_stmt = { "return" ~ expression }
 assignment  = { IDENT ~ "=" ~ expression }
 
-expression = { func_call | value }
+expression = { func_call | anonymous_function | value }
 statement  = { func_def | assignment | return_stmt | expression }
 
 program = { SOI ~ func_def* ~ EOI }
