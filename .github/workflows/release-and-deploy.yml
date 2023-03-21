@@ -15,10 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create Release 🖋
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'pre') }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
@@ -27,13 +25,13 @@ jobs:
         with:
           registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
       - name: Deploy the book 📖
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-      - run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
-      - run: mdbook build book
-      - uses: JamesIves/github-pages-deploy-action@4.1.7
-        with:
-          branch: gh-pages
-          folder: ./book/book
-          token: ${{ secrets.PAT }}
+        run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
+        run: mdbook build book
+        uses: JamesIves/github-pages-deploy-action@4
+          with:
+            branch: gh-pages
+            folder: ./book/book
+            token: ${{ secrets.PAT }}
