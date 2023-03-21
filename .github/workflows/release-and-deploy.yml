@@ -14,6 +14,9 @@ jobs:
       pull-requests: write # To create a PR from that branch
     steps:
       - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
       - name: Create Release 🖋
         uses: softprops/action-gh-release@v1
         with:
@@ -25,9 +28,6 @@ jobs:
         with:
           registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
       - name: Building the book 📖
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
         run: |
           (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
           mdbook build book
