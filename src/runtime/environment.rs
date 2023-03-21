@@ -186,11 +186,9 @@ impl Environment {
             .local_functions
             .iter()
             // Local functions must have an identifier.
-            .position(|f| f.ident.as_ref().unwrap().ident == ident)
+            .find(|f| f.ident.as_ref().unwrap().ident == ident)
         {
-            Ok(Statement::Function(
-                self.frame().local_functions.remove(local_func),
-            ))
+            Ok(Statement::Function(local_func.clone()))
         } else if let Some(func) = self.get_global_function(ident) {
             // Not removing the global function from the environment.
             Ok(Statement::Function(func))
