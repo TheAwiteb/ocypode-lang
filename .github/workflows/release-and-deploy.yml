@@ -32,7 +32,7 @@ jobs:
           (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
           mdbook build book
       - name: Deploy to GitHub Pages 📄
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ./book/book
