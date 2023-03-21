@@ -415,7 +415,7 @@ dependencies = [
 
 [[package]]
 name = "ocypode-lang"
-version = "0.2.1-rc.3"
+version = "0.2.1-rc.4"
 dependencies = [
  "bigdecimal",
  "heck",
