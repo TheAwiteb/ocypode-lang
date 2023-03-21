@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Anonymous functions [[`PR #11`](https://github.com/TheAwiteb/ocypode-lang/pull/11)]
+- Ownership of local functions know will not be moved when calling them
 
 ## [`v0.2.0`] - 2023-3-19
 ### Added
