@@ -28,8 +28,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-        run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
-        run: mdbook build book
+        run: |
+          (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
+          mdbook build book
       - name: Deploy to GitHub Pages 📄
         uses: JamesIves/github-pages-deploy-action@4
         with:
