@@ -1,0 +1,8 @@
+[book]
+title = "Ocypode language"
+author = "Awiteb <awiteb@hotmail.com>"
+
+[output.html]
+default-theme = "Ayu"
+additional-css = ["style/book.css"]
+git-repository-url = "https://github.com/TheAwiteb/ocypode-lang"

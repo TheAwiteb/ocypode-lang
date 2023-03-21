@@ -1,0 +1,18 @@
+# Summary
+
+- [Introduction](./pages/introduction.md)
+- [Getting Started](./pages/getting-started.md)
+- [Functions](./pages/functions/intro.md)
+    - [Global Functions](./pages/functions/global.md)
+    - [Local Functions](./pages/functions/local.md)
+    - [Anonymous Functions](./pages/functions/anonymous.md)
+    - [Packing Parameters](./pages/functions/packing.md)
+    - [Unpacking Arguments](./pages/functions/unpacking.md)
+- [Variables](./pages/variables/intro.md)
+- [Data Types](./pages/types/intro.md)
+    - [String](./pages/types/strings.md)
+    - [Integer](./pages/types/integer.md)
+    - [Float](./pages/types/float.md)
+    - [Boolean](./pages/types/booleans.md)
+    - [Array](./pages/types/arrays.md)
+    - [Nil](./pages/types/nil.md)
