@@ -24,12 +24,13 @@ jobs:
         uses: katyo/publish-crates@v1
         with:
           registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-      - name: Deploy the book 📖
+      - name: Building the book 📖
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
         run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
         run: mdbook build book
+      - name: Deploy to GitHub Pages 📄
         uses: JamesIves/github-pages-deploy-action@4
           with:
             branch: gh-pages
