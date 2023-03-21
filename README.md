@@ -5,7 +5,7 @@
 A dynamic programming language written in Rust. WIP.
 
 [![CI](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/ci.yml/badge.svg)](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/ci.yml)
-[![Release/Publish](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/release.yml/badge.svg)](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/release.yml)<br>
+[![Deploy/Publish](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/release-and-deploy.yml/badge.svg)](https://github.com/TheAwiteb/ocypode-lang/actions/workflows/release-and-deploy.yml)<br>
 [![crate](https://img.shields.io/crates/v/ocypode-lang)](https://crates.io/crates/ocypode-lang)
 [![license](https://img.shields.io/github/license/TheAwiteb/ocypode-lang)](github.com/TheAwiteb/ocypode-lang/blob/master/LICENSE)<br>
 [![book](https://img.shields.io/badge/book-ocypode--lang-blue)](https://theawiteb.github.io/ocypode-lang/)
