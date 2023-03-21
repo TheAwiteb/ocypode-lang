@@ -2,13 +2,18 @@
 name = "ocypode-lang"
 description = "A dynamic programming language written in Rust"
 authors = ["Awiteb <awietb@hotmail.com>"]
-version = "0.2.0"
+version = "0.2.1-rc.1"
 edition = "2021"
 readme = "README.md"
 repository = "https://github.com/TheAwiteb/ocypode-lang"
 license = "GPL-3.0-or-later"
 keywords = ["programming", "language"]
 categories = ["compilers"]
+default-run = "ocypode"
+
+[[bin]]
+name = "ocypode"
+path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
