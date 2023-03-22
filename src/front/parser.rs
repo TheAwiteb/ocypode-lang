@@ -6,7 +6,6 @@ use crate::{
     utils,
 };
 
-use super::ast::{Block, ExpressionStatement, Program, Statement};
 use bigdecimal::BigDecimal;
 use pest::{iterators::Pair, Parser};
 use pest_derive::Parser;
@@ -40,7 +39,7 @@ impl<'a> OYParser {
     /// Parse the given source code to a statement.
     pub fn parse_statement(statement: Pair<'a, Rule>) -> OYResult<Option<Statement>> {
         match statement.as_rule() {
-            Rule::func_def => Ok(Some(Self::parse_function(statement)?)),
+            Rule::func_def => Ok(Some(Statement::Function(Self::parse_function(statement)?))),
             Rule::assignment => Ok(Some(Self::parse_assignment(statement)?)),
             Rule::return_stmt => Ok(Some(Self::parse_return(statement)?)),
             Rule::expression => Ok(Some(Statement::Expression(Self::parse_expression(
@@ -229,7 +228,7 @@ impl<'a> OYParser {
 
     /// Parse the given source code to a function statement.
     /// Make sure that the given pair is a function statement, otherwise this will panic.
-    pub fn parse_function(func: Pair<'a, Rule>) -> OYResult<Statement> {
+    pub fn parse_function(func: Pair<'a, Rule>) -> OYResult<FunctionStatement> {
         let span = func.as_span();
         let mut inner = func.into_inner();
         let visibility = Self::parse_visibility(inner.next().unwrap());
@@ -248,13 +247,13 @@ impl<'a> OYParser {
         let params = utils::cheeck_params(params, &ident)?;
         let block = Some(Self::parse_block(inner.next().unwrap())?);
         utils::check_main_function(&ident, &params, &visibility)?;
-        Ok(Statement::Function(FunctionStatement {
+        Ok(FunctionStatement {
             ident: Some(ident),
             params,
             block,
             visibility,
             span: span.into(),
-        }))
+        })
     }
 
     /// Parse the argument of a function call.
