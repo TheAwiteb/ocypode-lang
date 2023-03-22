@@ -42,10 +42,16 @@ func_def                  =  { visibility ~ "~" ~ IDENT ~ params ~ block }
 anonymous_function        =  { anonymous_function_params ~ block }
 func_call                 =  { (IDENT | anonymous_function) ~ args }
 
+class_member  = { visibility ~ "-" ~ IDENT ~ semicolon }
+class_members = { class_member* }
+class_methods = { func_def* }
+class_block   = { "{<" ~ class_members ~ class_methods ~ ">}" }
+class_def     = { visibility ~ "@" ~ IDENT ~ class_block }
+
 return_stmt = { "return" ~ expression }
 assignment  = { IDENT ~ "=" ~ expression }
 
 expression = { func_call | anonymous_function | value }
-statement  = { func_def | assignment | return_stmt | expression }
+statement  = { func_def | class_def | assignment | return_stmt | expression }
 
-program = { SOI ~ func_def* ~ EOI }
+program = { SOI ~ (func_def | class_def)* ~ EOI }
