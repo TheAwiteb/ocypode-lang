@@ -18,23 +18,22 @@ pub struct Span {
     pub end: usize,
 }
 
-impl Span {
-    /// Create a new span.
-    pub fn new(start: usize, end: usize) -> Self {
-        Self { start, end }
-    }
+/// A Class.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClassStatement {
+    pub ident: Ident,
+    pub visibility: Visibility,
+    pub members: Vec<Member>,
+    pub methods: Vec<FunctionStatement>,
+    pub span: Span,
 }
 
-impl From<pest::Span<'_>> for Span {
-    fn from(span: pest::Span<'_>) -> Self {
-        Self::new(span.start(), span.end())
-    }
-}
-
-impl PartialEq<pest::Span<'_>> for Span {
-    fn eq(&self, other: &pest::Span<'_>) -> bool {
-        self.start == other.start() && self.end == other.end()
-    }
+/// A Member of a class.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Member {
+    pub ident: Ident,
+    pub visibility: Visibility,
+    pub span: Span,
 }
 
 /// A Ident.
@@ -90,6 +89,8 @@ pub struct Block {
 pub enum Statement {
     /// The function statement.
     Function(FunctionStatement),
+    /// A class statement.
+    Class(ClassStatement),
     /// The assignment statement.
     Assignment(AssignmentStatement),
     /// The return statement.
@@ -243,6 +244,31 @@ impl ToString for ObjectExpression {
     }
 }
 
+impl ToString for ClassStatement {
+    fn to_string(&self) -> String {
+        format!("<class {}>", self.ident.ident)
+    }
+}
+
+impl Span {
+    /// Create a new span.
+    pub fn new(start: usize, end: usize) -> Self {
+        Self { start, end }
+    }
+}
+
+impl From<pest::Span<'_>> for Span {
+    fn from(span: pest::Span<'_>) -> Self {
+        Self::new(span.start(), span.end())
+    }
+}
+
+impl PartialEq<pest::Span<'_>> for Span {
+    fn eq(&self, other: &pest::Span<'_>) -> bool {
+        self.start == other.start() && self.end == other.end()
+    }
+}
+
 impl ASTNodeSpan for Ident {
     fn span(&self) -> Span {
         self.span
@@ -271,6 +297,15 @@ impl ASTNodeSpan for Block {
 }
 
 impl ASTNodeSpan for FunctionStatement {
+    fn span(&self) -> Span {
+        self.span
+    }
+    fn span_mut(&mut self) -> &mut Span {
+        &mut self.span
+    }
+}
+
+impl ASTNodeSpan for ClassStatement {
     fn span(&self) -> Span {
         self.span
     }
@@ -368,6 +403,7 @@ impl ASTNodeSpan for Statement {
             Statement::Assignment(assignment) => assignment.span(),
             Statement::Return(return_statement) => return_statement.span(),
             Statement::Expression(expression) => expression.span(),
+            Statement::Class(class) => class.span(),
         }
     }
     fn span_mut(&mut self) -> &mut Span {
@@ -376,6 +412,7 @@ impl ASTNodeSpan for Statement {
             Statement::Assignment(assignment) => assignment.span_mut(),
             Statement::Return(return_statement) => return_statement.span_mut(),
             Statement::Expression(expression) => expression.span_mut(),
+            Statement::Class(class) => class.span_mut(),
         }
     }
 }
