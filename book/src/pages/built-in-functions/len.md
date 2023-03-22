@@ -4,6 +4,9 @@
 ## What can it get the length of?
 `len` can get the length of [strings] and [arrays].
 
+## Errors
+`len` will throw an error if its argument is not a string or array.
+
 ## Examples
 ```ocypode
 ~main<argc><argv>{<
