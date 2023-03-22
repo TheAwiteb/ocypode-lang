@@ -31,6 +31,9 @@ impl Interpreter {
                 Statement::Function(function) => {
                     self.environment.add_global_function(function)?;
                 }
+                Statement::Class(class) => {
+                    self.environment.add_global_class(class)?;
+                }
                 _ => unreachable!("The program only contains functions"),
             }
         }
@@ -109,6 +112,7 @@ impl Interpreter {
             Statement::Function(function) => {
                 self.environment.add_local_function(function).map(|_| None)
             }
+            Statement::Class(class) => self.environment.add_local_class(class).map(|_| None),
             Statement::Assignment(assign) => self.execute_assign(assign).map(|_| None),
             Statement::Return(return_stmt) => {
                 let return_value = self.execute_expression(return_stmt.value)?;

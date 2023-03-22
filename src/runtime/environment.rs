@@ -7,6 +7,8 @@ use super::builtins::Builtins;
 pub struct Frame {
     /// The local functions that are available in the frame.
     local_functions: Vec<FunctionStatement>,
+    /// The local classes that are available in the frame.
+    local_classes: Vec<ClassStatement>,
     /// The variables that are available in the frame.
     variables: Vec<AssignmentStatement>,
 }
@@ -15,6 +17,8 @@ pub struct Frame {
 pub struct Environment {
     /// The global functions that are available in the environment.
     global_functions: Vec<FunctionStatement>,
+    /// The global classes that are available in the environment.
+    global_classes: Vec<ClassStatement>,
     /// The frames, new frame are created when entering a function, and are removed when exiting a function.
     frames: Vec<Frame>,
 }
@@ -38,25 +42,25 @@ impl Environment {
 
         let mut variables = Vec::new();
         let mut local_functions = Vec::new();
+        let mut local_classes = Vec::new();
 
         for (param, arg) in params.into_iter().zip(args) {
             if let Some(ident) = get_ident(&arg.expr) {
                 match self.take(&ident, arg.span)? {
-                    Statement::Assignment(assignment) => variables.push({
-                        AssignmentStatement {
-                            ident: param.ident,
-                            expression: assignment.expression,
-                            span: arg.span,
-                        }
+                    Statement::Assignment(mut assignment) => variables.push({
+                        assignment.ident = param.ident;
+                        assignment.span = arg.span;
+                        assignment
                     }),
-                    Statement::Function(function) => local_functions.push({
-                        FunctionStatement {
-                            ident: Some(param.ident),
-                            params: function.params,
-                            block: function.block,
-                            visibility: Visibility::Private,
-                            span: arg.span,
-                        }
+                    Statement::Function(mut function) => local_functions.push({
+                        function.ident = Some(param.ident);
+                        function.span = arg.span;
+                        function
+                    }),
+                    Statement::Class(mut class) => local_classes.push({
+                        class.ident = param.ident;
+                        class.span = arg.span;
+                        class
                     }),
                     _ => unreachable!(),
                 }
@@ -71,7 +75,7 @@ impl Environment {
             }
         }
 
-        self.enter_frame(local_functions, variables);
+        self.enter_frame(local_functions, local_classes, variables);
         Ok(())
     }
 
@@ -118,6 +122,41 @@ impl Environment {
         }
     }
 
+    /// Adds a class to the environment.
+    pub fn add_global_class(&mut self, new_class: ClassStatement) -> OYResult<()> {
+        if let Some(old_class) = self
+            .global_classes
+            .iter()
+            .find(|c| c.ident.ident == new_class.ident.ident)
+        {
+            Err(OYError::new(
+                OYErrorKind::AlreadyDeclared(new_class.ident.ident, old_class.ident.span.span()),
+                new_class.ident.span,
+            ))
+        } else {
+            self.global_classes.push(new_class);
+            Ok(())
+        }
+    }
+
+    /// Adds a local class to the environment.
+    pub fn add_local_class(&mut self, new_class: ClassStatement) -> OYResult<()> {
+        if let Some(old_class) = self
+            .frame()
+            .local_classes
+            .iter()
+            .find(|c| c.ident.ident == new_class.ident.ident)
+        {
+            Err(OYError::new(
+                OYErrorKind::AlreadyDeclared(new_class.ident.ident, old_class.ident.span.span()),
+                new_class.ident.span,
+            ))
+        } else {
+            self.frame().local_classes.push(new_class);
+            Ok(())
+        }
+    }
+
     /// Adds a variable to the environment.
     pub fn add_variable(&mut self, new_variable: AssignmentStatement) -> OYResult<()> {
         if let Some(old_variable) = self
@@ -140,10 +179,12 @@ impl Environment {
     pub fn enter_frame(
         &mut self,
         local_functions: Vec<FunctionStatement>,
+        local_classes: Vec<ClassStatement>,
         variables: Vec<AssignmentStatement>,
     ) {
         self.frames.push(Frame {
             local_functions,
+            local_classes,
             variables,
         });
     }
@@ -161,12 +202,20 @@ impl Environment {
         self.frames.pop();
     }
 
-    /// Return the global function by ident
+    /// Returns a global function by ident
     pub fn get_global_function(&self, ident: &str) -> Option<FunctionStatement> {
         self.global_functions
             .iter()
             // Global functions must have an identifier.
             .find(|f| f.ident.as_ref().unwrap().ident == ident)
+            .cloned()
+    }
+
+    /// Returns a global class by ident
+    pub fn get_global_class(&self, ident: &str) -> Option<ClassStatement> {
+        self.global_classes
+            .iter()
+            .find(|c| c.ident.ident == ident)
             .cloned()
     }
 
@@ -192,6 +241,8 @@ impl Environment {
         } else if let Some(func) = self.get_global_function(ident) {
             // Not removing the global function from the environment.
             Ok(Statement::Function(func))
+        } else if let Some(class) = self.get_global_class(ident) {
+            Ok(Statement::Class(class))
         } else {
             Err(OYError::new(
                 OYErrorKind::UnDeclaredIdent(ident.to_owned()),
