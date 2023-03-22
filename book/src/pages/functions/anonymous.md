@@ -49,3 +49,5 @@ Output:
 ```text
 Hello Ahmed
 ```
+
+[local functions]: ./local.md
