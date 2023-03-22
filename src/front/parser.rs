@@ -3,7 +3,7 @@ use std::str::FromStr;
 use crate::{
     ast::*,
     errors::{Error as OYError, Result as OYResult},
-    utils,
+    utils::{self, check_ident_case},
 };
 
 use bigdecimal::BigDecimal;
@@ -40,6 +40,7 @@ impl<'a> OYParser {
     pub fn parse_statement(statement: Pair<'a, Rule>) -> OYResult<Option<Statement>> {
         match statement.as_rule() {
             Rule::func_def => Ok(Some(Statement::Function(Self::parse_function(statement)?))),
+            Rule::class_def => Ok(Some(Statement::Class(Self::parse_class(statement)?))),
             Rule::assignment => Ok(Some(Self::parse_assignment(statement)?)),
             Rule::return_stmt => Ok(Some(Self::parse_return(statement)?)),
             Rule::expression => Ok(Some(Statement::Expression(Self::parse_expression(
@@ -253,6 +254,59 @@ impl<'a> OYParser {
             block,
             visibility,
             span: span.into(),
+        })
+    }
+
+    /// Parse the given source code to a class member.
+    /// Make sure that the given pair is a class member, otherwise this will panic.
+    pub fn parse_class_member(member: Pair<'a, Rule>) -> OYResult<Member> {
+        let span = member.as_span();
+        let mut inner = member.into_inner();
+        let visibility = Self::parse_visibility(inner.next().unwrap());
+        let ident = check_ident_case(
+            Self::parse_ident(inner.next().unwrap()),
+            "class member",
+            "the class member must be snake_case",
+            utils::Case::Snake,
+        )?;
+        Ok(Member {
+            ident,
+            visibility,
+            span: span.into(),
+        })
+    }
+
+    /// Parse the given source code to a class statement.
+    /// Make sure that the given pair is a class statement, otherwise this will panic.
+    pub fn parse_class(class_def: Pair<'a, Rule>) -> OYResult<ClassStatement> {
+        let class_span = class_def.as_span();
+        let mut inner = class_def.into_inner();
+        let visibility = Self::parse_visibility(inner.next().unwrap());
+        let ident = utils::check_ident_case(
+            Self::parse_ident(inner.next().unwrap()),
+            "class",
+            "the class name must be PascalCase",
+            utils::Case::Pascal,
+        )?;
+        let mut block = inner.next().unwrap().into_inner();
+        let members = block
+            .next()
+            .unwrap()
+            .into_inner()
+            .map(Self::parse_class_member)
+            .collect::<OYResult<Vec<_>>>()?;
+        let methods = block
+            .next()
+            .unwrap()
+            .into_inner()
+            .map(Self::parse_function)
+            .collect::<OYResult<Vec<_>>>()?;
+        Ok(ClassStatement {
+            ident,
+            members,
+            methods,
+            visibility,
+            span: class_span.into(),
         })
     }
 
