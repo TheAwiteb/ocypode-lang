@@ -34,3 +34,6 @@ Output:
 ```
 Hi Jhon you are from USA
 ```
+
+## Errors
+`format` function will throw an error if the format string contains a placeholder with a number that is greater than the number of arguments passed to the `format` function. Also it will throw an error if the format string contains a placeholder with invalid index. For example, if the format string contains a placeholder with a number that is less than 0.
