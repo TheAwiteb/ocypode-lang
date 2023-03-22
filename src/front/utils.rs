@@ -4,12 +4,14 @@ use crate::runtime::interpreter::Interpreter;
 
 pub enum Case {
     Snake,
+    Pascal
 }
 
 impl Case {
     pub fn apply(&self, input: &str) -> String {
         match self {
             Case::Snake => heck::AsSnakeCase(input).to_string(),
+            Case::Pascal => heck::AsPascalCase(input).to_string(),
         }
     }
 }
