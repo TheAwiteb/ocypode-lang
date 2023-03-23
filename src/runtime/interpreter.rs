@@ -1,6 +1,6 @@
 use bigdecimal::ToPrimitive;
 
-use super::{builtins::Builtins, environment::Environment};
+use super::{builtins, environment::Environment};
 use crate::{
     ast::*,
     errors::{Error as OYError, ErrorKind, Result as OYResult, SpanError},
@@ -214,7 +214,7 @@ impl Interpreter {
             ));
         }
         if function.block.is_none() {
-            Builtins::execute_builtin_funtion(
+            builtins::functions::execute_builtin_funtion(
                 &function.ident.unwrap().ident,
                 func_call.span,
                 args.into_iter()

@@ -3,6 +3,18 @@ use crate::{
     errors::{Error as OYError, ErrorKind as OYErrorKind, Result as OYResult},
 };
 
+/// Macro to create match expression for built in functions.
+macro_rules! match_builtin {
+    (call: $call_expr:expr; ident: $fn_ident: expr; args: $args:expr; $($builtin_ident:tt),+,) => {
+        match $fn_ident {
+            $(
+                stringify!($builtin_ident) => $builtin_ident($args, $call_expr),
+            )+
+            _ => unreachable!()
+        }
+    };
+}
+
 /// Format builtin function. It takes a string as first argument and a list of arguments to format.
 ///
 /// If the number of arguments is not the same as the number of `{}` in the string, it will return an error.
@@ -257,6 +269,41 @@ pub fn pop(mut args: Vec<ObjectExpression>, call_span: Span) -> OYResult<ObjectE
     };
     array.pop();
     Ok(ObjectExpression::Array(array, call_span))
+}
+
+/// Executes the builtin function.
+pub fn execute_builtin_funtion(
+    fn_ident: &str,
+    call_span: Span,
+    args: Vec<ObjectExpression>,
+) -> OYResult<ObjectExpression> {
+    match_builtin!(
+        call: call_span; ident: fn_ident; args: args;
+        format, print, println, input, len, push, pop,
+    )
+}
+
+/// Create a new builtin function.
+pub(super) fn create_builtin(name: &str, params: &[(&str, bool)]) -> FunctionStatement {
+    FunctionStatement {
+        ident: Some(Ident {
+            ident: name.to_string(),
+            span: Span::new(0, 0),
+        }),
+        params: params
+            .iter()
+            .map(|param| Param {
+                ident: Ident {
+                    ident: param.0.to_string(),
+                    span: Span::new(0, 0),
+                },
+                is_pack: param.1,
+            })
+            .collect(),
+        block: None,
+        visibility: Visibility::Public,
+        span: Span::new(0, 0),
+    }
 }
 
 fn print_result(mut args: Vec<ObjectExpression>) -> OYResult<String> {
